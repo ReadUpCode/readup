@@ -1,0 +1,29 @@
+{
+  "name": "readup",
+  "version": "0.0.0",
+  "description": "Find the best articles on everything code. Then make them better.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ReadUpCode/readup.git"
+  },
+  "keywords": [
+    "code"
+  ],
+  "author": "Brett Hoyer, Blake West, Jess MacQueen, Doug Kong",
+  "license": "MIT License",
+  "dependencies": {
+    "grunt-contrib-watch": "~0.5.3",
+    "mongojs": "~0.9.6",
+    "grunt-browserify": "~1.2.8",
+    "stylus": "~0.38.0",
+    "nodemon": "~0.7.10",
+    "browserify": "~2.33.1"
+  }
+}
