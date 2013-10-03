@@ -1,5 +1,5 @@
-var posts = require('../app/controllers/posts');
+var items = require('../app/controllers/items');
 
 module.exports = function(app){
-  app.post('/posts', posts.create);
+  app.post('/items', items.create);
 };
