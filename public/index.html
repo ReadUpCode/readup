@@ -2,19 +2,22 @@
   <html ng-app="readUp">
     <head>
       <link rel="stylesheet" type="text/css" href="css/styles.css">
-      <script src="lib/app/bower_components/jquery/jquery.js"></script>
-      <script src="lib/app/bower_components/angular/angular.js"></script>
-      <script src="lib/app/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-      <script src="lib/angular-route.min.js"></script>
-      <script src="lib/angular-strap.min.js"></script>
-      <script src="build/bundle.js"></script>
+      <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
+      <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet">
     </head>
     <body>
+      <script src="lib/bower_components/jquery/jquery.js"></script>
+      <script src="lib/bower_components/angular/angular.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+      <script src="lib/bower_components/angular-route/angular-route.min.js"></script>
+      <script src="lib/bower_components/angular-strap/dist/angular-strap.min.js"></script>
+      <script src="build/bundle.js"></script>
+
       <div ng-controller="FormController">
         <form novalidate class="submission-form">
-          Link: <input type="text" ng-model="item.link" /><br/>
+          Link: <input type="text" ng-model="item.link"/><br/>
 <!--           <button class='link-submit' ng-click='send(item)'>Submit</button> -->
-          <button type="button" class="btn" bs-modal="'./partials/tags_modal.html'">Submit</button>
+          <button type="button" class="btn" ng-click='updateModal(item)' bs-modal="'./partials/tags_modal.html'">Submit</button>
         </form>
       </div>
     </body>
