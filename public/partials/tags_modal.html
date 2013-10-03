@@ -3,8 +3,13 @@
   <h3>Add ALL of the tags!</h3>
 </div>
 <div class="modal-body">
-  Here's your link: {{modal.content}}
+  Here's your link: {{item.link}} <br/>
+  What tags would you like to add? <input type="text" ng-model="tag"/>
+  <button ng-click='addTag(tag)'>Add</button>
+  <div ng-repeat="tag in tags">
+    <div class="tag">{{tag}}</div>
+  </div>
 </div>
 <div class='modal-footer'>
-  <button class='btn' ng-click='hide()'>Close</button>
+  <button class="btn">Submit</button>
 </div>
