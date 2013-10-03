@@ -2,13 +2,14 @@
 angular.module('readUp', ['ngRoute', 'readUp.controllers', '$strap.directives']);
 },{}],2:[function(require,module,exports){
 angular.module('readUp.controllers', []).controller('FormController', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
-  $scope.updateModal = function(item){
-    $scope.modal = {content: item.link};
-  };
+  $scope.tags = [];
   $scope.send = function(item){
     $http.post('/items', item).success(function() {
       console.log('we added the link bitches!!!!');
     });
+  };
+  $scope.addTag = function(tag){
+    $scope.tags.push(tag);
   };
 }]);
 },{}]},{},[1,2])
