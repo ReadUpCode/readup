@@ -10,8 +10,10 @@ module.exports = function(grunt){
       }
     },
     stylus: {
-      files: {
-        'public/css/styles.css': 'public/css/styles.styl'
+      compile: {
+        files: {
+          'public/css/styles.css': 'public/css/styles.styl'
+        }
       }
     },
     nodemon: {
@@ -35,7 +37,7 @@ module.exports = function(grunt){
         files: ['public/js/**/*.js'],
         tasks: ['browserify']
       },
-      stylus: {
+      css: {
         files: ['public/css/styles.styl'],
         tasks: ['stylus']
       }

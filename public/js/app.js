@@ -1,1 +1,1 @@
-angular.module('readUp', ['ngRoute', 'readUp.controllers']);
+angular.module('readUp', ['ngRoute', 'readUp.controllers', '$strap.directives']);
