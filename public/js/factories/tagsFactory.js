@@ -9,10 +9,15 @@ factories.factory('tagsFactory', function($http) {
   }
   //factory.popularTags =  ['js', 'backbone.js', 'python', 'c', 'package managers', 'yourmom.js', 'batman.js', 'fangular'];
   factory.getTagInfo = function(tag) {
+    // we're most likely going to need to also pass in the item id to this function
+    var requestURL = '/tags/' + tag + '/items';
+    $http.get(requestURL).success(function(res){
+      factory.curLinks = res;
+    });
     factory.curTag = tag;
-    factory.curLinks = [{score: 45, url: 'www.awesome.com/' + factory.curTag},
-                        {score: 3, url: 'www.greattechblog.com/' + factory.curTag},
-                        {score: 6, url: 'www.thisissweet.com/' + factory.curTag}];
+    // factory.curLinks = [{score: 45, url: 'www.awesome.com/' + factory.curTag},
+    //                     {score: 3, url: 'www.greattechblog.com/' + factory.curTag},
+    //                     {score: 6, url: 'www.thisissweet.com/' + factory.curTag}];
   };
 
   return factory;
