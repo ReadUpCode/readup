@@ -19,5 +19,11 @@
           <button type="button" class="btn" bs-modal="'./partials/tags_modal.html'">Submit</button>
         </form>
       </div>
+      <div ng-controller="HomeController">
+        <div ng-repeat="joe in tags">
+          <div class='home-tags'>{{joe}}</div>
+        </div>
+      </div>
+      </div>
     </body>
   </html>
