@@ -35,25 +35,30 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', function(
 var controllers = require('../app.js').controllers;
 
 controllers.controller('HomeController', ['$scope', '$http', '$location', 'tagsFactory', function($scope, $http, $location, tagsFactory){
-  $scope.tags = tagsFactory.tags;
-  $scope.cur = {};
+  $scope.tags = tagsFactory.popularTags;
   $scope.changeView = function(tag) {
+    tagsFactory.getTagInfo(tag);
     $location.path('/' + tag);
   };
 }]);
 },{"../app.js":1}],4:[function(require,module,exports){
 var controllers = require('../app.js').controllers;
 
-controllers.controller('TagController', ['$scope', '$routeParams', function($scope, $routeParams) {
-  $scope.tag = $routeParams.tag;
-  $scope.links = ['www.awesomeblog.com/' + $scope.tag, 'www.docs.com/' + $scope.tag];
+controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory', function($scope, $routeParams, tagsFactory) {
+  $scope.tag = tagsFactory.curTag;
+  $scope.links = tagsFactory.curLinks;
 }]);
 },{"../app.js":1}],5:[function(require,module,exports){
 var factories = require('../app.js').factories;
 
 factories.factory('tagsFactory', function() {
   var factory = {};
-  factory.tags = ['js', 'backbone.js', 'python', 'c', 'angular.js', 'arrays', 'fangular', 'ruby', 'yourMom.js', 'rails', 'gems', 'package managers', 'npm', 'node.js', 'batman.js'];
+  factory.popularTags =  ['js', 'backbone.js', 'python', 'c', 'package managers', 'yourmom.js', 'batman.js', 'fangular'];
+  factory.getTagInfo = function(tag) {
+    factory.curTag = tag;
+    factory.curLinks = ['www.awesome.com/' + factory.curTag, 'www.greattechblog.com/' + factory.curTag];
+  };
+
   return factory;
 });
 },{"../app.js":1}]},{},[1,2,3,4,5])
