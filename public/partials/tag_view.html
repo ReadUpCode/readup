@@ -1,10 +1,11 @@
 <h1> {{tag}} </h1>
 <div ng-repeat='link in links'>
   <div class='link-container'>
-    <div class="link-url">{{link}}</div>
+    <div class="link-url">{{link.url}}</div>
     <div class="vote-container">
-      <div ng-click="vote(1)">+</div>
-      <div ng-click="vote(-1)">-</div>
+      <div>{{link.score}}</div>
+      <div ng-click="vote(1, link)">+</div>
+      <div ng-click="vote(-1, link)">-</div>
     </div>
   </div>
 </div>

@@ -50,6 +50,9 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
   }
   $scope.tag = tagsFactory.curTag;
   $scope.links = tagsFactory.curLinks;
+  $scope.vote = function(value, link){
+    link.score += value;
+  };
 }]);
 },{"../app.js":1}],5:[function(require,module,exports){
 var factories = require('../app.js').factories;
@@ -59,7 +62,9 @@ factories.factory('tagsFactory', function() {
   factory.popularTags =  ['js', 'backbone.js', 'python', 'c', 'package managers', 'yourmom.js', 'batman.js', 'fangular'];
   factory.getTagInfo = function(tag) {
     factory.curTag = tag;
-    factory.curLinks = ['www.awesome.com/' + factory.curTag, 'www.greattechblog.com/' + factory.curTag];
+    factory.curLinks = [{score: 45, url: 'www.awesome.com/' + factory.curTag},
+                        {score: 3, url: 'www.greattechblog.com/' + factory.curTag},
+                        {score: 6, url: 'www.thisissweet.com/' + factory.curTag}];
   };
 
   return factory;
