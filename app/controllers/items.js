@@ -8,19 +8,19 @@ var Item = db.Item;
 var Tag = db.Tag;
 var ItemsTags = sequelize.define('ItemsTags', {});
 
-exports.findAllItemsForUser = function(req, res){
+exports.getAllItemsForUser = function(req, res){
   Item.findAll({ include: [User], where: {UserId: req.UserId}}).success(function(items){
     // console.log(JSON.stringify(items));
   });
 };
 
-exports.findAllItemsForTag = function(req, res){
+exports.getAllItemsForTag = function(req, res){
   Item.findAll({include: [ItemsTags], where: {id: 1} }).success(function(items){
     console.log(JSON.stringify(items));
   });
 };
 
-exports.findAllTagsForItem = function(req, res){
+exports.getAllTagsForItem = function(req, res){
   Item.find({where: {id: 1}}).success(function(item){
     item.getTags().success(function(tags){console.log('ALL TAGS FOR ITEM 1', tags);});
   });
