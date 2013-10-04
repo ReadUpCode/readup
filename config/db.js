@@ -23,11 +23,13 @@ var Vote = sequelize.define('Vote', {
   value: Sequelize.INTEGER.UNSIGNED
 });
 
-User.hasMany(Item, { foreignKey: 'user_id' });
-User.hasMany(Vote, { foreignKey: 'user_id' });
-Item.hasMany(Vote, { foreignKey: 'item_id' });
-Item.hasMany(Tag, { foreignKey: 'item_id' });
-Tag.hasMany(Item, { foreignKey: 'tag_id'});
+User.hasMany(Item);
+User.hasMany(Vote);
+Item.hasMany(Vote);
+Item.hasMany(Tag);
+Tag.hasMany(Item);
+
+Item.belongsTo(User);
 
 User.sync();
 Item.sync();
