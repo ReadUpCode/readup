@@ -20,15 +20,20 @@ exports.findAllItemsForTag = function(req, res){
   });
 };
 
+exports.findAllTagsForItem = function(req, res){
+  Item.find({where: {id: 1}}).success(function(item){
+    item.getTags().success(function(tags){console.log('ALL TAGS FOR ITEM 1', tags);});
+  });
+};
+
 exports.create = function(req, res){
   Item.create({ title: req.body.title, link: req.body.link }).success(function(item) {
     var tags = Object.keys(req.body.tags);
     for(var i = 0; i < tags.length; i++){
       Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
-          console.log(tag.id, created);
         item.setTags([{id: tag.id}]).success(function(tags){console.log('SET TAGS', tags);});
       });
     }
-   res.end();
   });
+  res.end();
 };
