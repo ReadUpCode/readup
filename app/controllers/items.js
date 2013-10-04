@@ -26,6 +26,7 @@ exports.findAllTagsForItem = function(req, res){
   });
 };
 
+///FIX MY ASYNC ISSUES
 exports.create = function(req, res){
   Item.create({ title: req.body.title, link: req.body.link }).success(function(item) {
     var tags = Object.keys(req.body.tags);
@@ -37,3 +38,18 @@ exports.create = function(req, res){
   });
   res.end();
 };
+
+exports.get = function(req,res) {
+  Item.findAll().success(function(items){
+    res.send(items);
+  });
+};
+
+exports.getOne = function(req, res){
+  Item.find({where: {id: req.params.id}}).success(function(item){
+    res.send(item);
+  });
+};
+
+
+
