@@ -5,7 +5,7 @@ var app = angular.module('readUp', ['readUp.factories', 'readUp.controllers','$s
       templateUrl: '../partials/home_view.html'
     });
   $routeProvider.when('/:tag', {
-      controller: 'HomeController',
+      controller: 'TagController',
       templateUrl: '../partials/tag_view.html'
     });
 });
@@ -38,14 +38,17 @@ controllers.controller('HomeController', ['$scope', '$http', '$location', 'tagsF
   $scope.tags = tagsFactory.tags;
   $scope.cur = {};
   $scope.changeView = function(tag) {
-    $scope.cur.tag = tag;
-    console.log($scope.cur.tag);
-    $scope.cur.tagLinks = ['www.awesomeblog.com/' + tag, 'www.everydocs.com/' + tag];
-    console.log($scope.cur.tagLinks);
     $location.path('/' + tag);
   };
 }]);
 },{"../app.js":1}],4:[function(require,module,exports){
+var controllers = require('../app.js').controllers;
+
+controllers.controller('TagController', ['$scope', '$routeParams', function($scope, $routeParams) {
+  $scope.tag = $routeParams.tag;
+  $scope.links = ['www.awesomeblog.com/' + $scope.tag, 'www.docs.com/' + $scope.tag];
+}]);
+},{"../app.js":1}],5:[function(require,module,exports){
 var factories = require('../app.js').factories;
 
 factories.factory('tagsFactory', function() {
@@ -53,5 +56,5 @@ factories.factory('tagsFactory', function() {
   factory.tags = ['js', 'backbone.js', 'python', 'c', 'angular.js', 'arrays', 'fangular', 'ruby', 'yourMom.js', 'rails', 'gems', 'package managers', 'npm', 'node.js', 'batman.js'];
   return factory;
 });
-},{"../app.js":1}]},{},[1,2,3,4])
+},{"../app.js":1}]},{},[1,2,3,4,5])
 ;
