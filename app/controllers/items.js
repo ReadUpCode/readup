@@ -32,7 +32,7 @@ exports.create = function(req, res){
     var tags = Object.keys(req.body.tags);
     for(var i = 0; i < tags.length; i++){
       Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
-        item.setTags([{id: tag.id}]).success(function(tags){console.log('SET TAGS', tags);});
+        item.addTag(tag).success(function(tag){console.log('SET TAG', tag);});
       });
     }
   });
