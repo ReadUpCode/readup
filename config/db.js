@@ -7,7 +7,7 @@ var User = sequelize.define('User', {
     allowNull:false // what does this even mean?
   },
   email: Sequelize.STRING,
-  karma: Sequelize.INTEGER.UNSIGNED
+  karma: Sequelize.INTEGER
 });
 
 var Item = sequelize.define('Item', {
@@ -20,7 +20,7 @@ var Tag = sequelize.define('Tag', {
 });
 
 var Vote = sequelize.define('Vote', {
-  value: Sequelize.INTEGER.UNSIGNED
+  value: Sequelize.INTEGER
 });
 
 User.hasMany(Item);
