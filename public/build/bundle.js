@@ -35,6 +35,8 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', function(
 var controllers = require('../app.js').controllers;
 
 controllers.controller('HomeController', ['$scope', '$http', '$location', 'tagsFactory', function($scope, $http, $location, tagsFactory){
+	// this is probably going to cause some async issues
+	tagsFactory.getAllTags();
   $scope.tags = tagsFactory.popularTags;
   $scope.changeView = function(tag) {
     tagsFactory.getTagInfo(tag);
@@ -57,14 +59,24 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
 },{"../app.js":1}],5:[function(require,module,exports){
 var factories = require('../app.js').factories;
 
-factories.factory('tagsFactory', function() {
+factories.factory('tagsFactory', function($http) {
   var factory = {};
-  factory.popularTags =  ['js', 'backbone.js', 'python', 'c', 'package managers', 'yourmom.js', 'batman.js', 'fangular'];
+  factory.getAllTags = function(){
+    $http.get('/tags').success(function(res){
+      factory.popularTags = res;
+    })
+  }
+  //factory.popularTags =  ['js', 'backbone.js', 'python', 'c', 'package managers', 'yourmom.js', 'batman.js', 'fangular'];
   factory.getTagInfo = function(tag) {
+    // we're most likely going to need to also pass in the item id to this function
+    var requestURL = '/tags/' + tag + '/items';
+    $http.get(requestURL).success(function(res){
+      factory.curLinks = res;
+    });
     factory.curTag = tag;
-    factory.curLinks = [{score: 45, url: 'www.awesome.com/' + factory.curTag},
-                        {score: 3, url: 'www.greattechblog.com/' + factory.curTag},
-                        {score: 6, url: 'www.thisissweet.com/' + factory.curTag}];
+    // factory.curLinks = [{score: 45, url: 'www.awesome.com/' + factory.curTag},
+    //                     {score: 3, url: 'www.greattechblog.com/' + factory.curTag},
+    //                     {score: 6, url: 'www.thisissweet.com/' + factory.curTag}];
   };
 
   return factory;
