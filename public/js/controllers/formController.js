@@ -1,4 +1,6 @@
-angular.module('readUp.controllers', []).controller('FormController', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
+var controllers = require('../app.js').controllers;
+
+controllers.controller('FormController', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
   $scope.item = {tags : {}};
   $scope.send = function(){
     $http.post('/items', $scope.item).success(function() {
