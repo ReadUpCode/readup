@@ -14,3 +14,10 @@ exports.get = function(req, res){
     res.send(tags);
   });
 };
+
+exports.getAllItemsForTag = function(req, res){
+  Tag.findAll({include: [Item], where: {id: req.params.id} }).success(function(items){
+    console.log(JSON.stringify(items));
+    res.send(items);
+  });
+};
