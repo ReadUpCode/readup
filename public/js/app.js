@@ -4,7 +4,7 @@ var app = angular.module('readUp', ['readUp.factories', 'readUp.controllers','$s
       templateUrl: '../partials/home_view.html'
     });
   $routeProvider.when('/:tag', {
-      controller: 'HomeController',
+      controller: 'TagController',
       templateUrl: '../partials/tag_view.html'
     });
 });
