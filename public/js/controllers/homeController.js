@@ -4,10 +4,6 @@ controllers.controller('HomeController', ['$scope', '$http', '$location', 'tagsF
   $scope.tags = tagsFactory.tags;
   $scope.cur = {};
   $scope.changeView = function(tag) {
-    $scope.cur.tag = tag;
-    console.log($scope.cur.tag);
-    $scope.cur.tagLinks = ['www.awesomeblog.com/' + tag, 'www.everydocs.com/' + tag];
-    console.log($scope.cur.tagLinks);
     $location.path('/' + tag);
   };
 }]);
