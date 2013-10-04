@@ -6,24 +6,27 @@ var db = require('../../config/db');
 var User = db.User;
 var Item = db.Item;
 var Tag = db.Tag;
-
+var ItemsTags = sequelize.define('ItemsTags', {});
 
 exports.findAllItemsForUser = function(req, res){
   Item.findAll({ include: [User], where: {UserId: req.UserId}}).success(function(items){
+    // console.log(JSON.stringify(items));
+  });
+};
+
+exports.findAllItemsForTag = function(req, res){
+  Item.findAll({include: [ItemsTags], where: {id: 1} }).success(function(items){
     console.log(JSON.stringify(items));
   });
 };
 
-
 exports.create = function(req, res){
   Item.create({ title: req.body.title, link: req.body.link }).success(function(item) {
-    var tags = req.body.tags;
-    for(var key in tags){
-      Tag.findOrCreate({ name: tags[key] }).success(function(tag, created) {
-          console.log(tag.id);
-          console.log(created);
-      }).failure(function(err){
-        console.log(err);
+    var tags = Object.keys(req.body.tags);
+    for(var i = 0; i < tags.length; i++){
+      Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
+          console.log(tag.id, created);
+        item.setTags([{id: tag.id}]).success(function(tags){console.log('SET TAGS', tags);});
       });
     }
    res.end();
