@@ -5,10 +5,19 @@ var db = require('../../config/db');
 
 
 var Item = db.Item;
+var Tag = db.Tag;
 
 exports.create = function(req, res){
   Item.create({ title: req.body.title, link: req.body.link }).success(function(item) {
-      console.log(item.values);
-      res.end();
+    var tags = req.body.tags;
+    for(var key in tags){
+      Tag.findOrCreate({ name: tags[key] }).success(function(tag, created) {
+          console.log(tag.id);
+          console.log(created);
+      }).failure(function(err){
+        console.log(err);
+      });
+    }
+   res.end();
   });
 };
