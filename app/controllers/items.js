@@ -6,8 +6,9 @@ var db = require('../../config/db');
 
 var Item = db.Item;
 
-exports.create = function(req){
+exports.create = function(req, res){
   Item.create({ title: req.body.title, link: req.body.link }).success(function(item) {
       console.log(item.values);
+      res.end();
   });
 };
