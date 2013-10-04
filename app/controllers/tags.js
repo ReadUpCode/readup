@@ -9,8 +9,8 @@ var Item = db.Item;
 var Tag = db.Tag;
 var ItemsTags = sequelize.define('ItemsTags', {});
 
-exports.getAllItemsForUser = function(req, res){
-  User.findAll({include: [Item], where: {id: req.params.id } }).success(function(items){
-    res.send(items);
+exports.get = function(req, res){
+  Tag.findAll().success(function(tags){
+    res.send(tags);
   });
 };
