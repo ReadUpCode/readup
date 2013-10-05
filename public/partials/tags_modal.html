@@ -4,8 +4,10 @@
 </div>
 <div class="modal-body">
   Here's your link: {{item.link}} <br/>
-  What tags would you like to add? <input type="text" ng-model="tag"/>
-  <button ng-click='addTag(tag)'>Add</button>
+  <form ng-sumbit='addTag(tag)'>
+    What tags would you like to add? <input type="text" ng-model="tag"/>
+    <button ng-click='addTag(tag)'>Add</button>
+  </form>
   <div ng-repeat="tag in item.tags">
     <div class="tag" ng-click="removeTag(tag)">{{tag}}</div>
   </div>
