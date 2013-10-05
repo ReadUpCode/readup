@@ -1,12 +1,10 @@
-var Sequelize  = require('sequelize');
 var express = require('express');
-var sequelize = new Sequelize('mysql://root@127.0.0.1/readup', {});
 var db = require('../../config/db');
+var sequelize = db.sequelize;
 
-var User = db.User;
 var Item = db.Item;
 var Tag = db.Tag;
-var ItemsTags = sequelize.define('ItemsTags', {});
+var Vote = db.Vote;
 
 exports.getAllTagsForItem = function(req, res){
   Item.find({where: {id: 1}}).success(function(item){
@@ -14,7 +12,6 @@ exports.getAllTagsForItem = function(req, res){
   });
 };
 
-///FIX MY ASYNC ISSUES
 exports.create = function(req, res){
   Item.create({ title: req.body.title, link: req.body.link }).success(function(item) {
     var tags = Object.keys(req.body.tags);
@@ -28,13 +25,13 @@ exports.create = function(req, res){
 };
 
 exports.get = function(req,res) {
-  Item.findAll().success(function(items){
+  Item.findAll({include: [Tag]}).success(function(items){
     res.send(items);
   });
 };
 
 exports.getOne = function(req, res){
-  Item.find({where: {id: req.params.id}}).success(function(item){
+  Item.find({include: [Tag], where: {id: req.params.id}}).success(function(item){
     res.send(item);
   });
 };

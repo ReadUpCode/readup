@@ -7,6 +7,7 @@ module.exports = function(app){
   app.post('/items', function(req,res){ items.create(req, res); });
   app.get('/items', function(req,res){ items.get(req, res); });
   app.get('/items/:id', function(req,res){ items.getOne(req, res); });
+  app.get('/items/:id/score', function(req,res){ items.getScore(req, res); });
 
   app.post('/votes', function(req,res){ votes.create(req,res); });
 

@@ -38,6 +38,7 @@ Item.sync();
 Tag.sync();
 Vote.sync();
 
+module.exports.sequelize = sequelize;
 module.exports.User = User;
 module.exports.Item = Item;
 module.exports.Tag = Tag;
