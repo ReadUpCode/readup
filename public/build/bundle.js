@@ -20,7 +20,8 @@ module.exports.factories = factories;
 },{}],2:[function(require,module,exports){
 var controllers = require('../app.js').controllers;
 
-controllers.controller('FormController', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
+controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', function($scope, $http, $modal, $q) {
+  var modalPromise = $modal({template: '../partials/tags_modal.html', persist: true, show: false, backdrop: 'static', scope: $scope});
   $scope.item = {tags : {}};
   $scope.send = function(){
     $http.post('/items', $scope.item).success(function() {
@@ -28,7 +29,20 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', function(
     });
   };
   $scope.addTag = function(tag){
-    $scope.item.tags[tag] = tag;
+    var allTags = tag.split(',');
+    for (var i = 0; i < allTags.length; i++) {
+      var trimmed = allTags[i].trim();
+      $scope.item.tags[trimmed] = trimmed;
+    }
+  };
+  $scope.removeTag = function(tag){
+    delete $scope.item.tags[tag];
+  };
+
+  $scope.showModal = function() {
+    $q.when(modalPromise).then(function(modalEl) {
+      modalEl.modal('show');
+    });
   };
 }]);
 },{"../app.js":1}],3:[function(require,module,exports){
@@ -40,7 +54,7 @@ controllers.controller('HomeController', ['$scope', '$http', '$location', 'tagsF
   $scope.tags = tagsFactory.popularTags;
   $scope.changeView = function(tag) {
     tagsFactory.getTagInfo(tag);
-    $location.path('/' + tag);
+    $location.path('/' + tag.name);
   };
 }]);
 },{"../app.js":1}],4:[function(require,module,exports){
@@ -64,16 +78,17 @@ factories.factory('tagsFactory', function($http) {
   factory.getAllTags = function(){
     $http.get('/tags').success(function(res){
       factory.popularTags = res;
-    })
-  }
+    });
+  };
   //factory.popularTags =  ['js', 'backbone.js', 'python', 'c', 'package managers', 'yourmom.js', 'batman.js', 'fangular'];
   factory.getTagInfo = function(tag) {
     // we're most likely going to need to also pass in the item id to this function
-    var requestURL = '/tags/' + tag + '/items';
-    $http.get(requestURL).success(function(res){
-      factory.curLinks = res;
+    var requestURL = '/tags/' + tag.id + '/items';
+    factory.curTag = tag.name;
+    $http.get(requestURL).success(function(data){
+      //CHANGE THIS TO TAKE OUT THE ZERO. IT"S BEEN CHANGED ON THE SERVER SIDE
+      factory.curLinks = data[0].items;
     });
-    factory.curTag = tag;
     // factory.curLinks = [{score: 45, url: 'www.awesome.com/' + factory.curTag},
     //                     {score: 3, url: 'www.greattechblog.com/' + factory.curTag},
     //                     {score: 6, url: 'www.thisissweet.com/' + factory.curTag}];

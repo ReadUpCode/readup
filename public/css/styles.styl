@@ -1,2 +1,19 @@
-body
-  color blue
+.tag
+  border 1px solid black
+  border-radius 3px
+  display inline-block
+  float left
+  margin 0 5px
+  padding 3px 12px
+  position relative
+  cursor pointer
+
+.tag:after
+  right 2px
+  top -5px
+  content 'x'
+  font-size 10px
+  position absolute
+
+.tag:hover
+  background-color gray
