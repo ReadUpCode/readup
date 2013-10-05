@@ -9,11 +9,15 @@ module.exports = function(app){
   app.get('/items/:id', function(req,res){ items.getOne(req, res); });
 
   app.post('/votes', function(req,res){ votes.create(req,res); });
-  
+
   app.get('/users/:id/items', function(req,res){ users.getAllItemsForUser(req, res); });
 
   app.get('/tags', function(req, res){ tags.get(req, res); });
-  app.get('/tags/:id/items', function(req, res){ tags.getAllItemsForTag(req, res); });
 
+  app.get('/tags/:tagName/items', function(req, res) { tags.getAllItemsForTag(req, res); });
 
+  app.get('/:tagName', function(req, res){
+    res.redirect('/#/' + req.params.tagName);
+  });
 };
+

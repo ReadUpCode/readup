@@ -16,7 +16,7 @@ exports.get = function(req, res){
 };
 
 exports.getAllItemsForTag = function(req, res){
-  Tag.find({include: [Item], where: {id: req.params.id} }).success(function(items){
+  Tag.find({include: [Item], where: {name: req.params.tagName} }).success(function(items){
     console.log(JSON.stringify(items));
     res.send(items);
   });
