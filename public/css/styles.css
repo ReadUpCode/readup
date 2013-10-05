@@ -1,3 +1,4 @@
+.main-container{font-family:source-sans-pro,sans-serif}
 .tag{border:1px solid #000;border-radius:3px;display:inline-block;float:left;margin:0 5px;padding:3px 12px;position:relative;cursor:pointer}
 .tag:after{right:2px;top:-5px;content:'x';font-size:10px;position:absolute}
 .tag:hover{background-color:#808080}
