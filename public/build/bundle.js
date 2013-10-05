@@ -20,7 +20,8 @@ module.exports.factories = factories;
 },{}],2:[function(require,module,exports){
 var controllers = require('../app.js').controllers;
 
-controllers.controller('FormController', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
+controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', function($scope, $http, $modal, $q) {
+  var modalPromise = $modal({template: '../partials/tags_modal.html', persist: true, show: false, backdrop: 'static', scope: $scope});
   $scope.item = {tags : {}};
   $scope.send = function(){
     $http.post('/items', $scope.item).success(function() {
@@ -36,6 +37,12 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', function(
   };
   $scope.removeTag = function(tag){
     delete $scope.item.tags[tag];
+  };
+
+  $scope.showModal = function() {
+    $q.when(modalPromise).then(function(modalEl) {
+      modalEl.modal('show');
+    });
   };
 }]);
 },{"../app.js":1}],3:[function(require,module,exports){
