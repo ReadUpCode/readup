@@ -82,14 +82,6 @@ factories.factory('tagsFactory', function($http, $q) {
       factory.popularTags = res;
     });
   };
-  // factory.getTagInfo = function(tagName) {
-  //   var requestURL = '/tags/' + tagName + '/items';
-  //   factory.curTag = tagName;
-  //   $http.get(requestURL).success(function(data){
-  //     console.log(data);
-  //     factory.curLinks = data.items;
-  //   });
-  // };
 
   factory.setTagName = function(tagName) {
     factory.curTag = tagName;
@@ -104,6 +96,7 @@ factories.factory('tagsFactory', function($http, $q) {
     });
     return deferred.promise;
   };
+
   return factory;
 });
 },{"../app.js":1}]},{},[1,2,3,4,5])
