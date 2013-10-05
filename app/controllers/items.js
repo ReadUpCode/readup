@@ -25,9 +25,31 @@ exports.create = function(req, res){
 };
 
 exports.get = function(req,res) {
-  Item.findAll({include: [Tag]}).success(function(items){
-    res.send(items);
-  });
+  // Item.findAll({include: [Tag]}).success(function(items){
+  //   var responses = [];
+  //   var resItem = {};
+  //   for(var i=0; i<items.length; i++){
+  //     var score = 0;
+  //     resItem = items[i].selectedValues;
+  //     resItem.score = 10;
+  //     Vote.findAll({where: {ItemId: items[i].selectedValues.id }}).success(function(votes){
+  //       for (var j = 0; j < votes.length; j++) {
+  //         resItem.score += votes[j].selectedValues.value;
+  //       }
+  //       console.log("SCORE", score);
+  //     });
+  //     console.log("RESULTSSCORE", score);
+  //     resItem.tags = [];
+  //     for (var k=0; k < items[i].tags.length; k++) {
+  //       resItem.tags.push(items[i].tags[k].selectedValues);
+  //     }
+
+  //     resItem.score = score;
+  //     responses.push(resItem);
+  //   }
+  //   console.lo
+  //   res.send(responses);
+  // });
 };
 
 exports.getOne = function(req, res){
@@ -43,7 +65,7 @@ exports.getOne = function(req, res){
       resItem = item.selectedValues;
       resItem.tags = [];
       for (var i =0; i < item.tags.length; i++) {
-        resItem.tags.push(item.tags[0].selectedValues);
+        resItem.tags.push(item.tags[i].selectedValues);
       }
       resItem.score = score;
       res.send(resItem);
