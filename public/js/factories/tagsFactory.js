@@ -1,25 +1,25 @@
 var factories = require('../app.js').factories;
 
-factories.factory('tagsFactory', function($http) {
+factories.factory('tagsFactory', function($http, $q) {
   var factory = {};
   factory.getAllTags = function(){
     $http.get('/tags').success(function(res){
       factory.popularTags = res;
     });
   };
-  //factory.popularTags =  ['js', 'backbone.js', 'python', 'c', 'package managers', 'yourmom.js', 'batman.js', 'fangular'];
-  factory.getTagInfo = function(tag) {
-    // we're most likely going to need to also pass in the item id to this function
-    var requestURL = '/tags/' + tag.name + '/items';
-    factory.curTag = tag.name;
+
+  factory.setTagName = function(tagName) {
+    factory.curTag = tagName;
+    return tagName;
+  };
+
+  factory.getTagInfo = function(tagName){
+    var deferred = $q.defer();
+    var requestURL = '/tags/' + tagName + '/items';
     $http.get(requestURL).success(function(data){
-      //CHANGE THIS TO TAKE OUT THE ZERO. IT"S BEEN CHANGED ON THE SERVER SIDE
-      console.log(data);
-      factory.curLinks = data.items;
+      deferred.resolve(data.items);
     });
-    // factory.curLinks = [{score: 45, url: 'www.awesome.com/' + factory.curTag},
-    //                     {score: 3, url: 'www.greattechblog.com/' + factory.curTag},
-    //                     {score: 6, url: 'www.thisissweet.com/' + factory.curTag}];
+    return deferred.promise;
   };
 
   return factory;
