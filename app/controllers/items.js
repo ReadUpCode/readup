@@ -36,5 +36,39 @@ exports.getOne = function(req, res){
   });
 };
 
+exports.getScore = function(req, res){
+  var score = 0;
+  Vote.findAll({where: {ItemId: req.params.id}}).success(function(votes){
+    for(var i = 0; i < votes.length; i++){
+      score += votes[i].value;
+    }
+    res.send({score: score});
+  });
+};
 
+// exports.get = function(req,res) {
+//   sequelize.query("SELECT  Items.id, Items.link, SUM(Votes.value),  ItemsTags.TagId FROM Items LEFT OUTER JOIN Votes ON Items.id = Votes.ItemId LEFT OUTER JOIN ItemsTags ON Items.id = ItemsTags.ItemId GROUP BY  Items.id, Items.link, ItemsTags.TagId;").success(function(myTableRows) {
+//     res.send(myTableRows);
+//   });
+// };
 
+// item_id, sumVotesValue, tags
+
+// SELECT 
+// items.id,
+// SUM(votes.value), 
+// items_tags.id
+// FROM
+// items
+// INNER JOIN
+// votes
+// ON
+// items.id = votes.item_id
+// LEFT OUTER JOIN
+// items_tags
+// ON
+// items.id = items_tags.item_id
+// GROUP BY 
+// items.id
+
+// SELECT  Items.id, Items.link, SUM(Votes.value),  ItemsTags.TagId FROM Items LEFT OUTER JOIN Votes ON Items.id = Votes.ItemId LEFT OUTER JOIN ItemsTags ON Items.id = ItemsTags.ItemId GROUP BY  Items.id, Items.link, ItemsTags.TagId;
