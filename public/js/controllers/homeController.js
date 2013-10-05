@@ -6,6 +6,6 @@ controllers.controller('HomeController', ['$scope', '$http', '$location', 'tagsF
   $scope.tags = tagsFactory.popularTags;
   $scope.changeView = function(tag) {
     tagsFactory.getTagInfo(tag);
-    $location.path('/' + tag);
+    $location.path('/' + tag.name);
   };
 }]);
