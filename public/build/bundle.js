@@ -61,11 +61,14 @@ controllers.controller('HomeController', ['$scope', '$http', '$location', 'tagsF
 var controllers = require('../app.js').controllers;
 
 controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory', function($scope, $routeParams, tagsFactory) {
+  console.log(tagsFactory.curTag);
+  console.log($routeParams.tag);
   if(tagsFactory.curTag !== $routeParams.tag) {
     tagsFactory.getTagInfo($routeParams.tag);
   }
   $scope.tag = tagsFactory.curTag;
   $scope.links = tagsFactory.curLinks;
+  console.log($scope);
   $scope.vote = function(value, link){
     link.score += value;
   };
@@ -83,11 +86,12 @@ factories.factory('tagsFactory', function($http) {
   //factory.popularTags =  ['js', 'backbone.js', 'python', 'c', 'package managers', 'yourmom.js', 'batman.js', 'fangular'];
   factory.getTagInfo = function(tag) {
     // we're most likely going to need to also pass in the item id to this function
-    var requestURL = '/tags/' + tag.id + '/items';
+    var requestURL = '/tags/' + tag.name + '/items';
     factory.curTag = tag.name;
     $http.get(requestURL).success(function(data){
       //CHANGE THIS TO TAKE OUT THE ZERO. IT"S BEEN CHANGED ON THE SERVER SIDE
-      factory.curLinks = data[0].items;
+      console.log(data);
+      factory.curLinks = data.items;
     });
     // factory.curLinks = [{score: 45, url: 'www.awesome.com/' + factory.curTag},
     //                     {score: 3, url: 'www.greattechblog.com/' + factory.curTag},
