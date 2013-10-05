@@ -1,6 +1,7 @@
 var express = require('express');
 var db = require('../../config/db');
 var sequelize = db.sequelize;
+var Q = require('q');
 
 var Item = db.Item;
 var Tag = db.Tag;
@@ -25,31 +26,31 @@ exports.create = function(req, res){
 };
 
 exports.get = function(req,res) {
-  // Item.findAll({include: [Tag]}).success(function(items){
-  //   var responses = [];
-  //   var resItem = {};
-  //   for(var i=0; i<items.length; i++){
-  //     var score = 0;
-  //     resItem = items[i].selectedValues;
-  //     resItem.score = 10;
-  //     Vote.findAll({where: {ItemId: items[i].selectedValues.id }}).success(function(votes){
-  //       for (var j = 0; j < votes.length; j++) {
-  //         resItem.score += votes[j].selectedValues.value;
-  //       }
-  //       console.log("SCORE", score);
-  //     });
-  //     console.log("RESULTSSCORE", score);
-  //     resItem.tags = [];
-  //     for (var k=0; k < items[i].tags.length; k++) {
-  //       resItem.tags.push(items[i].tags[k].selectedValues);
-  //     }
-
-  //     resItem.score = score;
-  //     responses.push(resItem);
-  //   }
-  //   console.lo
-  //   res.send(responses);
-  // });
+  var responses = [];
+  Item.findAll({include: [Tag]}).success(function(items){
+    items.forEach(function(item, index, list){
+      Vote.findAll({ where: {ItemId: item.selectedValues.id }})
+      .success(function(votes){
+        var score=0;
+        for(var j=0; j<votes.length; j++){
+          score+=votes[j].selectedValues.value;
+        }
+        var resItem = {};
+        resItem = item.selectedValues;
+        console.log("INDEX: ", index);
+        resItem.tags = [];
+        resItem.score = score;
+        for (var k=0; k < item.tags.length; k++) {
+          resItem.tags.push(item.tags[k].selectedValues);
+        }
+        responses.push(resItem);
+        if(responses.length === items.length){
+          res.send(responses);
+        }
+      });
+    })
+      
+  })
 };
 
 exports.getOne = function(req, res){
