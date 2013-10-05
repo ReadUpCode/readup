@@ -7,7 +7,7 @@
   What tags would you like to add? <input type="text" ng-model="tag"/>
   <button ng-click='addTag(tag)'>Add</button>
   <div ng-repeat="tag in item.tags">
-    <div class="tag">{{tag}}</div>
+    <div class="tag" ng-click="removeTag(tag)">{{tag}}</div>
   </div>
 </div>
 <div class='modal-footer'>
