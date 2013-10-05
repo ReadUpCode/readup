@@ -4,6 +4,7 @@
       <link rel="stylesheet" type="text/css" href="css/styles.css">
       <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
       <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet">
+      <script src="//use.edgefonts.net/source-sans-pro.js"></script>
     </head>
     <body>
       <script src="lib/bower_components/jquery/jquery.js"></script>
@@ -11,15 +12,16 @@
       <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
       <script src="lib/bower_components/angular-strap/dist/angular-strap.min.js"></script>
       <script src="build/bundle.js"></script>
-
-      <div ng-controller="FormController">
-        <form name="itemForm" no-validate type='url' class="submission-form" ng-submit='showModal()'>
-          Paste your link! <input type="url" placeholder="http://www.ALLofthelinks.com" ng-model="item.link"/ required>
-          <button type="button" ng-disabled='!itemForm.$valid' class="btn" bs-modal="'./partials/tags_modal.html'">Submit</button>
-        </form>
-      </div>
-      <div ng-controller="HomeController">
-      <div ng-view></div>
+        <div class='main-container'>
+          <div ng-controller="FormController">
+            <form name="itemForm" no-validate type='url' class="submission-form" ng-submit='showModal()'>
+              Paste your link! <input type="url" placeholder="http://www.ALLofthelinks.com" ng-model="item.link"/ required>
+              <button type="button" ng-disabled='!itemForm.$valid' class="btn" bs-modal="'./partials/tags_modal.html'">Submit</button>
+            </form>
+          </div>
+          <div ng-controller="HomeController">
+          <div ng-view></div>
+        </div>
       </div>
     </body>
   </html>

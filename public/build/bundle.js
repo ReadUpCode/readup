@@ -66,7 +66,7 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
   }else{
     $scope.tag = tagsFactory.curTag;
   }
-  
+
   $scope.links = tagsFactory.getTagInfo($scope.tag);
   $scope.vote = function(value, link){
     link.score += value;
