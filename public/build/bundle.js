@@ -28,7 +28,14 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', function(
     });
   };
   $scope.addTag = function(tag){
-    $scope.item.tags[tag] = tag;
+    var allTags = tag.split(',');
+    for (var i = 0; i < allTags.length; i++) {
+      var trimmed = allTags[i].trim();
+      $scope.item.tags[trimmed] = trimmed;
+    }
+  };
+  $scope.removeTag = function(tag){
+    delete $scope.item.tags[tag];
   };
 }]);
 },{"../app.js":1}],3:[function(require,module,exports){
