@@ -52,23 +52,22 @@ controllers.controller('HomeController', ['$scope', '$http', '$location', 'tagsF
 	// this is probably going to cause some async issues
 	tagsFactory.getAllTags();
   $scope.tags = tagsFactory.popularTags;
-  $scope.changeView = function(tag) {
-    tagsFactory.getTagInfo(tag);
-    $location.path('/' + tag.name);
+  $scope.changeView = function(tagName) {
+    tagsFactory.setTagName(tagName);
+    $location.path('/' + tagName);
   };
 }]);
 },{"../app.js":1}],4:[function(require,module,exports){
 var controllers = require('../app.js').controllers;
 
 controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory', function($scope, $routeParams, tagsFactory) {
-  console.log(tagsFactory.curTag);
-  console.log($routeParams.tag);
   if(tagsFactory.curTag !== $routeParams.tag) {
-    tagsFactory.getTagInfo($routeParams.tag);
+    $scope.tag = tagsFactory.setTagName($routeParams.tag);
+  }else{
+    $scope.tag = tagsFactory.curTag;
   }
-  $scope.tag = tagsFactory.curTag;
-  $scope.links = tagsFactory.curLinks;
-  console.log($scope);
+  
+  $scope.links = tagsFactory.getTagInfo($scope.tag);
   $scope.vote = function(value, link){
     link.score += value;
   };
@@ -76,28 +75,35 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
 },{"../app.js":1}],5:[function(require,module,exports){
 var factories = require('../app.js').factories;
 
-factories.factory('tagsFactory', function($http) {
+factories.factory('tagsFactory', function($http, $q) {
   var factory = {};
   factory.getAllTags = function(){
     $http.get('/tags').success(function(res){
       factory.popularTags = res;
     });
   };
-  //factory.popularTags =  ['js', 'backbone.js', 'python', 'c', 'package managers', 'yourmom.js', 'batman.js', 'fangular'];
-  factory.getTagInfo = function(tag) {
-    // we're most likely going to need to also pass in the item id to this function
-    var requestURL = '/tags/' + tag.name + '/items';
-    factory.curTag = tag.name;
-    $http.get(requestURL).success(function(data){
-      //CHANGE THIS TO TAKE OUT THE ZERO. IT"S BEEN CHANGED ON THE SERVER SIDE
-      console.log(data);
-      factory.curLinks = data.items;
-    });
-    // factory.curLinks = [{score: 45, url: 'www.awesome.com/' + factory.curTag},
-    //                     {score: 3, url: 'www.greattechblog.com/' + factory.curTag},
-    //                     {score: 6, url: 'www.thisissweet.com/' + factory.curTag}];
+  // factory.getTagInfo = function(tagName) {
+  //   var requestURL = '/tags/' + tagName + '/items';
+  //   factory.curTag = tagName;
+  //   $http.get(requestURL).success(function(data){
+  //     console.log(data);
+  //     factory.curLinks = data.items;
+  //   });
+  // };
+
+  factory.setTagName = function(tagName) {
+    factory.curTag = tagName;
+    return tagName;
   };
 
+  factory.getTagInfo = function(tagName){
+    var deferred = $q.defer();
+    var requestURL = '/tags/' + tagName + '/items';
+    $http.get(requestURL).success(function(data){
+      deferred.resolve(data.items);
+    });
+    return deferred.promise;
+  };
   return factory;
 });
 },{"../app.js":1}]},{},[1,2,3,4,5])
