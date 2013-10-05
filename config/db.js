@@ -7,7 +7,7 @@ var User = sequelize.define('User', {
     allowNull:false // what does this even mean?
   },
   email: Sequelize.STRING,
-  karma: Sequelize.INTEGER.UNSIGNED
+  karma: Sequelize.INTEGER
 });
 
 var Item = sequelize.define('Item', {
@@ -20,7 +20,7 @@ var Tag = sequelize.define('Tag', {
 });
 
 var Vote = sequelize.define('Vote', {
-  value: Sequelize.INTEGER.UNSIGNED
+  value: Sequelize.INTEGER
 });
 
 User.hasMany(Item);
@@ -30,12 +30,15 @@ Item.hasMany(Tag);
 Tag.hasMany(Item);
 
 Item.belongsTo(User);
+Vote.belongsTo(User);
+Vote.belongsTo(Item);
 
 User.sync();
 Item.sync();
 Tag.sync();
 Vote.sync();
 
+module.exports.sequelize = sequelize;
 module.exports.User = User;
 module.exports.Item = Item;
 module.exports.Tag = Tag;
