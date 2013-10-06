@@ -25,14 +25,50 @@ exports.create = function(req, res){
 };
 
 exports.get = function(req,res) {
+  var responses = [];
   Item.findAll({include: [Tag]}).success(function(items){
-    res.send(items);
+    items.forEach(function(item, index, list){
+      Vote.findAll({ where: {ItemId: item.selectedValues.id }})
+      .success(function(votes){
+        var score=0;
+        for(var j=0; j<votes.length; j++){
+          score+=votes[j].selectedValues.value;
+        }
+        var resItem = {};
+        resItem = item.selectedValues;
+        console.log("INDEX: ", index);
+        resItem.tags = [];
+        resItem.score = score;
+        for (var k=0; k < item.tags.length; k++) {
+          resItem.tags.push(item.tags[k].selectedValues);
+        }
+        responses.push(resItem);
+        if(responses.length === items.length){
+          res.send(responses);
+        }
+      });
+    });
   });
 };
 
 exports.getOne = function(req, res){
-  Item.find({include: [Tag], where: {id: req.params.id}}).success(function(item){
-    res.send(item);
+  Vote.findAll({where: {ItemId:req.params.id}}).success(function(votes) {
+    var score = 0;
+
+    for (var j = 0; j < votes.length; j++) {
+      score += votes[j].selectedValues.value;
+    }
+    Item.find({include: [Tag], where: {id: req.params.id}}).success(function(item){
+      var resItem = {};
+
+      resItem = item.selectedValues;
+      resItem.tags = [];
+      for (var i =0; i < item.tags.length; i++) {
+        resItem.tags.push(item.tags[i].selectedValues);
+      }
+      resItem.score = score;
+      res.send(resItem);
+    });
   });
 };
 
@@ -45,30 +81,3 @@ exports.getScore = function(req, res){
     res.send({score: score});
   });
 };
-
-// exports.get = function(req,res) {
-//   sequelize.query("SELECT  Items.id, Items.link, SUM(Votes.value),  ItemsTags.TagId FROM Items LEFT OUTER JOIN Votes ON Items.id = Votes.ItemId LEFT OUTER JOIN ItemsTags ON Items.id = ItemsTags.ItemId GROUP BY  Items.id, Items.link, ItemsTags.TagId;").success(function(myTableRows) {
-//     res.send(myTableRows);
-//   });
-// };
-
-// item_id, sumVotesValue, tags
-
-// SELECT 
-// items.id,
-// SUM(votes.value), 
-// items_tags.id
-// FROM
-// items
-// INNER JOIN
-// votes
-// ON
-// items.id = votes.item_id
-// LEFT OUTER JOIN
-// items_tags
-// ON
-// items.id = items_tags.item_id
-// GROUP BY 
-// items.id
-
-// SELECT  Items.id, Items.link, SUM(Votes.value),  ItemsTags.TagId FROM Items LEFT OUTER JOIN Votes ON Items.id = Votes.ItemId LEFT OUTER JOIN ItemsTags ON Items.id = ItemsTags.ItemId GROUP BY  Items.id, Items.link, ItemsTags.TagId;
