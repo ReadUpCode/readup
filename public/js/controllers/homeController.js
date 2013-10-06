@@ -4,8 +4,8 @@ controllers.controller('HomeController', ['$scope', '$http', '$location', 'tagsF
 	// this is probably going to cause some async issues
 	tagsFactory.getAllTags();
   $scope.tags = tagsFactory.popularTags;
-  $scope.changeView = function(tag) {
-    tagsFactory.getTagInfo(tag);
-    $location.path('/' + tag.name);
+  $scope.changeView = function(tagName) {
+    tagsFactory.setTagName(tagName);
+    $location.path('/' + tagName);
   };
 }]);
