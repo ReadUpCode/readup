@@ -1,10 +1,15 @@
 var express = require('express');
+var everyauth = require('everyauth');
+var everyauthConfig = require('./config/everyauthConfig.js');
 var app = express();
 app.use(express.bodyParser());
 
 
 app.configure(function(){
   app.use(express.static(__dirname + "/public"));
+  app.use(express.cookieParser());
+  app.use(express.session({secret: process.env.SESSION_SECRET}));
+  app.use(everyauth.middleware());
 });
 
 require('./config/routes')(app);
