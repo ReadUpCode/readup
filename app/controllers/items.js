@@ -1,7 +1,6 @@
 var express = require('express');
 var db = require('../../config/db');
 var sequelize = db.sequelize;
-var Q = require('q');
 
 var Item = db.Item;
 var Tag = db.Tag;
@@ -48,9 +47,8 @@ exports.get = function(req,res) {
           res.send(responses);
         }
       });
-    })
-      
-  })
+    });
+  });
 };
 
 exports.getOne = function(req, res){
