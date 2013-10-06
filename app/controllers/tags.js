@@ -18,24 +18,29 @@ exports.getAllItemsForTag = function(req, res){
   //   res.send(items);
   // });
   Tag.find({include: [Item], where: {name: req.params.tagName} }).success(function(tag){
-    Vote.findAll({where: {ItemId:tag.items[0].id}}).success(function(votes) {
-    var score = 0;
-    if(votes){
-      for (var j = 0; j < votes.length; j++) {
-        score += votes[j].selectedValues.value;
-      }
-    }
-    Item.find({include: [Tag], where: {id: tag.items[0].id}}).success(function(item){
-      var resItem = {};
-
-      resItem = item.selectedValues;
-      resItem.tags = [];
-      for (var i =0; i < item.tags.length; i++) {
-        resItem.tags.push(item.tags[i].selectedValues);
-      }
-      resItem.score = score;
-      res.send(resItem);
+    var responses = [];
+    console.log(tag.items);
+    tag.items.forEach(function(item, index, list){
+      Item.find({include: [Tag], where:{id: item.selectedValues.id}}).success(function(singleItem){
+        Vote.findAll({ where: {ItemId: item.selectedValues.id }})
+        .success(function(votes){
+          var score=0;
+          for(var j=0; j<votes.length; j++){
+            score+=votes[j].selectedValues.value;
+          }
+          var resItem = {};
+          resItem = singleItem.selectedValues;
+          resItem.tags = [];
+          resItem.score = score;
+          for (var k=0; k < singleItem.tags.length; k++) {
+            resItem.tags.push(singleItem.tags[k].selectedValues);
+          }
+          responses.push(resItem);
+          if(responses.length === tag.items.length){
+            res.send(responses);
+          }
+        });
+      });
     });
-  });
   });
 };
