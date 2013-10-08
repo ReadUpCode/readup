@@ -1,6 +1,6 @@
 var Sequelize  = require('sequelize');
 // var sequelize = new Sequelize('mysql://root@127.0.0.1/readup',, {});
-var sequelize = new Sequelize('readup', 'root', '1', {
+var sequelize = new Sequelize('readup', 'root', '', {
   host: "127.0.0.1",
 })
 
