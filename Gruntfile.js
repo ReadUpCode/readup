@@ -12,7 +12,7 @@ module.exports = function(grunt){
     stylus: {
       compile: {
         files: {
-          'public/css/styles.css': 'public/css/styles.styl'
+          'public/css/styles.css': 'css/styles.styl'
         }
       }
     },
@@ -38,7 +38,7 @@ module.exports = function(grunt){
         tasks: ['browserify']
       },
       css: {
-        files: ['public/css/styles.styl'],
+        files: ['css/**/*.styl'],
         tasks: ['stylus']
       }
     },
