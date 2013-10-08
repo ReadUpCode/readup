@@ -10,3 +10,11 @@ exports.getAllItemsForUser = function(req, res){
     res.send(items);
   });
 };
+
+exports.addGitHubUser = function(ghUserId){
+  User.findOrCreate({github_id: ghUserId}, {name: 'blake'})
+    .success(function(){
+      console.log('users in our DB! ');
+    });
+  return ghUserId;
+};
