@@ -11,6 +11,11 @@ module.exports = function(grunt){
     },
     stylus: {
       compile: {
+        options: {
+          define: {
+            import_tree: require('stylus-import-tree')
+          }
+        },
         files: {
           'public/css/styles.css': 'css/styles.styl'
         }

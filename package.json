@@ -31,7 +31,8 @@
     "express": "~3.4.0",
     "grunt": "~0.4.1",
     "sequelize": "~2.0.0-beta.0",
-    "everyauth": "~0.4.5"
+    "everyauth": "~0.4.5",
+    "stylus-import-tree": "~0.1.8"
   },
   "devDependencies": {
     "grunt-nodemon": "~0.1.1"
