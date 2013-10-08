@@ -4,6 +4,18 @@
 html{font-size:62.5%}
 .wf-loading body{opacity:0}
 body{color:#333;}
-body #content{margin:0 auto;max-width:1200px;padding:0 0 40px}
+body #main-container{margin:0 auto;max-width:1200px;padding:0 0 40px}
 em{font-style:italic}
-.main-container{font-family:source-sans-pro,sans-serif}
+a{text-decoration:none;}
+a :hover{text-decoration:underline}
+@media screen and (min-width: 600px){body{padding:0 3%}
+}nav{background-color:#333;font-size:0;margin:0 0 30px;position:relative;width:100%}
+@media screen and (min-width: 600px){nav{padding:0 80px;}
+nav .tab{position:absolute;top:0;width:80px}
+nav #main-menu{left:0}
+nav #log-in{right:0;}
+nav #log-in .tab-icon{opacity:.6}
+nav #log-in h1{color:#808080}
+nav #log-in :hover span{opacity:1}
+nav #log-in :hover h1{color:#fff}
+}.main-container{font-family:source-sans-pro,sans-serif}
