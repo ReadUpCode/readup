@@ -1,27 +1,51 @@
 <!DOCTYPE html>
-  <html ng-app="readUp">
-    <head>
-      <link rel="stylesheet" type="text/css" href="css/styles.css">
-      <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
-      <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet">
-      <script src="//use.edgefonts.net/source-sans-pro.js"></script>
-    </head>
-    <body>
-      <script src="lib/bower_components/jquery/jquery.js"></script>
-      <script src="lib/bower_components/angular/angular.js"></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-      <script src="lib/bower_components/angular-strap/dist/angular-strap.min.js"></script>
-      <script src="build/bundle.js"></script>
-        <div class='main-container'>
-          <div ng-controller="FormController">
-            <form name="itemForm" no-validate type='url' class="submission-form" ng-submit='showModal()'>
-              Paste your link! <input type="url" placeholder="http://www.ALLofthelinks.com" ng-model="item.link"/ required>
-              <button type="button" ng-disabled='!itemForm.$valid' class="btn" bs-modal="'./partials/tags_modal.html'">Submit</button>
-            </form>
-          </div>
-          <div ng-controller="HomeController">
-          <div ng-view></div>
-        </div>
+<html ng-app="readUp">
+<head>
+  <title>READ UP</title>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width initial-scale=1.0'>
+  <meta name='apple-mobile-web-app-title' content='Read Up'>
+  <meta name='apple-mobile-web-app-capable' content='yes'>
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+  <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <script src="//use.edgefonts.net/source-sans-pro:n3,i3,n4,i4,n9.js"></script>      
+  <script src="lib/bower_components/jquery/jquery.js"></script>
+  <script src="lib/bower_components/angular/angular.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script src="lib/bower_components/angular-strap/dist/angular-strap.min.js"></script>
+  <script src="build/bundle.js"></script>
+</head>
+<body>
+  <div id='main-container'>
+    <header>
+      <h1><a href="/"></a>ReadUp</h1>
+    </header>
+    <nav>
+      <div id='log-in' class='tab'>
+        <span class='tab-icon'></span>
+        <h1>Log in</h1>
       </div>
-    </body>
-  </html>
+      <div ng-controller="FormController">
+        <form name="itemForm" no-validate type='url' class="submission-form" ng-submit='showModal()'>
+          <div id='search-input' class='main-input'>
+            <div class='icon'></div>
+            <div class='placeholder'>Find a topic</div>
+            <input id='search' class='main-input-text' type='text' autocomplete='off'>
+          </div>
+          <div id='paste-link-input' class='main-input'>
+            <div class='icon'></div>
+            <div clas s='placeholder'>Paste a link</div>
+            <input id='paste-link' class='main-input-text' type="url" ng-model="item.link"/ required>
+          </div>
+          <button type="button" ng-disabled='!itemForm.$valid' class="btn" bs-modal="'./partials/tags_modal.html'">Submit</button>
+        </form>
+      </div>
+      <div ng-controller="HomeController">
+        <div ng-view></div>
+      </div>
+    </nav>
+  </div>
+</body>
+</html>
