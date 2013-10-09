@@ -19,7 +19,10 @@
               <button type="button" ng-disabled='!itemForm.$valid' class="btn" bs-modal="'./partials/tags_modal.html'">Submit</button>
             </form>
           <div ng-controller="LoginController">
-          <div>login</div>
+          <div ng-hide="currentUser">login</div>
+          <div ng-hide="!currentUser">
+            logout
+          </div>
           </div>
           </div>
           <div ng-controller="HomeController">
