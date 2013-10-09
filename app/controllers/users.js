@@ -13,21 +13,30 @@ exports.getAllItemsForUser = function(req, res){
 };
 
 exports.addGitHubUser = function(ghUser, access_token){
-	var requestURL = 'https://api.github.com/user/emails?access_token=' + access_token;
-	https.get(requestURL, function(res) {
-		res.on('data', function (chunk) {
-			var ghID = ghUser.id;
-			var ghEmail = chunk.toString();
-			ghEmail = JSON.parse(ghEmail);
-			ghEmail = ghEmail[0];
-			User.findOrCreate({email: ghEmail, 
-				name: ghUser.login, 
-				karma: 1,
-				github_id: ghID})
-    		.success(function(){
-      		console.log('user recorded in our DB');
-    		});
-  	});
-	});
-	return ghUser.id;
+  var requestURL = 'https://api.github.com/user/emails?access_token=' + access_token;
+  https.get(requestURL, function(res) {
+    res.on('data', function (chunk) {
+      var ghID = ghUser.id;
+      var ghEmail = chunk.toString();
+      // TODO: ALWAYS TRY CATCH WHEN JSON.PARSE CAUSE IT CAN THROW!
+      ghEmail = JSON.parse(ghEmail);
+      ghEmail = ghEmail[0];
+      User.findOrCreate({
+        email: ghEmail,
+        name: ghUser.login,
+        karma: 1,
+        github_id: ghID
+      }).success(function(){
+        console.log('user recorded in our DB');
+      });
+    });
+  });
+  return ghUser;
+};
+
+exports.findUser = function(userId, callback){
+  // TODO: handle failure!
+  User.find({where: {github_id: userId}}).success(function(user){
+    return callback(null, user);
+  });
 };
