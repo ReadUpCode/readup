@@ -31,7 +31,8 @@
     "express": "~3.4.0",
     "grunt": "~0.4.1",
     "sequelize": "~2.0.0-beta.0",
-    "everyauth": "~0.4.5"
+    "everyauth": "~0.4.5",
+    "connect-mysql-session": "~0.1.3"
   },
   "devDependencies": {
     "grunt-nodemon": "~0.1.1"
