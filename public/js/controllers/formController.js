@@ -4,7 +4,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', fun
   var modalPromise = $modal({template: '../partials/tags_modal.html', persist: true, show: false, backdrop: 'static', scope: $scope});
   $scope.item = {tags : {}};
   $scope.send = function(){
-    $http.post('/items', $scope.item).success(function() {
+    $http.post('/_/items', $scope.item).success(function() {
       console.log('we added the link bitches!!!!');
     });
   };

@@ -24,7 +24,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', fun
   var modalPromise = $modal({template: '../partials/tags_modal.html', persist: true, show: false, backdrop: 'static', scope: $scope});
   $scope.item = {tags : {}};
   $scope.send = function(){
-    $http.post('/items', $scope.item).success(function() {
+    $http.post('/_/items', $scope.item).success(function() {
       console.log('we added the link bitches!!!!');
     });
   };
@@ -49,8 +49,10 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', fun
 var controllers = require('../app.js').controllers;
 
 controllers.controller('HomeController', ['$scope', '$http', '$location', 'tagsFactory', function($scope, $http, $location, tagsFactory){
+
   $scope.tags = tagsFactory.getAllTags();
   console.log($scope.tags);
+
   $scope.changeView = function(tagName) {
     tagsFactory.setTagName(tagName);
     $location.path('/' + tagName);
@@ -77,6 +79,7 @@ var factories = require('../app.js').factories;
 factories.factory('tagsFactory', function($http, $q) {
   var factory = {};
   factory.getAllTags = function(){
+
     var deferred = $q.defer();
     $http.get('/_/tags').success(function(data){
       deferred.resolve(data);
