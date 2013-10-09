@@ -5,7 +5,7 @@
 <div class="modal-body">
   Here's your link: {{item.link}} <br/>
   <form ng-sumbit='addTag(tag)'>
-    What tags would you like to add? <input type="text" ng-model="tag"/>
+    What tags would you like to add? <input type="text" ng-model="tag" bs-typeahead="typeaheadFn"/>
     <button ng-click='addTag(tag)'>Add</button>
   </form>
   <div ng-repeat="tag in item.tags">
