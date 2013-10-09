@@ -59,6 +59,12 @@ controllers.controller('HomeController', ['$scope', '$http', '$location', 'tagsF
 },{"../app.js":1}],4:[function(require,module,exports){
 var controllers = require('../app.js').controllers;
 
+controllers.controller('LoginController', ['$scope', '$http', 'loginFactory', function($scope, $http, loginFactory){
+	$scope.currentUser = loginFactory.getLoggedInUser();
+}]);
+},{"../app.js":1}],5:[function(require,module,exports){
+var controllers = require('../app.js').controllers;
+
 controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory', function($scope, $routeParams, tagsFactory) {
   if(tagsFactory.curTag !== $routeParams.tag) {
     $scope.tag = tagsFactory.setTagName($routeParams.tag);
@@ -71,7 +77,23 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
     link.score += value;
   };
 }]);
-},{"../app.js":1}],5:[function(require,module,exports){
+},{"../app.js":1}],6:[function(require,module,exports){
+var factories = require('../app.js').factories;
+
+factories.factory('loginFactory', function($http, $q) {
+  var factory = {};
+
+  factory.getLoggedInUser = function(){
+    var deferred = $q.defer();
+    $http.get('/_/loggedin/user').success(function(data){
+    	console.log(data);
+      deferred.resolve(data);
+    });
+    return deferred.promise;
+  };
+  return factory;
+});
+},{"../app.js":1}],7:[function(require,module,exports){
 var factories = require('../app.js').factories;
 
 factories.factory('tagsFactory', function($http, $q) {
@@ -100,5 +122,5 @@ factories.factory('tagsFactory', function($http, $q) {
 
   return factory;
 });
-},{"../app.js":1}]},{},[1,2,3,4,5])
+},{"../app.js":1}]},{},[1,2,3,4,5,6,7])
 ;
