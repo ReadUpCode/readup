@@ -17,7 +17,7 @@ module.exports = function(app){
 
   app.get('/_/tags/:tagName/items', function(req, res) { tags.getAllItemsForTag(req, res); });
 
-  app.get('/_/:tagName', function(req, res){
+  app.get('/:tagName', function(req, res){
     res.redirect('/#/' + req.params.tagName);
   });
 };

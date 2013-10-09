@@ -1,7 +1,9 @@
 <h1> {{tag}} </h1>
 <div ng-repeat='link in links'>
   <div class='link-container'>
-    <div class="link-url">{{link.link}}</div>
+    <a href={{link.link}} class="link-url">{{link.link}}</a>
+	  <div style="background: url('/item_images/{{ link.id }}.png') no-repeat; width: 300px; height: 400px;" show-frame>
+    </div>
     <div class="vote-container">
       <div>{{link.score}}</div>
       <div ng-click="vote(1, link)">+</div>
