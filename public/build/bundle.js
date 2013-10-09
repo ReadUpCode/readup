@@ -92,7 +92,7 @@ factories.factory('tagsFactory', function($http, $q) {
     var deferred = $q.defer();
     var requestURL = '/tags/' + tagName + '/items';
     $http.get(requestURL).success(function(data){
-      deferred.resolve(data.items);
+      deferred.resolve(data);
     });
     return deferred.promise;
   };
