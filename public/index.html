@@ -32,8 +32,8 @@
         <span class='tab-icon'></span>
         <h1>Log in</h1>
       </div>
-<!--       <div ng-controller="FormController">
-        <form name="itemForm" no-validate type='url' class="submission-form" ng-submit='showModal()'> -->
+      <div ng-controller="FormController">
+        <form name="itemForm" no-validate type='url' class="submission-form" ng-submit='showModal()'>
           <div id='search-input' class='main-input'>
             <div class='icon'></div>
             <div class='placeholder'>Find a topic</div>
@@ -45,8 +45,8 @@
             <input id='paste-link' class='main-input-text' type='url' ng-model="item.link"/ required>
           </div>
           <button type="button" ng-disabled='!itemForm.$valid' class="btn" bs-modal="'./partials/tags_modal.html'">Submit</button>
-<!--         </form>
-      </div> -->
+        </form>
+      </div>
     </nav>
       <div ng-controller="HomeController">
         <div ng-view></div>
