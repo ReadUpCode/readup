@@ -40,4 +40,8 @@ nav #log-in .tab-icon{opacity:.6;-ms-filter:"progid:DXImageTransform.Microsoft.A
 nav #log-in h1{color:#808080}
 nav #log-in :hover span{opacity:1;-ms-filter:none;filter:none}
 nav #log-in :hover h1{color:#fff}
-}
+}header{margin:30px 0 16px;padding:0 16px;}
+header h1{cursor:pointer;display:inline-block;font:700 1.8rem "source-sans-pro",arial,sans;letter-spacing:.1rem;text-transform:uppercase;}
+header h1 a{-webkit-transition:all 0.3s ease;-moz-transition:all 0.3s ease;-o-transition:all 0.3s ease;-ms-transition:all 0.3s ease;transition:all 0.3s ease;color:#d4d4d4}
+header h1 :hover a{color:#666;text-decoration:none}
+header h2{color:#b8e864;display:inline-block;font:300 1.8rem "source-sans-pro",arial,sans}
