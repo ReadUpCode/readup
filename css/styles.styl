@@ -1,11 +1,15 @@
-//Variables
-import_tree('./variables')
+//Libraries
+@import 'nib'
+
+//Reset
+global-reset()
+*,*:before,*:after 
+  box-sizing: border-box
+
+//Variables and Mixins
+@import ('./imports/mixins/_sprites.styl')
+import_tree('./imports/variables')
 
 //Files
-@import '_tag-box.styl'
-@import '_basic-layout.styl'
-@import '_nav.styl'
-
-.main-container
-  font-family source-sans-pro, sans-serif
-
+@import ('./imports/components/_main-input.styl')
+@import ('./imports/components/_nav.styl')
