@@ -12,6 +12,8 @@ everyauth.everymodule
       findUser(id, callback);
     });
 
+everyauth.everymodule.logoutPath('/_/logout');
+
 everyauth.github
   .scope('user:email')
   .appId(process.env.APP_ID)
