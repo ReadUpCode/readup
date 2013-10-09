@@ -12,6 +12,9 @@
       <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
       <script src="lib/bower_components/angular-strap/dist/angular-strap.min.js"></script>
       <script src="build/bundle.js"></script>
+      <div ng-controller="SearchController">
+        <input type="text" ng-model="typeaheadValue" bs-typeahead="typeaheadFn">
+      </div>
         <div class='main-container'>
           <div ng-controller="FormController">
             <form name="itemForm" no-validate type='url' class="submission-form" ng-submit='showModal()'>
