@@ -29,27 +29,22 @@ exports.create = function(req, res){
      
       // Exactly the same code that we used in the browser before:
         // var title;
-        $('title').each(function() {
-          console.log($(this).text());  
+        $('title').each(function() {  
           title = $(this).text();
           deferred.resolve(title.replace(/^[\s+\.]|[\s+\.]$/g, ""))
         });
-        console.log("FUCKING TITLE", title)
         return title.replace(/ +?/g, '')
       })
       return deferred.promise
     }
   ).then(
     function(title){
-      console.log("TITLE INSIDE THEN", title.replace(/ +?/g, ''))
       Item.create({ 
         title: title, link: req.body.link }).success(function(item) {
         var tags = Object.keys(req.body.tags);
-        console.log("ITEM:", item)
         for(var i = 0; i < tags.length; i++){
           Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
             item.addTag(tag).success(function(tag){
-              // console.log('SET TAG', tag);
             });
           });
         }
@@ -64,13 +59,13 @@ exports.create = function(req, res){
           return page.open(link, function(err,status) {
             console.log("opened site? ", status);
             // page.open('http://google.com', function () {
-                // page.zoomFactor = 0.25;
+                // page.zoomFactor = 3;
                 // page.set('viewportSize', {width: 100, height: 100})
-                // page.set('zoomFactor', .25)
+                page.set('zoomFactor', .25)
                 // page.set('clipRect', {width: 500, height: 500})
                 // page.viewportSize = { width: 600, height: 6000 }; 
                 // page.clipRect = { top: 14, left: 3, width: 400, height: 600 }; 
-                page.render('item_images/' + item_id + '.png', function(){console.log('rendering')});
+                page.render('public/item_images/' + item_id + '.png', function(){console.log('rendering')});
             // });
             // page.includeJs('http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', function(err) {
             //   //jQuery Loaded.

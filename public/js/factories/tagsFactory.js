@@ -1,7 +1,13 @@
 var factories = require('../app.js').factories;
+var suggestedTagsFile = require('./1000SuggestedTags.json');
 
 factories.factory('tagsFactory', function($http, $q) {
   var factory = {};
+
+  factory.getSuggestedTags = function() {
+    return factory.suggestedTags = suggestedTagsFile;
+  };
+
   factory.getAllTags = function(){
 
     var deferred = $q.defer();

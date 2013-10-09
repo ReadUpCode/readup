@@ -4,7 +4,6 @@ controllers.controller('HomeController', ['$scope', '$http', '$location', 'tagsF
 
   $scope.tags = tagsFactory.getAllTags();
   console.log($scope.tags);
-
   $scope.changeView = function(tagName) {
     tagsFactory.setTagName(tagName);
     $location.path('/' + tagName);

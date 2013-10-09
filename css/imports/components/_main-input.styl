@@ -1,0 +1,89 @@
+.main-input
+  transition background-color 0.3s ease
+  background-color $ho-grey
+  display none
+  min-height $block
+  position relative
+  width 100%
+
+  .main-input-text
+  .placeholder
+    transition color 0.3s ease
+    background-color transparent
+    color $do-grey
+    font $sans-s-light
+    left 0
+    line-height $block -22 -20
+    padding 22px 20px 20px
+    position absolute
+    top 0
+    width 100%
+
+  .placeholder
+    overflow hidden
+    white-space nowrap
+
+  .icon
+    transition opacity 0.3s ease
+    left 20px
+    opacity 0.5
+    position absolute
+    top 20px
+
+
+  &.open
+    background-color $ge-grey
+    display inline-block
+
+  &:hover
+  &.typing
+    background-color $ge-grey
+
+    .main-input-text
+      color white
+
+    .icon
+      opacity 1
+
+  &.has-text .placeholder
+    display none
+
+  &.typing.has-text .suggestions
+    border-top 1px solid $fo-grey
+    height: auto
+
+
+@media screen_to_break_one
+  .main-input
+    border-left 1px solid $go-grey
+    display inline-block
+    width 50%
+
+    .main-input-text
+    .placeholder
+      padding 22px 20px 20px 70px
+
+    &.typing .placeholder
+      display none
+
+    &:hover .placeholder
+    &.typing .placeholder
+      color white
+
+  #search-input .icon
+    sprite_mixin(0px, 80px, 40px, 40px)
+
+  #paste-link-input .icon
+    sprite_mixin(0px, 120px, 40px,   40px )
+
+
+
+
+
+
+
+
+
+
+
+
