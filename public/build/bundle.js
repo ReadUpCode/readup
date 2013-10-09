@@ -33,7 +33,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
 
   $scope.item = {tags : {}};
   $scope.send = function(){
-    $http.post('/items', $scope.item).success(function() {
+    $http.post('/_/items', $scope.item).success(function() {
       console.log('we added the link bitches!!!!');
     });
   };
@@ -59,13 +59,27 @@ var controllers = require('../app.js').controllers;
 
 controllers.controller('HomeController', ['$scope', '$http', '$location', 'tagsFactory', function($scope, $http, $location, tagsFactory){
   $scope.tags = tagsFactory.getAllTags();
-  console.log($scope.tags);
   $scope.changeView = function(tagName) {
     tagsFactory.setTagName(tagName);
     $location.path('/' + tagName);
   };
 }]);
 },{"../app.js":1}],4:[function(require,module,exports){
+var controllers = require('../app.js').controllers;
+
+controllers.controller('SearchController', ['$scope', '$http', function($scope, $http) {
+  $http.get('/_/tags').success(function(data){
+    $scope.typeahead = data;
+  });
+  
+  $scope.typeaheadFn = function() {
+    return $.map($scope.typeahead, function(tag) {
+      return tag.name;
+    });
+  };
+}]);
+
+},{"../app.js":1}],5:[function(require,module,exports){
 var controllers = require('../app.js').controllers;
 
 controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory', function($scope, $routeParams, tagsFactory) {
@@ -80,7 +94,7 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
     link.score += value;
   };
 }]);
-},{"../app.js":1}],5:[function(require,module,exports){
+},{"../app.js":1}],6:[function(require,module,exports){
 module.exports=[
     {
       "name": "c#",
@@ -5083,7 +5097,7 @@ module.exports=[
       "fulfills_required": false
     }
 ]
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 var factories = require('../app.js').factories;
 var suggestedTagsFile = require('./1000SuggestedTags.json');
 
@@ -5118,7 +5132,7 @@ factories.factory('tagsFactory', function($http, $q) {
 
   return factory;
 });
-},{"../app.js":1,"./1000SuggestedTags.json":5}],7:[function(require,module,exports){
+},{"../app.js":1,"./1000SuggestedTags.json":6}],8:[function(require,module,exports){
 var setupUI = function(){
 
   // Show and hide input elements (placeholder, suggestions, etc.) at correct times
@@ -5161,5 +5175,5 @@ var setupUI = function(){
 $(document).on('ready', function() {
   setupUI();
 });
-},{}]},{},[2,1,3,4,6,7])
+},{}]},{},[1,2,3,4,5,7,8])
 ;

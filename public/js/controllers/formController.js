@@ -13,7 +13,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
 
   $scope.item = {tags : {}};
   $scope.send = function(){
-    $http.post('/items', $scope.item).success(function() {
+    $http.post('/_/items', $scope.item).success(function() {
       console.log('we added the link bitches!!!!');
     });
   };
