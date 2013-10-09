@@ -1,0 +1,79 @@
+nav
+  background-color $ho-grey
+  font-size 0
+  margin 0 0 30px
+  position relative
+  width 100%
+
+  .tab 
+    transition background-color 0.3s ease
+    cursor pointer
+    display inline-block
+    height $block
+    text-align center
+    vertical-align top
+    width 25%
+
+    .tab-icon
+      transition opacity 0.3s ease
+      display inline-block
+      margin-top 20px
+
+    ~ .tab
+      border-left 1px solid $go-grey
+
+    &:hover
+    &.open
+      background-color $ge-grey
+
+
+  #logo
+    sprite_mixin(0px, 0px, 80px, 80px)
+
+  #search-input-tab .tab-icon
+    sprite_mixin(0px, 80px, 40px, 40px )
+
+  #paste-link-input-tab .tab-icon
+    sprite_mixin(0px, 120px, 40px, 40px )
+
+  #login
+    .tab-icon
+      sprite_mixin(0px, 160px, 40px,   40px )
+      margin-top 16px
+
+    h1
+      transition all 0.3s ease
+      color white
+      font $sans-xxs
+      margin-top -7px
+
+@media screen_to_break_one
+  nav
+    padding 0 $block
+
+    .tab
+      position absolute
+      top 0
+      width $block
+
+    #main-menu
+      left 0
+
+    #search-input-tab
+    #paste-link-input-tab
+      display none
+
+    #log-in
+      right 0
+
+      .tab-icon
+        opacity 0.6
+
+      h1
+        color $eo-grey
+
+      :hover
+        span
+          opacity 1
+        h1
+          color white

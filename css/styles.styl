@@ -1,10 +1,19 @@
-//Variables
-@import 'variables/_colors.styl'
-@import 'variables/_measures.styl'
+//Libraries
+@import 'nib'
+
+//Reset
+global-reset()
+*,*:before,*:after 
+  box-sizing: border-box
+
+//Variables and Mixins
+@import ('./imports/mixins/_sprites.styl')
+import_tree('./imports/variables')
+
 //Files
-@import '_tag-box.styl'
-@import '_basic-layout.styl'
-
-.main-container
-  font-family source-sans-pro, sans-serif
-
+@import ('./imports/components/_basic-layout.styl')
+@import ('./imports/components/_big-tags.styl')
+@import ('./imports/components/_main-input.styl')
+@import ('./imports/components/_nav.styl')
+@import ('./imports/components/_header.styl')
+@import ('./imports/components/_title.styl')

@@ -1,0 +1,11 @@
+sprite_mixin(x = 0, y = 0, $width = 0, $height = 0)
+  if ($width == 0) and (height == 0)
+    background-image url('../images/sprite.svg')
+    background-repeat no-repeat
+    background-position x y
+  else
+    background-image url('../images/sprite.svg')
+    background-repeat no-repeat
+    background-position (x*-1) (y*-1)
+    height $height
+    width $width
