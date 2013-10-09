@@ -20,15 +20,20 @@
 <body>
   <div id='main-container'>
     <header>
-      <h1><a href="/"></a>ReadUp</h1>
+      <h1><a href="/">Read Up</a></h1>
     </header>
     <nav>
+      <div id='main-menu' class='tab'>
+        <div id='logo'></div>
+      </div>
+      <div id='search-input-tab' class='tab'><div class='tab-icon'></div></div>
+      <div id='paste-link-input-tab' class='tab'><div class='tab-icon'></div></div>
       <div id='log-in' class='tab'>
         <span class='tab-icon'></span>
         <h1>Log in</h1>
       </div>
-      <div ng-controller="FormController">
-        <form name="itemForm" no-validate type='url' class="submission-form" ng-submit='showModal()'>
+<!--       <div ng-controller="FormController">
+        <form name="itemForm" no-validate type='url' class="submission-form" ng-submit='showModal()'> -->
           <div id='search-input' class='main-input'>
             <div class='icon'></div>
             <div class='placeholder'>Find a topic</div>
@@ -36,16 +41,16 @@
           </div>
           <div id='paste-link-input' class='main-input'>
             <div class='icon'></div>
-            <div clas s='placeholder'>Paste a link</div>
-            <input id='paste-link' class='main-input-text' type="url" ng-model="item.link"/ required>
+            <div class='placeholder'>Paste a link</div>
+            <input id='paste-link' class='main-input-text' type='url' ng-model="item.link"/ required>
           </div>
           <button type="button" ng-disabled='!itemForm.$valid' class="btn" bs-modal="'./partials/tags_modal.html'">Submit</button>
-        </form>
-      </div>
+<!--         </form>
+      </div> -->
+    </nav>
       <div ng-controller="HomeController">
         <div ng-view></div>
       </div>
-    </nav>
   </div>
 </body>
 </html>
