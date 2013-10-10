@@ -2,4 +2,4 @@ node_modules
 .nodemonignore
 start.sh
 :.DS_Store
-build/bundle.js
+public/build/bundle.js
