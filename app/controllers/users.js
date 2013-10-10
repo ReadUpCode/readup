@@ -40,3 +40,7 @@ exports.findUser = function(userId, callback){
     return callback(null, user);
   });
 };
+
+exports.getLoggedInUser = function(req, res){
+  res.send(200, req.user);
+};
