@@ -12,54 +12,20 @@ describe("End To End: Testing Routes", function() {
 		expect(browser().location().path()).toBe("/news");
 	});
 	it("should jump to ", function() {
-		browser().navigateTo("#/");
-		expect(browser().location().path()).toBe("/");
+		browser().navigateTo("#/ipad");
+		expect(browser().location().path()).toBe("/ipad");
 	});
 	it("should jump to ", function() {
-		browser().navigateTo("#/");
-		expect(browser().location().path()).toBe("/");
+		browser().navigateTo("#/qt");
+		expect(browser().location().path()).toBe("/qt");
 	});
 	it("should jump to ", function() {
-		browser().navigateTo("#/");
-		expect(browser().location().path()).toBe("/");
+		browser().navigateTo("#/hello");
+		expect(browser().location().path()).toBe("/hello");
 	});
 	it("should jump to ", function() {
-		browser().navigateTo("#/");
-		expect(browser().location().path()).toBe("/");
+		browser().navigateTo("#/browser");
+		expect(browser().location().path()).not().toBe("/browsers");
+		expect(browser().location().path()).toBe("/browser");
 	});
-
-it("should jump to ", function() {
-		browser().navigateTo("#/");
-		expect(browser().location().path()).toBe("/");
-	});
-	it("should jump to ", function() {
-		browser().navigateTo("#/");
-		expect(browser().location().path()).toBe("/");
-	});
-	it("should jump to ", function() {
-		browser().navigateTo("#/");
-		expect(browser().location().path()).toBe("/");
-	});
-	it("should jump to ", function() {
-		browser().navigateTo("#/");
-		expect(browser().location().path()).toBe("/");
-	});
-it("should jump to ", function() {
-		browser().navigateTo("#/");
-		expect(browser().location().path()).toBe("/");
-	});
-	it("should jump to ", function() {
-		browser().navigateTo("#/");
-		expect(browser().location().path()).toBe("/");
-	});
-	it("should jump to ", function() {
-		browser().navigateTo("#/");
-		expect(browser().location().path()).toBe("/");
-	});
-	it("should jump to ", function() {
-		browser().navigateTo("#/");
-		expect(browser().location().path()).toBe("/");
-	});
-
-
 });
