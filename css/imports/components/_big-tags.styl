@@ -1,0 +1,38 @@
+#big-tags
+  font-size 0px
+  margin 0 16px
+
+  div
+    transition border 0.1s ease color 0.1s ease
+    border-bottom 1px solid $green-light
+    color $ho-grey
+    display inline-block
+    font $sans-m
+    height 80px
+    margin 5px 0
+    overflow hidden
+    padding 30px 0 0 15px
+    text-decoration none
+    text-overflow ellipsis
+    width 100%
+    white-space nowrap
+
+  &.click-for-more
+    border-bottom 6px solid $ho-grey
+
+    &:hover
+      border-bottom 6px solid $do-grey
+      color $ho-grey
+
+  &:hover
+    border-bottom 6px solid $ho-grey
+
+
+@media screen-to-break-1
+  #big-tags
+    margin 0
+
+    div
+      margin 5px 2%
+      width 46%
+

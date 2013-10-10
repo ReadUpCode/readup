@@ -7,10 +7,20 @@ html
 body
   color $ho-grey
 
-  #content
+  #main-container
     margin 0 auto
     max-width $max-w
     padding 0 0 40px
 
 em
   font-style italic
+
+a
+  text-decoration none
+  :hover
+    text-decoration underline
+
+@media screen_to_break_one
+  body
+    padding 0 3%
+
