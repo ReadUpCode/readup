@@ -12,10 +12,18 @@ everyauth.everymodule
       findUser(id, callback);
     });
 
+everyauth.everymodule.logoutPath('/_/logout');
+
 everyauth.github
   .scope('user:email')
   .appId(process.env.APP_ID)
   .appSecret(process.env.APP_SECRET)
+  // TODO: handle user denying access to their account info
+  .handleAuthCallbackError(function(req, res){
+    console.log('******error req:', req);
+    console.log('******error res:', res);
+    res.redirect('/');
+  })
   .findOrCreateUser(function(session, accessToken, accessTokenExtra, ghUser) {
     console.log('ghUser in findOrCreate everyauth: ', ghUser);
     return false || addGitHubUser(ghUser, accessToken);
