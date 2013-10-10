@@ -56,47 +56,21 @@ exports.create = function(req, res){
         console.log('ph:', ph)
         return ph.createPage(function(err,page) {
           console.log("page:", page.sendEvent)
+          page.set('viewportSize', { width: 1024, height: 768 });
           return page.open(link, function(err,status) {
             console.log("opened site? ", status);
             // page.open('http://google.com', function () {
                 // page.zoomFactor = 3;
                 // page.set('viewportSize', {width: 100, height: 100})
-                page.set('zoomFactor', .25)
+                // page.set('zoomFactor', .25)0
+
+
                 // page.set('clipRect', {width: 500, height: 500})
                 // page.viewportSize = { width: 600, height: 6000 }; 
                 // page.clipRect = { top: 14, left: 3, width: 400, height: 600 }; 
+                // page.set('clipRect', {top:0, left:0, width:1024, height:1024});
                 page.render('public/item_images/' + item_id + '.png', function(){console.log('rendering')});
-            // });
-            // page.includeJs('http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', function(err) {
-            //   //jQuery Loaded.
-            //   //Wait for a bit for AJAX content to load on the page. Here, we are waiting 5 seconds.
-            //   setTimeout(function() {
-            //     return page.evaluate(function() {
-            //       //Get what you want from the page using jQuery. A good way is to populate an object with all the jQuery commands that you need and then return the object.
-            //       // var h2Arr = [],
-            //       // pArr = [];
-            //       // $('h2').each(function() {
-            //       //   h2Arr.push($(this).html());
-            //       // });
-            //       // $('p').each(function() {
-            //       //   pArr.push($(this).html());
-            //       // });
-            //       var imgArr = [];
-            //       $('img').each(function(){
-            //         imgArr.push($(this).attr())
-            //       })
-
-            //       return {
-            //         // h2: h2Arr,
-            //         // p: pArr
-            //         img: imgArr
-            //       };
-            //     }, function(err,result) {
-            //       console.log(result);
-            //       ph.exit();
-            //     });
-            //   }, 1000);
-            // });
+      
               page.close(function(){
                 console.log('closing connection to linked website...')
               })
@@ -108,9 +82,6 @@ exports.create = function(req, res){
       res.end();
     }
   ).done(function(){console.log("DONE FINALLY")})
-  
-
-  
 };
 
 exports.get = function(req,res) {

@@ -68,6 +68,12 @@ controllers.controller('HomeController', ['$scope', '$http', '$location', 'tagsF
 },{"../app.js":1}],4:[function(require,module,exports){
 var controllers = require('../app.js').controllers;
 
+controllers.controller('LoginController', ['$scope', '$http', 'loginFactory', function($scope, $http, loginFactory){
+	$scope.currentUser = loginFactory.getLoggedInUser();
+}]);
+},{"../app.js":1}],5:[function(require,module,exports){
+var controllers = require('../app.js').controllers;
+
 controllers.controller('SearchController', ['$scope', '$http', function($scope, $http) {
   $http.get('/_/tags').success(function(data){
     $scope.typeahead = data;
@@ -80,7 +86,7 @@ controllers.controller('SearchController', ['$scope', '$http', function($scope, 
   };
 }]);
 
-},{"../app.js":1}],5:[function(require,module,exports){
+},{"../app.js":1}],6:[function(require,module,exports){
 var controllers = require('../app.js').controllers;
 
 controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory', function($scope, $routeParams, tagsFactory) {
@@ -95,17 +101,29 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
     link.score += value;
   };
 }]);
-},{"../app.js":1}],6:[function(require,module,exports){
+},{"../app.js":1}],7:[function(require,module,exports){
 var directives = require('../app.js').directives;
 
 directives.directive("showFrame", function(){
  return function(scope, element) {
-      element.bind("mouseenter", function(){
-      element.append('<div>hello</div>');
+      element.bind("click", function(){
+        $('#preview-pane').html(
+        $('<img>', {
+            id: 'preview',
+            src: '/item_images/' + scope.link.id + '.png',
+
+        }).css({
+        	position: 'relative',
+        	right: 0,
+        	width: '100%',
+        	// height: '400px',
+        	overflow: 'scroll'
+        	// background: 'url(/item_images/' + scope.link.id + '.png) no-repeat'
+        })).slideDown()
       })
     }
 });
-},{"../app.js":1}],7:[function(require,module,exports){
+},{"../app.js":1}],8:[function(require,module,exports){
 module.exports=[
     {
       "name": "c#",
@@ -5108,7 +5126,23 @@ module.exports=[
       "fulfills_required": false
     }
 ]
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
+var factories = require('../app.js').factories;
+
+factories.factory('loginFactory', function($http, $q) {
+  var factory = {};
+
+  factory.getLoggedInUser = function(){
+    var deferred = $q.defer();
+    $http.get('/_/loggedin/user').success(function(data){
+    	console.log(data);
+      deferred.resolve(data);
+    });
+    return deferred.promise;
+  };
+  return factory;
+});
+},{"../app.js":1}],10:[function(require,module,exports){
 var factories = require('../app.js').factories;
 var suggestedTagsFile = require('./1000SuggestedTags.json');
 
@@ -5144,7 +5178,7 @@ factories.factory('tagsFactory', function($http, $q) {
 
   return factory;
 });
-},{"../app.js":1,"./1000SuggestedTags.json":7}],9:[function(require,module,exports){
+},{"../app.js":1,"./1000SuggestedTags.json":8}],11:[function(require,module,exports){
 var setupUI = function(){
 
   // Show and hide input elements (placeholder, suggestions, etc.) at correct times
@@ -5187,5 +5221,5 @@ var setupUI = function(){
 $(document).on('ready', function() {
   setupUI();
 });
-},{}]},{},[1,2,3,4,5,6,8,9])
+},{}]},{},[1,2,3,4,5,6,7,9,10,11])
 ;
