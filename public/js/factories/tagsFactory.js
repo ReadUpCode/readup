@@ -9,6 +9,7 @@ factories.factory('tagsFactory', function($http, $q) {
   };
 
   factory.getAllTags = function(){
+
     var deferred = $q.defer();
     $http.get('/_/tags').success(function(data){
       deferred.resolve(data);
