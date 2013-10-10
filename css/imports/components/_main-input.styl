@@ -53,7 +53,7 @@
     height: auto
 
 
-@media screen_to_break_one
+@media screen-to-break-one
   .main-input
     border-left 1px solid $go-grey
     display inline-block
@@ -71,11 +71,10 @@
       color white
 
   #search-input .icon
-    sprite_mixin(0px, 80px, 40px, 40px)
+    @extend .sprite-search-white;
 
   #paste-link-input .icon
-    sprite_mixin(0px, 120px, 40px,   40px )
-
+    @extend .sprite-plus-white;
 
 
 
