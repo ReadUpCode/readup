@@ -5,6 +5,12 @@ table{border-collapse:separate;border-spacing:0;vertical-align:middle}
 caption,th,td{text-align:left;font-weight:normal;vertical-align:middle}
 a img{border:none}
 *,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+.sprite-logo{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 0;height:80px;width:80px}
+.sprite-search-white,#search-input .icon{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -80px;height:40px;width:40px}
+.sprite-plus-white,#paste-link-input .icon{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -120px;height:40px;width:40px}
+.sprite-twitter-white{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -160px;height:40px;width:40px}
+.sprite-arrow-up-white{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -200px;height:20px;width:20px}
+.sprite-twitter-white{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -160px;height:40px;width:40px}
 html{font-size:62.5%}
 .wf-loading body{opacity:0;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";filter:alpha(opacity=0)}
 body{color:#333;}
@@ -13,11 +19,11 @@ em{font-style:italic}
 a{text-decoration:none;}
 a :hover{text-decoration:underline}
 @media screen and (min-width: 600px){body{padding:0 3%}
-}#big-tags{font-size:0;margin:0 16px;}
-#big-tags div{-webkit-transition:border 0.1s ease color 0.1s ease;-moz-transition:border 0.1s ease color 0.1s ease;-o-transition:border 0.1s ease color 0.1s ease;-ms-transition:border 0.1s ease color 0.1s ease;transition:border 0.1s ease color 0.1s ease;border-bottom:1px solid #cfff73;color:#333;display:inline-block;font:400 3.6rem "source-sans-pro",arial,sans;height:80px;margin:5px 0;overflow:hidden;padding:30px 0 0 15px;text-decoration:none;-o-text-overflow:ellipsis;text-overflow:ellipsis;width:100%;white-space:nowrap}
-#big-tags.click-for-more{border-bottom:6px solid #333;}
-#big-tags.click-for-more:hover{border-bottom:6px solid #999;color:#333}
-#big-tags:hover{border-bottom:6px solid #333}
+}.big-tags{font-size:0;margin:0 16px;}
+.big-tags div{-webkit-transition:border 0.1s ease color 0.1s ease;-moz-transition:border 0.1s ease color 0.1s ease;-o-transition:border 0.1s ease color 0.1s ease;-ms-transition:border 0.1s ease color 0.1s ease;transition:border 0.1s ease color 0.1s ease;border-bottom:1px solid #cfff73;color:#333;display:inline-block;font:400 3.6rem "source-sans-pro",arial,sans;height:80px;margin:5px 0;overflow:hidden;padding:30px 0 0 15px;text-decoration:none;-o-text-overflow:ellipsis;text-overflow:ellipsis;width:100%;white-space:nowrap}
+.big-tags.click-for-more{border-bottom:6px solid #333;}
+.big-tags.click-for-more:hover{border-bottom:6px solid #999;color:#333}
+.big-tags:hover{border-bottom:6px solid #333}
 @media screen-to-break-1{#big-tags{margin:0;}
 #big-tags div{margin:5px 2%;width:46%}
 }.main-input{-webkit-transition:background-color 0.3s ease;-moz-transition:background-color 0.3s ease;-o-transition:background-color 0.3s ease;-ms-transition:background-color 0.3s ease;transition:background-color 0.3s ease;background-color:#333;display:none;min-height:80px;position:relative;width:100%;}
@@ -34,8 +40,6 @@ a :hover{text-decoration:underline}
 .main-input .main-input-text,.main-input .placeholder{padding:22px 20px 20px 70px}
 .main-input.typing .placeholder{display:none}
 .main-input:hover .placeholder,.main-input.typing .placeholder{color:#fff}
-#search-input .icon{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -80px;height:40px;width:40px}
-#paste-link-input .icon{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -120px;height:40px;width:40px}
 }nav{background-color:#333;font-size:0;margin:0 0 30px;position:relative;width:100%;}
 nav .tab{-webkit-transition:background-color 0.3s ease;-moz-transition:background-color 0.3s ease;-o-transition:background-color 0.3s ease;-ms-transition:background-color 0.3s ease;transition:background-color 0.3s ease;cursor:pointer;display:inline-block;height:80px;text-align:center;vertical-align:top;width:25%;}
 nav .tab .tab-icon{-webkit-transition:opacity 0.3s ease;-moz-transition:opacity 0.3s ease;-o-transition:opacity 0.3s ease;-ms-transition:opacity 0.3s ease;transition:opacity 0.3s ease;display:inline-block;margin-top:20px}
