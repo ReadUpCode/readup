@@ -40,7 +40,7 @@ exports.create = function(req, res){
   ).then(
     function(title){
       Item.create({ 
-        title: title, link: req.body.link }).success(function(item) {
+        title: title, link: req.body.link, UserId: req.user.dataValues.id }).success(function(item) {
         var tags = Object.keys(req.body.tags);
         for(var i = 0; i < tags.length; i++){
           Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
