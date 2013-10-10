@@ -113,6 +113,8 @@ exports.create = function(req, res){
   
 };
 
+// This function isn't currently in use. If you're using this function, we need to
+// add a check to see if logged in user has voted on this. See tags.getAllItemsForTag.
 exports.get = function(req,res) {
   var responses = [];
   Item.findAll({include: [Tag]}).success(function(items){
