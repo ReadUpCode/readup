@@ -1,13 +1,26 @@
-<h1> {{tag}} </h1>
-<div ng-repeat='link in links'>
-  <div class='link-container'>
-    <a href={{link.link}} class="link-url">{{link.link}}</a>
-	  <div style="background: url('/item_images/{{ link.id }}.png') no-repeat; width: 300px; height: 400px;" show-frame>
-    </div>
-    <div class="vote-container">
-      <div>{{link.score}}</div>
-      <div ng-click="vote(1, link)">+</div>
-      <div ng-click="vote(-1, link)">-</div>
-    </div>
+<div id='articles-title' class='title'>{{tag}}</div> 
+<aside id='about'>
+  <p>
+    This topic is critical to computer science. Absolutely critical. You should totally 
+    read tons of articles about it. Employers will laugh at you if you don't know about this.
+    Your peers will shun you, and your significant other will start to question your...
+    <a href='#'>more on Wikipedia...</a>
+  </p>
+  <div class='related-tags'>
+    <div>Frameworks</div>
+    <div>AWS</div>
+    <div>Java</div>
+    <div>Android</div>
   </div>
+</aside>
+<ul id='links'>
+  <li class='link' ng-repeat='link in links'>
+    <h1><a href="{{link.link}}">{{link.title}}</a></h1>
+    <h2><a href="{{link.link}}">{{link.link}}</a></h2>
+    <div class="votes">
+      <div class='up-vote-this' ng-click="vote(1, link)"><span class='up-arrow'></span></div>
+      <div class='down-vote-this' ng-click="vote(-1, link)"><span class='down-arrow'></span></div>
+      <div class='vote-count'>{{link.score}}</div>
+    </div>
+  </li>
 </div>

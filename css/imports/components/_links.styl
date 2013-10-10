@@ -1,0 +1,96 @@
+#links
+  .link
+    border-bottom 2px solid $ob-grey
+    margin 40px 0 0
+    padding 0 24px 40px
+    position relative
+
+  h1 a
+    color $ho-grey
+    font $sans-m
+    overflow hidden
+
+  h2
+    color $co-grey
+    font sans-s-light
+    margin 10px 0 0;
+    overflow hidden
+
+  .votes
+    font-size 0
+    height 32px
+    margin 20px 0 0 10px
+    position relative
+    width 90px
+
+    .up-vote-this
+      border-radius 2px
+      box-shadow 0 0 0 6px rgba(0,0,0,0.15)
+      transition all 0.2s ease
+      background color $ho-grey
+      cursor pointer
+      height 32px
+      left 0
+      padding 7px 0 0
+      position absolute
+      text-align center
+      top 0
+      width 32px
+
+      .up-arrow
+        transition all 0.2s ease
+        background-color $ho-grey
+        height 9px 
+        margin -5px -4px 0 0
+        position absolute
+        right 0
+        top 50%
+        width 9px
+        transform rotate(45deg)
+
+      &:before
+        @extend .sprite-arrow-up-white
+        content ""
+        display inline-block
+
+      &:hover
+      &:hover .up-arrow
+        padding 4px 0 0
+        background-color $fo-grey
+
+      &:active
+      &:active .up-arrow
+        transition all 0s ease
+        background-color $green-med
+
+      .vote-count
+        color $fo-grey
+        font $sans-s-light
+        left 46px
+        position absolute
+        top 5px
+
+
+@media screen-to-break-one
+  #links
+    margin 60px 0 0
+
+    .link
+      border-bottom none
+      padding 0 30px 30px ($block*2)
+
+      .votes
+        left 25px
+        margin 0
+        position absolute
+        top 1px 
+        width auto
+
+        .vote-count
+          font $sans-ms-light
+          top 2px
+
+
+@media screen-to-break-two
+  #links
+    width 73%
