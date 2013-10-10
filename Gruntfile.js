@@ -37,6 +37,13 @@ module.exports = function(grunt){
         }
       }
     },
+    karma: {
+      e2e: {
+        configFile: './test/karma-e2e.conf.js',
+        autoWatch: false,
+        singleRun: true
+      }
+    },
     watch: {
       browserify:{
         files: ['public/js/**/*.js'],
@@ -60,5 +67,7 @@ module.exports = function(grunt){
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-karma');
+  grunt.registerTask('test', ['karma:e2e']);
   grunt.registerTask('default', 'concurrent');
 };
