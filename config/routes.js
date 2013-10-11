@@ -2,11 +2,14 @@ var items = require('../app/controllers/items');
 var users = require('../app/controllers/users');
 var tags = require('../app/controllers/tags');
 var votes = require('../app/controllers/votes');
+var links = require('../app/controllers/links');
 var everyauth = require('everyauth');
 var everyauthConfig = require('./everyauthConfig.js');
 
 module.exports = function(app){
   app.post('/_/items', function(req,res){ items.create(req, res); });
+  app.post('/_/preview', function(req, res) { links.getText(req, res); });
+
   app.get('/_/items', function(req,res){ items.get(req, res); });
   app.get('/_/items/:id', function(req,res){ items.getOne(req, res); });
   app.get('/_/items/:id/score', function(req,res){ items.getScore(req, res); });
@@ -26,6 +29,5 @@ module.exports = function(app){
   app.get('/_/loggedin/user', function(req, res){ users.getLoggedInUser(req, res); });
 
   app.get('/_/logging/in', function(req, res){ users.checkLogin(req, res); });
-
 };
 
