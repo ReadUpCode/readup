@@ -52,6 +52,23 @@
     border-top 1px solid $fo-grey
     height: auto
 
+  .typeahead.dropdown-menu
+    background-color $ge-grey
+    overflow hidden
+    width 100%
+    z-index 1
+
+  .typeahead.dropdown-menu li a
+    @include transition("all 0.1s ease")
+    border-top 1px solid $fo-grey
+    color $bo-grey
+    font $sans-xs
+    padding 16px 20px
+    text-decoration none
+
+    &:hover
+      background-color $fe-grey
+      color white
 
 @media screen-to-break-one
   .main-input
@@ -75,19 +92,3 @@
 
   #paste-link-input .icon
     @extend .sprite-plus-white;
-
-  .typeahead.dropdown-menu
-    width 100%
-
-  .typeahead.dropdown-menu li
-    color black
-    font-size 2rem
-
-
-
-
-
-
-
-
-
