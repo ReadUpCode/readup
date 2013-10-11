@@ -5,12 +5,17 @@ var sequelize = new Sequelize('readup', 'root', '', {
 })
 
 var User = sequelize.define('User', {
-  name: {
+  username: {
     type: Sequelize.STRING,
     allowNull:false // what does this even mean?
   },
   email: Sequelize.STRING,
-  karma: Sequelize.INTEGER
+  karma: Sequelize.INTEGER,
+  github_id: Sequelize.INTEGER,
+  image_url: Sequelize.STRING,
+  profile_url: Sequelize.STRING,
+  public_repos: Sequelize.INTEGER,
+  gh_followers: Sequelize.INTEGER
 });
 
 var Item = sequelize.define('Item', {

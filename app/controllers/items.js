@@ -40,7 +40,7 @@ exports.create = function(req, res){
   ).then(
     function(title){
       Item.create({ 
-        title: title, link: req.body.link }).success(function(item) {
+        title: title, link: req.body.link, UserId: req.user.dataValues.id }).success(function(item) {
         var tags = Object.keys(req.body.tags);
         for(var i = 0; i < tags.length; i++){
           Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
@@ -84,6 +84,8 @@ exports.create = function(req, res){
   ).done(function(){console.log("DONE FINALLY")})
 };
 
+// This function isn't currently in use. If you're using this function, we need to
+// add a check to see if logged in user has voted on this. See tags.getAllItemsForTag.
 exports.get = function(req,res) {
   var responses = [];
   Item.findAll({include: [Tag]}).success(function(items){

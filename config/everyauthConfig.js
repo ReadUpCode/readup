@@ -29,4 +29,4 @@ everyauth.github
     return false || addGitHubUser(ghUser, accessToken);
   })
   .entryPath('/auth/github')
-  .redirectPath('/');
+  .redirectPath('/_/logging/in');

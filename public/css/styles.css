@@ -40,6 +40,8 @@ a :hover{text-decoration:underline}
 .main-input .main-input-text,.main-input .placeholder{padding:22px 20px 20px 70px}
 .main-input.typing .placeholder{display:none}
 .main-input:hover .placeholder,.main-input.typing .placeholder{color:#fff}
+.typeahead.dropdown-menu{width:100%}
+.typeahead.dropdown-menu li{color:#000;font-size:2rem}
 }nav{background-color:#333;font-size:0;margin:0 0 30px;position:relative;width:100%;}
 nav .tab{-webkit-transition:background-color 0.3s ease;-moz-transition:background-color 0.3s ease;-o-transition:background-color 0.3s ease;-ms-transition:background-color 0.3s ease;transition:background-color 0.3s ease;cursor:pointer;display:inline-block;height:80px;text-align:center;vertical-align:top;width:25%;}
 nav .tab .tab-icon{-webkit-transition:opacity 0.3s ease;-moz-transition:opacity 0.3s ease;-o-transition:opacity 0.3s ease;-ms-transition:opacity 0.3s ease;transition:opacity 0.3s ease;display:inline-block;margin-top:20px}
