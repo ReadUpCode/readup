@@ -1,9 +1,9 @@
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-  <h3>Add ALL of the tags!</h3>
+  <h3>Add some helpful info</h3>
 </div>
 <div class="modal-body">
-  Here's your link: {{item.link}} <br/>
+  <div class='modal-link'>Here's your link: <div class='url'><a href='{{item.link}}'>{{item.link}}</a></div></div>
   <form ng-sumbit='addTag(tag)'>
     What tags would you like to add? <input type="text" ng-model="tag" bs-typeahead="typeaheadFn"/>
     <button ng-click='addTag(tag)'>Add</button>
