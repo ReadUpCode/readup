@@ -75,11 +75,11 @@ exports.create = function(req, res){
                 console.log('closing connection to linked website...')
               })
             });
-            res.end();   
+            res.end('donezo');   
           });
         });
       })
-      res.end();
+      res.end('done');
     }
   ).done(function(){console.log("DONE FINALLY")})
 };
