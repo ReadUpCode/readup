@@ -23,14 +23,6 @@ var controllers = require('../app.js').controllers;
 controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', function($scope, $http, $modal, $q, tagsFactory) {
   var modalPromise = $modal({template: '../partials/tags_modal.html', persist: true, show: false, backdrop: 'static', scope: $scope});
 
-  $scope.typeahead = tagsFactory.getSuggestedTags();
-
-  $scope.typeaheadFn = function() {
-    return $.map($scope.typeahead, function(tag) {
-      return tag.name;
-    });
-  };
-
   $scope.item = {tags : {}};
   $scope.send = function(){
     $http.post('/_/items', $scope.item).success(function() {
@@ -51,6 +43,28 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   $scope.showModal = function() {
     $q.when(modalPromise).then(function(modalEl) {
       modalEl.modal('show');
+    });
+  };
+
+  // autocomplete for adding tags
+  $scope.typeahead = tagsFactory.getSuggestedTags();
+
+  $scope.typeaheadFn = function() {
+    return $.map($scope.typeahead, function(tag) {
+      return tag.name;
+    });
+  };
+
+  // autocomplete for the search
+  $http.get('/_/tags').success(function(data){
+    $scope.typeaheadSearch = data;
+    console.log('fetch');
+  });
+
+  $scope.typeaheadSearchFn = function() {
+    return $.map($scope.typeaheadSearch, function(tag) {
+      console.log('tag', tag);
+      return tag.name;
     });
   };
 }]);
@@ -75,21 +89,13 @@ controllers.controller('LoginController', ['$scope', '$http', 'loginFactory', fu
 var controllers = require('../app.js').controllers;
 
 controllers.controller('SearchController', ['$scope', '$http', function($scope, $http) {
-  $http.get('/_/tags').success(function(data){
-    $scope.typeahead = data;
-  });
   
-  $scope.typeaheadFn = function() {
-    return $.map($scope.typeahead, function(tag) {
-      return tag.name;
-    });
-  };
 }]);
 
 },{"../app.js":1}],6:[function(require,module,exports){
 var controllers = require('../app.js').controllers;
 
-controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory', function($scope, $routeParams, tagsFactory) {
+controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory', '$http', function($scope, $routeParams, tagsFactory, $http) {
   if(tagsFactory.curTag !== $routeParams.tag) {
     $scope.tag = tagsFactory.setTagName($routeParams.tag);
   }else{
@@ -97,8 +103,13 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
   }
 
   $scope.links = tagsFactory.getTagInfo($scope.tag);
+
   $scope.vote = function(value, link){
     link.score += value;
+    console.log(link);
+    link.value = value;
+    $http.post('/_/votes', link).success(function(){
+    });
   };
 }]);
 },{"../app.js":1}],7:[function(require,module,exports){
