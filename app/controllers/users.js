@@ -12,7 +12,7 @@ exports.getAllItemsForUser = function(req, res){
   });
 };
 
-exports.addGitHubUser = function(ghUser, access_token){
+exports.addGitHubUser = function(ghUser, access_token, promise){
   var requestURL = 'https://api.github.com/user/emails?access_token=' + access_token;
   https.get(requestURL, function(res) {
     res.on('data', function (chunk) {
@@ -31,38 +31,31 @@ exports.addGitHubUser = function(ghUser, access_token){
       };
       User.find({where: {github_id: ghID}}).success(function(user){
         if(user){
-          user.updateAttributes(userData).success(function(){
+          user.updateAttributes(userData).success(function(user){
             console.log('user updated in DB');
+            return promise.fulfill(user);
           });
         } else {
           userData.github_id = ghID;
-          User.create(userData).success(function(){
+          User.create(userData).success(function(user){
             console.log('user created in DB');
+            return promise.fulfill(user);
           });
         }
       });
     });
   });
-  return ghUser;
+  return promise;
 };
 
 exports.findUser = function(userId, callback){
   // TODO: handle failure!
-  User.find({where: {github_id: userId}}).success(function(user){
+  User.find({where: {id: userId}}).success(function(user){
+    console.log('Did we find a user for %s', userId, user)
     return callback(null, user);
   });
 };
 
 exports.getLoggedInUser = function(req, res){
-  res.send(200, req.user);
-};
-
-exports.checkLogin = function(req, res){
-  if(req.user){
-    res.redirect('/');
-  } else {
-    setTimeout(function(){
-      res.redirect('/auth/github');
-    }, 2000);
-  }
+  res.json(req.user || {});
 };
