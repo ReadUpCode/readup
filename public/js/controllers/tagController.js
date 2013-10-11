@@ -10,10 +10,14 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
   $scope.links = tagsFactory.getTagInfo($scope.tag);
 
   $scope.vote = function(value, link){
-    link.score += value;
-    console.log(link);
-    link.value = value;
-    $http.post('/_/votes', link).success(function(){
-    });
+    if(link.curUserVote === value){
+      console.log('you already voted!');
+    } else {
+      link.score += value;
+      link.curUserVote += value;
+      link.value = value;
+      $http.post('/_/votes', link).success(function(){
+      });
+    }
   };
 }]);
