@@ -21,13 +21,25 @@ exports.addGitHubUser = function(ghUser, access_token){
       // TODO: ALWAYS TRY CATCH WHEN JSON.PARSE CAUSE IT CAN THROW!
       ghEmail = JSON.parse(ghEmail);
       ghEmail = ghEmail[0];
-      User.findOrCreate({
+      var userData = {
         email: ghEmail,
-        name: ghUser.login,
-        karma: 1,
-        github_id: ghID
-      }).success(function(){
-        console.log('user recorded in our DB');
+        username: ghUser.login,
+        image_url: ghUser.avatar_url,
+        profile_url: ghUser.html_url,
+        public_repos: ghUser.public_repos,
+        gh_followers: ghUser.followers
+      };
+      User.find({where: {github_id: ghID}}).success(function(user){
+        if(user){
+          user.updateAttributes(userData).success(function(){
+            console.log('user updated in DB');
+          });
+        } else {
+          userData.github_id = ghID;
+          User.create(userData).success(function(){
+            console.log('user created in DB');
+          });
+        }
       });
     });
   });
@@ -43,4 +55,14 @@ exports.findUser = function(userId, callback){
 
 exports.getLoggedInUser = function(req, res){
   res.send(200, req.user);
+};
+
+exports.checkLogin = function(req, res){
+  if(req.user){
+    res.redirect('/');
+  } else {
+    setTimeout(function(){
+      res.redirect('/auth/github');
+    }, 2000);
+  }
 };

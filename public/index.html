@@ -9,6 +9,7 @@
   <link rel="stylesheet" type="text/css" href="lib/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 
+
   <script src="//use.edgefonts.net/source-sans-pro:n3,i3,n4,i4,n9.js"></script>      
   <script src="lib/bower_components/jquery/jquery.js"></script>
   <script src="lib/bower_components/angular/angular.js"></script>
@@ -20,23 +21,35 @@
   <div id='main-container'>
     <header>
       <h1><a href="/">Read Up</a></h1>
+      
     </header>
     <nav>
       <div id='main-menu' class='tab'>
-        <div id='logo'></div>
+        <div id='logo-main'></div>
       </div>
       <div id='search-input-tab' class='tab'><div class='tab-icon'></div></div>
       <div id='paste-link-input-tab' class='tab'><div class='tab-icon'></div></div>
       <div id='log-in' class='tab'>
-        <span class='tab-icon'></span>
-        <h1>Log in</h1>
+        <!-- <span class='tab-icon'></span>
+        <h1>Log in</h1> -->
+        <div ng-controller="LoginController">
+          <div id='logo-github'></div>
+          <div ng-hide="currentUser" type="button" class="btn" onclick="location.href='http://127.0.0.1:3000/auth/github';">login</div>
+          <div ng-hide="!currentUser">
+            <div type="button" class="btn" onclick="location.href='http://127.0.0.1:3000/_/logout';">logout</div>
+              {{currentUser.name}}
+              {{currentUser.karma}}
+            </div>
+          </div>
+          
+          
       </div>
       <div ng-controller="FormController">
         <form name="itemForm" no-validate type='url' class="submission-form" ng-submit='showModal()'>
           <div id='search-input' class='main-input'>
             <div class='icon'></div>
             <div class='placeholder'>Find a topic</div>
-            <input id='search' class='main-input-text' type='text' autocomplete='off'>
+            <input id='search' class='main-input-text' type='text' autocomplete='off' bs-typeahead='typeaheadSearchFn'>
           </div>
           <div id='paste-link-input' class='main-input'>
             <div class='icon'></div>
@@ -45,14 +58,6 @@
           </div>
           <button type="button" ng-disabled='!itemForm.$valid' class="btn" bs-modal="'./partials/tags_modal.html'">Submit</button>
         </form>
-        <div ng-controller="LoginController">
-          <div ng-hide="currentUser" type="button" class="btn" onclick="location.href='http://127.0.0.1:3000/auth/github';">login</div>
-          <div ng-hide="!currentUser">
-            <div type="button" class="btn" onclick="location.href='http://127.0.0.1:3000/_/logout';">logout</div>
-              {{currentUser.name}}
-              {{currentUser.karma}}
-            </div>
-          </div>
       </div>
     </nav>
       <div ng-controller="HomeController">
