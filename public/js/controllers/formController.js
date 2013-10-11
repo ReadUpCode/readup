@@ -3,14 +3,6 @@ var controllers = require('../app.js').controllers;
 controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', function($scope, $http, $modal, $q, tagsFactory) {
   var modalPromise = $modal({template: '../partials/tags_modal.html', persist: true, show: false, backdrop: 'static', scope: $scope});
 
-  $scope.typeahead = tagsFactory.getSuggestedTags();
-
-  $scope.typeaheadFn = function() {
-    return $.map($scope.typeahead, function(tag) {
-      return tag.name;
-    });
-  };
-
   $scope.item = {tags : {}};
   $scope.send = function(){
     $http.post('/_/items', $scope.item).success(function() {
@@ -31,6 +23,28 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   $scope.showModal = function() {
     $q.when(modalPromise).then(function(modalEl) {
       modalEl.modal('show');
+    });
+  };
+
+  // autocomplete for adding tags
+  $scope.typeahead = tagsFactory.getSuggestedTags();
+
+  $scope.typeaheadFn = function() {
+    return $.map($scope.typeahead, function(tag) {
+      return tag.name;
+    });
+  };
+
+  // autocomplete for the search
+  $http.get('/_/tags').success(function(data){
+    $scope.typeaheadSearch = data;
+    console.log('fetch');
+  });
+
+  $scope.typeaheadSearchFn = function() {
+    return $.map($scope.typeaheadSearch, function(tag) {
+      console.log('tag', tag);
+      return tag.name;
     });
   };
 }]);
