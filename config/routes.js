@@ -23,7 +23,9 @@ module.exports = function(app){
     res.redirect('/#/' + req.params.tagName);
   });
 
-  app.get('/_/loggedin/user', function(req, res){ users.getLoggedInUser(req, res); })
+  app.get('/_/loggedin/user', function(req, res){ users.getLoggedInUser(req, res); });
+
+  app.get('/_/logging/in', function(req, res){ users.checkLogin(req, res); });
 
 };
 
