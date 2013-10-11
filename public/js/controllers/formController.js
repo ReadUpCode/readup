@@ -6,7 +6,6 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   $scope.item = {tags : {}};
   $scope.send = function(){
     $http.post('/_/items', $scope.item).success(function() {
-      console.log('we added the link bitches!!!!');
     });
   };
   $scope.addTag = function(tag){
@@ -38,12 +37,10 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   // autocomplete for the search
   $http.get('/_/tags').success(function(data){
     $scope.typeaheadSearch = data;
-    console.log('fetch');
   });
 
   $scope.typeaheadSearchFn = function() {
     return $.map($scope.typeaheadSearch, function(tag) {
-      console.log('tag', tag);
       return tag.name;
     });
   };
