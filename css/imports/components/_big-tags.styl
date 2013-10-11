@@ -2,14 +2,14 @@
   font-size 0px
   margin 0 16px
 
-  div
+  a
     transition border 0.1s ease color 0.1s ease
-    border-bottom 1px solid $green-light
+    border-bottom 2px solid $bluegreen
     color $ho-grey
     display inline-block
     font $sans-m
     height 80px
-    margin 5px 0
+    margin 5px 1%
     overflow hidden
     padding 30px 0 0 15px
     text-decoration none
@@ -17,22 +17,33 @@
     width 100%
     white-space nowrap
 
-  &.click-for-more
-    border-bottom 6px solid $ho-grey
-
     &:hover
       border-bottom 6px solid $do-grey
       color $ho-grey
+      transition all .2s ease
+      cursor pointer
 
-  &:hover
+  &.click-for-more
     border-bottom 6px solid $ho-grey
 
+    
 
-@media screen-to-break-1
-  #big-tags
+  // &:hover
+  //   border-bottom 6px solid $ho-grey
+
+
+@media screen-to-break-one
+  .big-tags
+    margin 0
+    a
+      margin 5px 1%
+      width 46%
+
+@media screen-to-break-two
+  .big-tags
     margin 0
 
-    div
-      margin 5px 2%
-      width 46%
+    a
+      margin 5px 1%
+      width 23%
 
