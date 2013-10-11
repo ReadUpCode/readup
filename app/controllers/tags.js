@@ -17,7 +17,12 @@ exports.getAllItemsForTag = function(req, res){
     var responses = [];
     tag.items.forEach(function(item, index, list){
       Item.find({include: [Tag], where:{id: item.selectedValues.id}}).success(function(singleItem){
-        Vote.find({where: ['ItemId=? AND UserId=?', item.selectedValues.id, req.user.dataValues.id]})
+        if(!req.user){
+          var requestingUserId = 0; 
+        } else {
+          var requestingUserId = req.user.dataValues.id;
+        }
+        Vote.find({where: ['ItemId=? AND UserId=?', item.selectedValues.id, requestingUserId]})
         .success(function(userVote){
           if (userVote){
             var curUserVote = userVote.selectedValues.value;
