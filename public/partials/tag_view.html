@@ -1,4 +1,4 @@
-<div id='articles-title' class='title'>{{tag}}</div> 
+<div class='title' id='articles-title'>{{tag}}</div> 
 <aside id='about'>
   <p>
     This topic is critical to computer science. Absolutely critical. You should totally 
@@ -15,12 +15,29 @@
 </aside>
 <ul id='links'>
   <li class='link' ng-repeat='link in links'>
-    <h1><a href="{{link.link}}">{{link.title}}</a></h1>
+    <div class='title-wrap'>
+      <h1 class='link_title'>
+        <a href="{{link.link}}">{{link.title}}</a>
+      </h1>
+    <div>
     <h2><a href="{{link.link}}">{{link.link}}</a></h2>
     <div class="votes">
-      <div class='up-vote-this' ng-click="vote(1, link)"><span class='up-arrow'></span></div>
-      <div class='down-vote-this' ng-click="vote(-1, link)"><span class='down-arrow'></span></div>
+      <div class='up-vote-this' ng-click="vote(1, link)">
+        <span class='up-arrow'></span>
+      </div>
+      <div class='down-vote-this' ng-click="vote(-1, link)">
+        <span class='down-arrow'></span>
+      </div>
       <div class='vote-count'>{{link.score}}</div>
     </div>
+    <div class='site-thumbnail-container'>
+    <!-- <img class='site-thumbnail' src='/item_images/{{ link.id }}.png' show-frame></img> -->
+    <div class='preview-logo' show-frame></div>
   </li>
 </div>
+<div id='preview-pane'>
+  <img></img>
+  <div id='close-preview'>
+  </div>
+</div>
+
