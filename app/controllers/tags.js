@@ -49,5 +49,8 @@ exports.getAllItemsForTag = function(req, res){
         });
       });
     }
+    else {
+      res.send([{title: "No items found."}]);
+    }
   });
 };
