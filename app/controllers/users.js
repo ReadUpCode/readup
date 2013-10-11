@@ -56,3 +56,13 @@ exports.findUser = function(userId, callback){
 exports.getLoggedInUser = function(req, res){
   res.send(200, req.user);
 };
+
+exports.checkLogin = function(req, res){
+  if(req.user){
+    res.redirect('/');
+  } else {
+    setTimeout(function(){
+      res.redirect('/auth/github');
+    }, 2000);
+  }
+};
