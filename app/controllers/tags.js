@@ -15,7 +15,7 @@ exports.get = function(req, res){
 exports.getAllItemsForTag = function(req, res){
   Tag.find({include: [Item], where: {name: req.params.tagName} }).success(function(tag){
     var responses = [];
-    
+
     if (tag) {
       tag.items.forEach(function(item, index, list){
         Item.find({include: [Tag], where:{id: item.selectedValues.id}}).success(function(singleItem){
