@@ -1,12 +1,15 @@
 var controllers = require('../app.js').controllers;
 
-controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', 'searchFactory', function($scope, $http, $modal, $q, tagsFactory, searchFactory) {
+controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', 'searchFactory', 'loginFactory', function($scope, $http, $modal, $q, tagsFactory, searchFactory, loginFactory) {
   var modalPromise = $modal({template: '../partials/tags_modal.html', persist: true, show: false, backdrop: 'static', scope: $scope});
+  var modalPromiseLogin = $modal({template: '../partials/tags_modal_login.html', persist: true, show: false, backdrop: 'static', scope: $scope});
   $scope.doneLoading = false;
+  $scope.checkbox = {};
+  $scope.currentUser = loginFactory.getLoggedInUser();
 
   $scope.item = {tags : {}, categories: {}};
   $scope.send = function(){
-    var suggestedTags = $scope.suggestedData.tags;
+    var suggestedTags = $scope.suggestedData.$$v.tags;
     for (var each in suggestedTags) {
       $scope.item.tags[suggestedTags[each]] = suggestedTags[each];
     }
@@ -42,6 +45,12 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       modalEl.modal('show');
     });
     $scope.getSuggestedData($scope.item.link);
+  };
+
+  $scope.showLoginModal = function() {
+    $q.when(modalPromiseLogin).then(function(modalEl) {
+      modalEl.modal('show');
+    });
   };
 
   $scope.getSuggestedData = function(link) {

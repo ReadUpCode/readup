@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `Items`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Items` (
   `title` varchar(255) DEFAULT NULL,
-  `link` varchar(255) DEFAULT NULL,
+  `link` text(500) DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,

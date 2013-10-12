@@ -7,15 +7,15 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
     $scope.tag = tagsFactory.curTag;
   }
 
-  $scope.currentUser = loginFactory.currentUser;
-
   $scope.links = tagsFactory.getTagInfo($scope.tag);
+
+  $scope.currentUser = loginFactory.getLoggedInUser();
 
   $scope.assignClassUpvote = function(link){
     if(link.curUserVote !== 1){
       return 'up-vote-this';
     } else {
-      return 'up-vote-this-after'
+      return 'up-vote-this-after';
     }
   };
 
@@ -23,7 +23,7 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
     if(link.curUserVote !== -1){
       return 'down-vote-this';
     } else {
-      return 'down-vote-this-after'
+      return 'down-vote-this-after';
     }
   };
 

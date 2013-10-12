@@ -7,6 +7,8 @@ var everyauth = require('everyauth');
 var everyauthConfig = require('./everyauthConfig.js');
 
 module.exports = function(app){
+  // app.get('/_/login', function(req, res) { users.login(req, res); });
+
   app.post('/_/items', function(req,res){ items.create(req, res); });
   app.post('/_/preview', function(req, res) { links.getText(req, res); });
 
