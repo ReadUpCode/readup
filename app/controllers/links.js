@@ -27,7 +27,7 @@ var cleanAllKeywords = function(keywordsArr) {
 
 var cleanTitle = function(title) {
   title = title.toLowerCase();
-  var splitTitle = title.split(/ |\//);
+  var splitTitle = title.split(/ |\/|\./);
   return splitTitle;
 };
 
