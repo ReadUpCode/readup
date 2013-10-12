@@ -35,8 +35,8 @@
         <h1>Log in</h1> -->
         <div ng-controller="LoginController">
           <div id='logo-github'></div>
-          <div ng-hide="currentUser" type="button" class="btn" onclick="location.href='http://127.0.0.1:3000/auth/github';">login</div>
-          <div ng-hide="!currentUser">
+          <div ng-hide="currentUser.username" type="button" class="btn" onclick="location.href='http://127.0.0.1:3000/auth/github';">login</div>
+          <div ng-hide="!currentUser.username">
             <div type="button" class="btn" onclick="location.href='http://127.0.0.1:3000/_/logout';">logout</div>
               {{currentUser.name}}
               {{currentUser.karma}}

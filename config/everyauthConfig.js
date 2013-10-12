@@ -1,7 +1,9 @@
 var everyauth = require('everyauth');
-var addGitHubUser = require('../app/controllers/users.js').addGitHubUser;
-var findUser = require('../app/controllers/users.js').findUser;
 var https = require('https');
+var users = require('../app/controllers/users.js');
+
+var addGitHubUser = users.addGitHubUser;
+var findUser = users.findUser;
 
 everyauth.debug = true;
 
@@ -25,8 +27,8 @@ everyauth.github
     res.redirect('/');
   })
   .findOrCreateUser(function(session, accessToken, accessTokenExtra, ghUser) {
-    console.log('ghUser in findOrCreate everyauth: ', ghUser);
-    return false || addGitHubUser(ghUser, accessToken);
+    var userPromise = this.Promise();
+    return addGitHubUser(ghUser, accessToken, userPromise);
   })
   .entryPath('/auth/github')
-  .redirectPath('/_/logging/in');
+  .redirectPath('/');
