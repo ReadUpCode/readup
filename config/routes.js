@@ -7,22 +7,20 @@ var everyauth = require('everyauth');
 var everyauthConfig = require('./everyauthConfig.js');
 
 module.exports = function(app){
-  // app.get('/_/login', function(req, res) { users.login(req, res); });
+  app.post('/_/items', items.create);
+  app.post('/_/preview', links.getText);
 
-  app.post('/_/items', function(req,res){ items.create(req, res); });
-  app.post('/_/preview', function(req, res) { links.getText(req, res); });
+  app.get('/_/items', items.get);
+  app.get('/_/items/:id', items.getOne);
+  app.get('/_/items/:id/score', items.getScore);
 
-  app.get('/_/items', function(req,res){ items.get(req, res); });
-  app.get('/_/items/:id', function(req,res){ items.getOne(req, res); });
-  app.get('/_/items/:id/score', function(req,res){ items.getScore(req, res); });
+  app.post('/_/votes', votes.create);
 
-  app.post('/_/votes', function(req,res){ votes.create(req,res); });
+  app.get('/_/users/:id/items', users.getAllItemsForUser);
 
-  app.get('/_/users/:id/items', function(req,res){ users.getAllItemsForUser(req, res); });
+  app.get('/_/tags', tags.get);
 
-  app.get('/_/tags', function(req, res){ tags.get(req, res); });
-
-  app.get('/_/tags/:tagName/items', function(req, res) { tags.getAllItemsForTag(req, res); });
+  app.get('/_/tags/:tagName/items', tags.getAllItemsForTag);
 
   app.get('/:tagName', function(req, res){
     res.redirect('/#/' + req.params.tagName);

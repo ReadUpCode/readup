@@ -19,43 +19,44 @@ exports.getAllTagsForItem = function(req, res){
 };
 
 exports.create = function(req, res){
-  var title;
-  Q.fcall(
-    function(){
-      deferred = Q.defer()
-      request(req.body.link, function(error, response, body) {
-      // Hand the HTML response off to Cheerio and assign that to
-      //  a local $ variable to provide familiar jQuery syntax.
-        var $ = cheerio.load(body);
-     
-      // Exactly the same code that we used in the browser before:
-        // var title;
-        $('title').each(function() {  
-          title = $(this).text();
-          deferred.resolve(title.replace(/^[\s+\.]|[\s+\.]$/g, ""))
-        });
-        return title.replace(/ +?/g, '')
-      })
-      return deferred.promise
-    }
-  ).then(
-    function(title){
-      Item.create({ 
-        title: title, link: req.body.link, UserId: req.user.dataValues.id }).success(function(item) {
-        var tags = req.body.tags;
-        for(var i in tags){
-          Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
-            item.addTag(tag);
+  if(req.user){
+    var title;
+    Q.fcall(
+      function(){
+        deferred = Q.defer()
+        request(req.body.link, function(error, response, body) {
+        // Hand the HTML response off to Cheerio and assign that to
+        //  a local $ variable to provide familiar jQuery syntax.
+          var $ = cheerio.load(body);
+
+        // Exactly the same code that we used in the browser before:
+          // var title;
+          $('title').each(function() {
+            title = $(this).text();
+            deferred.resolve(title.replace(/^[\s+\.]|[\s+\.]$/g, ""))
           });
-        }
-        var categories = req.body.categories;
-        for (var j in categories) {
-          Category.findOrCreate({name: categories[j] }).success(function(category, created) {
-            item.addCategory(category);
-          })
-        }
-        item_id = item.dataValues.id;
-        link = req.body.link;
+          return title.replace(/ +?/g, '')
+        })
+        return deferred.promise
+      }
+    ).then(
+      function(title){
+        Item.create({
+          title: title, link: req.body.link, UserId: req.user.dataValues.id }).success(function(item) {
+          var tags = req.body.tags;
+          for(var i in tags){
+            Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
+              item.addTag(tag);
+            });
+          }
+          var categories = req.body.categories;
+          for (var j in categories) {
+            Category.findOrCreate({name: categories[j] }).success(function(category, created) {
+              item.addCategory(category);
+            })
+          }
+          item_id = item.dataValues.id;
+          link = req.body.link;
 
         phantom.create(function(err,ph) {
         return ph.createPage(function(err,page) {
@@ -66,11 +67,13 @@ exports.create = function(req, res){
               })
             });   
           });
-        });
-      })
-      res.end('done');
-    }
-  ).done(function(){console.log("DONE FINALLY")})
+        })
+        res.end('done');
+      }
+    ).done(function(){console.log("DONE FINALLY")});
+  } else {
+    res.send(200);
+  }
 };
 
 // This function isn't currently in use. If you're using this function, we need to
