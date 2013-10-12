@@ -53,9 +53,8 @@ exports.create = function(req, res){
         console.log('req.body', req.body.link)
 
         phantom.create(function(err,ph) {
-        console.log('ph:', ph)
+        console.log("ERROR", err)
         return ph.createPage(function(err,page) {
-          console.log("page:", page.sendEvent)
           page.set('viewportSize', { width: 1024, height: 768 });
           return page.open(link, function(err,status) {
             console.log("opened site? ", status);
@@ -74,8 +73,7 @@ exports.create = function(req, res){
               page.close(function(){
                 console.log('closing connection to linked website...')
               })
-            });
-            res.end('donezo');   
+            });   
           });
         });
       })
