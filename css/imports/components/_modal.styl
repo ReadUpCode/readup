@@ -9,11 +9,26 @@
     font $sans-xs
     height 200px
 
-    .modal-link
+    .item-info
       display inline-block
-      margin-bottom 10px
+      margin 0 0 10px 0
+      padding 0
 
-    .url
-      margin-right 5px
-      display inline-block
-      overflow ellipsis
+      .title
+        font $sans-s
+        margin 0
+
+      .url
+        font $sans-xxs-light
+        margin-right 5px
+        display inline-block
+        overflow ellipsis
+
+    .suggested-tags
+      color $green-dark
+      font-style italic
+
+    #spinner
+      position absolute
+      left 48%
+
