@@ -5,12 +5,10 @@ table{border-collapse:separate;border-spacing:0;vertical-align:middle}
 caption,th,td{text-align:left;font-weight:normal;vertical-align:middle}
 a img{border:none}
 *,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
-@font-face{font-family:'icomoon';src:url("../lib/icomoon11287/fonts/icomoon.eot");src:url("../lib/icomoon11287/fonts/icomoon.eot?#iefix") format('embedded-opentype'),url("../lib/icomoon11287/fonts/icomoon.woff") format('woff'),url("../lib/icomoon11287/fonts/icomoon.ttf") format('truetype'),url("../lib/icomoon11287/fonts/icomoon.svg#icomoon") format('svg');font-weight:normal;font-style:normal}
-.icon-stackoverflow,.icon-camera,.icon-power-cord,.icon-book{font-family:'icomoon';speak:none;font-style:normal;font-weight:normal;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased}
-.icon-stackoverflow:before{content:"\e001"}
-.icon-camera:before{content:"\e002"}
-.icon-power-cord:before{content:"\e003"}
-.icon-book:before{content:"\e000"}
+@font-face{font-family:'icomoon';src:url("../lib/icomoon76310/fonts/icomoon.eot");src:url("../lib/icomoon76310/fonts/icomoon.eot?#iefix") format('embedded-opentype'),url("../lib/icomoon76310/fonts/icomoon.woff") format('woff'),url("../lib/icomoon76310/fonts/icomoon.ttf") format('truetype'),url("../lib/icomoon76310/fonts/icomoon.svg#icomoon") format('svg');font-weight:normal;font-style:normal}
+.icon-bullhorn,.icon-book{font-family:'icomoon';speak:none;font-style:normal;font-weight:normal;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased}
+.icon-bullhorn:before{content:"\e000"}
+.icon-book:before{content:"\e001"}
 .sprite-logo{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 0;height:80px;width:80px}
 .sprite-search-white,#search-input .icon{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -80px;height:40px;width:40px}
 .sprite-plus-white,#paste-link-input .icon{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -120px;height:40px;width:40px}
