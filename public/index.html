@@ -9,10 +9,11 @@
   <link rel="stylesheet" type="text/css" href="lib/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 
-
   <script src="//use.edgefonts.net/source-sans-pro:n3,i3,n4,i4,n9.js"></script>      
   <script src="lib/bower_components/jquery/jquery.js"></script>
   <script src="lib/bower_components/angular/angular.js"></script>
+  <script src="lib/spin.min.js"></script>
+  <script src="lib/angular-spinner.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
   <script src="lib/bower_components/angular-strap/dist/angular-strap.min.js"></script>
   <script src="build/bundle.js"></script>
@@ -56,7 +57,7 @@
             <div class='placeholder'>Paste a link</div>
             <input id='paste-link' class='main-input-text' type='url' ng-model="item.link"/ required>
           </div>
-          <button type="button" ng-disabled='!itemForm.$valid' class="btn" bs-modal="'./partials/tags_modal.html'">Submit</button>
+          <button type="button" ng-disabled='!itemForm.$valid' ng-click='getSuggestedData(item.link)'class="btn" bs-modal="'./partials/tags_modal.html'">Submit</button>
         </form>
       </div>
     </nav>
