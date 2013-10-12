@@ -49,7 +49,12 @@ exports.getText = function(req, res) {
   var apiUrl = 'http://access.alchemyapi.com/calls/url/URLGetRankedKeywords?apikey='+ALCHEMY_KEY+'&maxRetrieve=15&url='+req.body.url+'&outputMode=json';
   request.post({url:apiUrl}, function(error, response, body) {
     if (!error && response.statusCode === 200){
-      var result = JSON.parse(body);
+      var result;
+      try {
+        result = JSON.parse(body);
+      }catch(e) {
+        throw e;
+      }
       console.log(result);
       var keywordsArr = result.keywords;
       var cleanKeywords = cleanAllKeywords(keywordsArr);
