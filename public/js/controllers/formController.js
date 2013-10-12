@@ -1,6 +1,6 @@
 var controllers = require('../app.js').controllers;
 
-controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', function($scope, $http, $modal, $q, tagsFactory) {
+controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', 'searchFactory', function($scope, $http, $modal, $q, tagsFactory, searchFactory) {
   var modalPromise = $modal({template: '../partials/tags_modal.html', persist: true, show: false, backdrop: 'static', scope: $scope});
   $scope.doneLoading = false;
 
@@ -31,6 +31,10 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     }else {
       delete $scope.item.tags[tag];
     }
+  };
+
+  $scope.getSearchResults = function() {
+    searchFactory.searchDatabase($scope.searchValue);
   };
 
   $scope.showModal = function() {

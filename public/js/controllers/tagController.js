@@ -1,13 +1,31 @@
 var controllers = require('../app.js').controllers;
 
-controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory', '$http', function($scope, $routeParams, tagsFactory, $http) {
+controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory', '$http', 'loginFactory', function($scope, $routeParams, tagsFactory, $http, loginFactory) {
   if(tagsFactory.curTag !== $routeParams.tag) {
     $scope.tag = tagsFactory.setTagName($routeParams.tag);
   }else{
     $scope.tag = tagsFactory.curTag;
   }
 
+  $scope.currentUser = loginFactory.currentUser;
+
   $scope.links = tagsFactory.getTagInfo($scope.tag);
+
+  $scope.assignClassUpvote = function(link){
+    if(link.curUserVote !== 1){
+      return 'up-vote-this';
+    } else {
+      return 'up-vote-this-after'
+    }
+  };
+
+  $scope.assignClassDownvote = function(link){
+    if(link.curUserVote !== -1){
+      return 'down-vote-this';
+    } else {
+      return 'down-vote-this-after'
+    }
+  };
 
   $scope.vote = function(value, link){
     if(link.curUserVote === value){
@@ -20,4 +38,5 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
       });
     }
   };
+
 }]);
