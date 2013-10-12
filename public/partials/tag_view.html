@@ -34,10 +34,10 @@
     </div>
 <!-- this is for logged in users -->
     <div class="votes" ng-hide="!currentUser.username">
-      <div class='up-vote-this' ng-click="vote(1, link)">
+      <div ng-class='assignClassUpvote(link)' ng-click="vote(1, link)">
         <span class='up-arrow'></span>
       </div>
-      <div class='down-vote-this' ng-click="vote(-1, link)">
+      <div ng-class='assignClassDownvote(link)' ng-click="vote(-1, link)">
         <span class='down-arrow'></span>
       </div>
       <div class='vote-count'>{{link.score}}</div>
