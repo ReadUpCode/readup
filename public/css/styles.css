@@ -34,7 +34,8 @@ a :hover{text-decoration:underline}
 .big-tags a{margin:5px 1%;width:46%}
 }@media screen and (min-width: 1000px){.big-tags{margin:0;}
 .big-tags a{margin:5px 1%;width:23%}
-}.main-input{-webkit-transition:background-color 0.3s ease;-moz-transition:background-color 0.3s ease;-o-transition:background-color 0.3s ease;-ms-transition:background-color 0.3s ease;transition:background-color 0.3s ease;background-color:#333;display:none;min-height:80px;position:relative;width:100%;}
+}.submission-form{display:inline}
+.main-input{-webkit-transition:background-color 0.3s ease;-moz-transition:background-color 0.3s ease;-o-transition:background-color 0.3s ease;-ms-transition:background-color 0.3s ease;transition:background-color 0.3s ease;background-color:#333;display:none;min-height:80px;position:relative;width:100%;}
 .main-input .main-input-text,.main-input .placeholder{-webkit-transition:color 0.3s ease;-moz-transition:color 0.3s ease;-o-transition:color 0.3s ease;-ms-transition:color 0.3s ease;transition:color 0.3s ease;background-color:transparent;color:#999;font:300 2.4rem "source-sans-pro",arial,sans;left:0;line-height:80px -22 -20;padding:22px 20px 20px;position:absolute;top:0;width:100%}
 .main-input .placeholder{overflow:hidden;white-space:nowrap}
 .main-input .icon{-webkit-transition:opacity 0.3s ease;-moz-transition:opacity 0.3s ease;-o-transition:opacity 0.3s ease;-ms-transition:opacity 0.3s ease;transition:opacity 0.3s ease;left:20px;opacity:.5;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";filter:alpha(opacity=50);position:absolute;top:20px}

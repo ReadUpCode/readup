@@ -10,6 +10,7 @@ var Q = require('q');
 var Item = db.Item;
 var Tag = db.Tag;
 var Vote = db.Vote;
+var Category = db.Category;
 
 exports.getAllTagsForItem = function(req, res){
   Item.find({where: {id: 1}}).success(function(item){
@@ -41,38 +42,27 @@ exports.create = function(req, res){
     function(title){
       Item.create({ 
         title: title, link: req.body.link, UserId: req.user.dataValues.id }).success(function(item) {
-        var tags = Object.keys(req.body.tags);
-        for(var i = 0; i < tags.length; i++){
+        var tags = req.body.tags;
+        for(var i in tags){
           Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
-            item.addTag(tag).success(function(tag){
-            });
+            item.addTag(tag);
           });
+        }
+        var categories = req.body.categories;
+        for (var j in categories) {
+          Category.findOrCreate({name: categories[j] }).success(function(category, created) {
+            item.addCategory(category);
+          })
         }
         item_id = item.dataValues.id;
         link = req.body.link;
-        console.log('req.body', req.body.link)
 
         phantom.create(function(err,ph) {
-        console.log('ph:', ph)
         return ph.createPage(function(err,page) {
-          console.log("page:", page.sendEvent)
           page.set('viewportSize', { width: 1024, height: 768 });
           return page.open(link, function(err,status) {
-            console.log("opened site? ", status);
-            // page.open('http://google.com', function () {
-                // page.zoomFactor = 3;
-                // page.set('viewportSize', {width: 100, height: 100})
-                // page.set('zoomFactor', .25)0
-
-
-                // page.set('clipRect', {width: 500, height: 500})
-                // page.viewportSize = { width: 600, height: 6000 }; 
-                // page.clipRect = { top: 14, left: 3, width: 400, height: 600 }; 
-                // page.set('clipRect', {top:0, left:0, width:1024, height:1024});
-                page.render('public/item_images/' + item_id + '.png', function(){console.log('rendering')});
-      
-              page.close(function(){
-                console.log('closing connection to linked website...')
+                page.render('public/item_images/' + item_id + '.png', function(){console.log('rendering');});
+                page.close(function(){
               })
             });
             res.end('donezo');   
