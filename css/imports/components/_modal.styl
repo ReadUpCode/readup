@@ -1,0 +1,34 @@
+.modal
+  width 40%
+  margin-left -(@width/2)
+
+  .modal-header
+    font $sans-m
+
+  .modal-body
+    font $sans-xs
+    height 200px
+
+    .item-info
+      display inline-block
+      margin 0 0 10px 0
+      padding 0
+
+      .title
+        font $sans-s
+        margin 0
+
+      .url
+        font $sans-xxs-light
+        margin-right 5px
+        display inline-block
+        overflow ellipsis
+
+    .suggested-tags
+      color $green-dark
+      font-style italic
+
+    #spinner
+      position absolute
+      left 48%
+

@@ -117,6 +117,14 @@ header h2{color:#b8e864;display:inline-block;font:300 1.8rem "source-sans-pro",a
 }.tag{border:1px solid #000;-webkit-border-radius:3px;border-radius:3px;display:inline-block;float:left;margin:0 5px;padding:3px 12px;position:relative;cursor:pointer}
 .tag:after{right:2px;top:-5px;content:'x';font-size:10px;position:absolute}
 .tag:hover{background-color:#808080}
+.modal{width:40%;margin-left:-20%;}
+.modal .modal-header{font:400 3.6rem "source-sans-pro",arial,sans}
+.modal .modal-body{font:400 1.8rem "source-sans-pro",arial,sans;height:200px;}
+.modal .modal-body .item-info{display:inline-block;margin:0 0 10px 0;padding:0;}
+.modal .modal-body .item-info .title{font:400 2.4rem "source-sans-pro",arial,sans;margin:0}
+.modal .modal-body .item-info .url{font:300 1.4rem "source-sans-pro",arial,sans;margin-right:5px;display:inline-block;white-space:nowrap;overflow:hidden;-o-text-overflow:ellipsis;text-overflow:ellipsis}
+.modal .modal-body .suggested-tags{color:#9dde64;font-style:italic}
+.modal .modal-body #spinner{position:absolute;left:48%}
 #preview-pane{position:absolute;right:0;height:100%;width:25%;margin-right:50px;border:1px dashed #000;overflow:scroll;display:none;}
 #preview-pane #close-preview{position:absolute;top:10px;right:10px;background:#00f;width:10px;height:10px}
 .preview-logo{color:#fff}

@@ -2,6 +2,7 @@ var controllers = require('../app.js').controllers;
 
 controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', 'searchFactory', function($scope, $http, $modal, $q, tagsFactory, searchFactory) {
   var modalPromise = $modal({template: '../partials/tags_modal.html', persist: true, show: false, backdrop: 'static', scope: $scope});
+  $scope.doneLoading = false;
 
   $scope.item = {tags : {}};
   $scope.send = function(){
@@ -26,6 +27,19 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   $scope.showModal = function() {
     $q.when(modalPromise).then(function(modalEl) {
       modalEl.modal('show');
+    });
+    $scope.getSuggestedData($scope.item.link);
+  };
+
+  $scope.getSuggestedData = function(link) {
+    $scope.doneLoading = false;
+    var deferred = $q.defer();
+    $http.post('/_/preview', {url: link}).success(function(data) {
+      deferred.resolve(data);
+    });
+    $scope.suggestedData = deferred.promise;
+    deferred.promise.then(function() {
+      $scope.doneLoading = true;
     });
   };
 

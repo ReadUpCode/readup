@@ -1183,5 +1183,20 @@
       "name": "regular-expression",
       "count": 8389,
       "fulfills_required": false
+    },
+    {
+      "name": "aws",
+      "count": 8389,
+      "fulfills_required": false
+    },
+    {
+      "name": "redis",
+      "count": 8389,
+      "fulfills_required": false
+    },
+    {
+      "name": "mongo",
+      "count": 8389,
+      "fulfills_required": false
     }
 ]

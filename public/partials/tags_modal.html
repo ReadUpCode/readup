@@ -1,15 +1,25 @@
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-  <h3>Add ALL of the tags!</h3>
+  <h3>Add some helpful info</h3>
 </div>
 <div class="modal-body">
-  Here's your link: {{item.link}} <br/>
+  <div class="item-info">
+    <div class='item-info title' ng-model='suggestedData.title'>{{suggestedData.title}}</div>
+    <div class='url'><a href='{{item.link}}'>{{item.link}}</a></div>
+  </div>
   <form ng-sumbit='addTag(tag)'>
     What tags would you like to add? <input type="text" ng-model="tag" bs-typeahead="typeaheadFn"/>
     <button ng-click='addTag(tag)'>Add</button>
   </form>
-  <div ng-repeat="tag in item.tags">
-    <div class="tag" ng-click="removeTag(tag)">{{tag}}</div>
+  <div class='tag-area'>
+    <div class='suggested-tags'>Suggested</div>
+    <div ng-repeat="tag in item.tags">
+      <div class="tag" ng-click="removeTag(tag)">{{tag}}</div>
+    </div>
+    <div ng-repeat="suggested in suggestedData.tags">
+      <div class="tag suggested-tags" ng-click="removeTag(suggested)">{{suggested}}</div>
+    </div>
+    <span id='spinner' us-spinner='{lines:6, length: 0, width: 15, radius: 12}' ng-hide='doneLoading'></span>
   </div>
 </div>
 <div class='modal-footer'>

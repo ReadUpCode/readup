@@ -6,6 +6,14 @@ var permutations = {
   ''  : ''
 };
 
+var specialTags = {
+  'js' : 'javascript'
+};
+
+for (var each in specialTags) {
+  topTags[each] = specialTags[each];
+}
+
 var createPermutations = function(cleanJSTag) {
   var results = [];
   for (var perm in permutations) {
