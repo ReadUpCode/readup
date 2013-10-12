@@ -1,11 +1,13 @@
 var controllers = require('../app.js').controllers;
 
-controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory', '$http', function($scope, $routeParams, tagsFactory, $http) {
+controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory', '$http', 'loginFactory', function($scope, $routeParams, tagsFactory, $http, loginFactory) {
   if(tagsFactory.curTag !== $routeParams.tag) {
     $scope.tag = tagsFactory.setTagName($routeParams.tag);
   }else{
     $scope.tag = tagsFactory.curTag;
   }
+
+  $scope.currentUser = loginFactory.currentUser;
 
   $scope.links = tagsFactory.getTagInfo($scope.tag);
 
@@ -20,4 +22,5 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
       });
     }
   };
+
 }]);

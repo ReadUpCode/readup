@@ -21,7 +21,19 @@
       </h1>
     <div>
     <h2><a href="{{link.link}}">{{link.link}}</a></h2>
-    <div class="votes">
+
+<!-- this is for non-logged in users -->
+    <div class="votes" ng-hide="currentUser.username">
+      <div class='up-vote-this' data-unique="1" bs-popover="'./partials/loggedout_popover.html'">
+        <span class='up-arrow'></span>
+      </div>
+      <div class='down-vote-this' data-unique="1" bs-popover="'./partials/loggedout_popover.html'">
+        <span class='down-arrow'></span>
+      </div>
+      <div class='vote-count'>{{link.score}}</div>
+    </div>
+<!-- this is for logged in users -->
+    <div class="votes" ng-hide="!currentUser.username">
       <div class='up-vote-this' ng-click="vote(1, link)">
         <span class='up-arrow'></span>
       </div>
@@ -30,6 +42,7 @@
       </div>
       <div class='vote-count'>{{link.score}}</div>
     </div>
+
     <div class='preview-logo' show-frame></div>
   </li>
 </ul>

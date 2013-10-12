@@ -7,6 +7,7 @@ factories.factory('loginFactory', function($http, $q) {
     var deferred = $q.defer();
     $http.get('/_/loggedin/user').success(function(data){
     	console.log(data);
+      factory.currentUser = data;
       deferred.resolve(data);
     });
     return deferred.promise;
