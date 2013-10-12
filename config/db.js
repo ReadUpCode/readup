@@ -31,10 +31,16 @@ var Vote = sequelize.define('Vote', {
   value: Sequelize.INTEGER
 });
 
+var Category = sequelize.define('Category', {
+  name: Sequelize.STRING
+});
+
 User.hasMany(Item);
 User.hasMany(Vote);
 Item.hasMany(Vote);
 Item.hasMany(Tag);
+Item.hasMany(Category);
+Category.hasMany(Item);
 Tag.hasMany(Item);
 
 Item.belongsTo(User);
@@ -45,9 +51,11 @@ User.sync();
 Item.sync();
 Tag.sync();
 Vote.sync();
+Category.sync();
 
 module.exports.sequelize = sequelize;
 module.exports.User = User;
 module.exports.Item = Item;
 module.exports.Tag = Tag;
 module.exports.Vote = Vote;
+module.exports.Category = Category;
