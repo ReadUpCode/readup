@@ -1,14 +1,23 @@
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-  <h3>Add some helpful info</h3>
+  <h3>Add helpful info</h3>
 </div>
 <div class="modal-body">
   <div class="item-info">
     <div class='item-info title' ng-model='suggestedData.title'>{{suggestedData.title}}</div>
     <div class='url'><a href='{{item.link}}'>{{item.link}}</a></div>
   </div>
+  <div class='item-level'>
+    <div class='level-question'>Add category</div>
+    <div class='level-buttons btn-group' bs-buttons-checkbox>
+      <button type='button' class='btn category-buttons' ng-model='checkbox.tutorial'>Tutorial <span class='icon-book' aria-hidden='true'></span></button>
+      <button type='button' class='btn category-buttons' ng-model='checkbox.video'>Video <span class='icon-camera' aria-hidden='true'></span></button>
+      <button type='button' class='btn category-buttons' ng-model='checkbox.so'>SO Post <span class='icon-stackoverflow' aria-hidden='true'></span></button>
+      <button type='button' class='btn category-buttons' ng-model='checkbox.library'>Library/Plugin <span class='icon-power-cord' aria-hidden='true'></span></button>
+    </div>
+  </div>
   <form ng-sumbit='addTag(tag)'>
-    What tags would you like to add? <input type="text" ng-model="tag" bs-typeahead="typeaheadFn"/>
+    Add some tags <input type="text" ng-model="tag" bs-typeahead="typeaheadFn"/>
     <button ng-click='addTag(tag)'>Add</button>
   </form>
   <div class='tag-area'>
@@ -17,11 +26,9 @@
       <div class="tag" ng-click="removeTag(tag)">{{tag}}</div>
     </div>
     <div ng-repeat="suggested in suggestedData.tags">
-      <div class="tag suggested-tags" ng-click="removeTag(suggested)">{{suggested}}</div>
+      <div class="tag suggested-tags" ng-click="removeTag(suggested,'suggested')">{{suggested}}</div>
     </div>
     <span id='spinner' us-spinner='{lines:6, length: 0, width: 15, radius: 12}' ng-hide='doneLoading'></span>
   </div>
-</div>
-<div class='modal-footer'>
-  <button class="btn" ng-click="send();hide()">Submit</button>
+  <button class="btn item-submit" ng-click="send();hide()">Submit</button>
 </div>

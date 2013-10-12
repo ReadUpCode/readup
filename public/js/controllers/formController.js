@@ -4,8 +4,17 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   var modalPromise = $modal({template: '../partials/tags_modal.html', persist: true, show: false, backdrop: 'static', scope: $scope});
   $scope.doneLoading = false;
 
-  $scope.item = {tags : {}};
+  $scope.item = {tags : {}, categories: {}};
   $scope.send = function(){
+    var suggestedTags = $scope.suggestedData.tags;
+    for (var each in suggestedTags) {
+      $scope.item.tags[suggestedTags[each]] = suggestedTags[each];
+    }
+    for (var category in $scope.checkbox) {
+      if($scope.checkbox[category]) {
+        $scope.item.categories[category] = category;
+      }
+    }
     $http.post('/_/items', $scope.item).success(function() {
     });
   };
@@ -16,8 +25,12 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       $scope.item.tags[trimmed] = trimmed;
     }
   };
-  $scope.removeTag = function(tag){
-    delete $scope.item.tags[tag];
+  $scope.removeTag = function(tag, suggested){
+    if (suggested === 'suggested') {
+      delete $scope.item.suggestedData.tags[tag];
+    }else {
+      delete $scope.item.tags[tag];
+    }
   };
 
   $scope.getSearchResults = function() {
