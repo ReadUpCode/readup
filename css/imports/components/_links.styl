@@ -74,6 +74,41 @@
           transition all 0s ease
           background-color $bluegreen
 
+      .up-vote-this-after
+        border-radius 2px
+        box-shadow 0 0 0 6px rgba(0,0,0,0.15)
+        transition all 0.2s ease
+        background-color $fo-grey
+        cursor pointer
+        height 32px
+        left 0
+        padding 7px 0 0
+        position absolute
+        text-align center
+        top 0
+        width 32px
+
+        .up-arrow
+          transition all 0.2s ease
+          background-color $ho-grey
+          height 9px 
+          margin -5px -4px 0 0
+          position absolute
+          right 0
+          top 50%
+          width 9px
+          transform rotate(45deg)
+
+        &:before
+          @extend .sprite-arrow-up-white
+          content ""
+          display inline-block
+
+        &:active
+        &:active .up-arrow
+          transition all 0s ease
+          background-color $bluegreen
+
       .vote-count
         color $fo-grey
         font $sans-s-light
@@ -121,6 +156,44 @@
       &:active .down-arrow
         transition all 0s ease
         background-color $bluegreen
+
+
+    .down-vote-this-after
+      border-radius 2px
+      box-shadow 0 0 0 6px rgba(0,0,0,0.15)
+      transition all 0.2s ease
+      background-color $fo-grey
+      cursor pointer
+      height 32px
+      left 0
+      padding 7px 0 0
+      position absolute
+      text-align center
+      top 50px;
+      width 32px
+
+      .down-arrow {
+        transition all 0.2s ease
+        background-color $ho-grey
+        height 9px 
+        margin -5px -4px 0 0
+        position absolute
+        right 0
+        top 50%
+        width 9px
+        transform rotate(45deg)
+      }
+
+      &:before
+        @extend .sprite-arrow-down-white
+        content ""
+        display inline-block
+
+      &:active
+      &:active .down-arrow
+        transition all 0s ease
+        background-color $bluegreen
+
 
 @media screen-to-break-one
   #links
