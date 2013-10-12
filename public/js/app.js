@@ -1,4 +1,4 @@
-var app = angular.module('readUp', ['readUp.factories', 'readUp.controllers', 'readUp.directives', '$strap.directives'], function($routeProvider) {
+var app = angular.module('readUp', ['readUp.factories', 'readUp.controllers', 'readUp.directives', '$strap.directives', 'angularSpinner'], function($routeProvider) {
   $routeProvider.when('/', {
       controller: 'HomeController',
       templateUrl: '../partials/home_view.html'
