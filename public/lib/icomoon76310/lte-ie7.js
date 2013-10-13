@@ -6,10 +6,8 @@ window.onload = function() {
 		el.innerHTML = '<span style="font-family: \'icomoon\'">' + entity + '</span>' + html;
 	}
 	var icons = {
-			'icon-stackoverflow' : '&#xe001;',
-			'icon-camera' : '&#xe002;',
-			'icon-power-cord' : '&#xe003;',
-			'icon-book' : '&#xe000;'
+			'icon-bullhorn' : '&#xe000;',
+			'icon-book' : '&#xe001;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, c, el;

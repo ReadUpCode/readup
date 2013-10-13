@@ -8,6 +8,7 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
   }
 
   $scope.links = tagsFactory.getTagInfo($scope.tag);
+  $scope.relatedTags = tagsFactory.getRelatedTags($scope.tag);
 
   $scope.currentUser = loginFactory.getLoggedInUser();
 
@@ -37,6 +38,10 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
       $http.post('/_/votes', link).success(function(){
       });
     }
+  };
+
+  $scope.getIconURL = function(link, index) {
+    return '/partials/icon-' + link.categories[index].name + '.html';
   };
 
 }]);

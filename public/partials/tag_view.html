@@ -6,11 +6,8 @@
     Your peers will shun you, and your significant other will start to question your...
     <a href='#'>more on Wikipedia...</a>
   </p>
-  <div class='related-tags'>
-    <div>Frameworks</div>
-    <div>AWS</div>
-    <div>Java</div>
-    <div>Android</div>
+  <div class='related-tags' ng-repeat='tag in relatedTags'>
+    <div>{{tag}}</div>
   </div>
 </aside>
 <ul id='links'>
@@ -42,7 +39,12 @@
       </div>
       <div class='vote-count'>{{link.score}}</div>
     </div>
-
+<!-- this is for both logged in and non-logged in-->
+    <div class='categories'>
+      <div class='categories-icon' ng-repeat='category in link.categories'>{{category.name}}
+        <div ng-include="getIconURL(link, $index)"></div>
+      </div> 
+    </div>
     <div class='preview-logo' show-frame></div>
   </li>
 </ul>

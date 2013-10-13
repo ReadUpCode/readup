@@ -78,35 +78,6 @@ exports.create = function(req, res){
   }
 };
 
-// This function isn't currently in use. If you're using this function, we need to
-// add a check to see if logged in user has voted on this. See tags.getAllItemsForTag.
-exports.get = function(req,res) {
-  var responses = [];
-  Item.findAll({include: [Tag]}).success(function(items){
-    items.forEach(function(item, index, list){
-      Vote.findAll({ where: {ItemId: item.selectedValues.id }})
-      .success(function(votes){
-        var score=0;
-        for(var j=0; j<votes.length; j++){
-          score+=votes[j].selectedValues.value;
-        }
-        var resItem = {};
-        resItem = item.selectedValues;
-        console.log("INDEX: ", index);
-        resItem.tags = [];
-        resItem.score = score;
-        for (var k=0; k < item.tags.length; k++) {
-          resItem.tags.push(item.tags[k].selectedValues);
-        }
-        responses.push(resItem);
-        if(responses.length === items.length){
-          res.send(responses);
-        }
-      });
-    });
-  });
-};
-
 exports.getOne = function(req, res){
   Vote.findAll({where: {ItemId:req.params.id}}).success(function(votes) {
     var score = 0;

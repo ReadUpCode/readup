@@ -31,5 +31,22 @@ factories.factory('tagsFactory', function($http, $q) {
     return deferred.promise;
   };
 
+  factory.getRelatedTags = function(tagName){
+    var deferred = $q.defer();
+    var requestURL = '/_/tags/' + tagName + '/items';
+    $http.get(requestURL).success(function(data){
+      var results = {};
+      for(var i = 0; i < data.length; i++){
+        for(var j = 0; j < data[i].tags.length; j++){
+          if(data[i].tags[j].name !== tagName){
+            results[data[i].tags[j].name] = data[i].tags[j].name;
+          }
+        }
+      }
+      deferred.resolve(results);
+    });
+    return deferred.promise;
+  };
+
   return factory;
 });
