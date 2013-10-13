@@ -35,16 +35,12 @@
         <!-- <span class='tab-icon'></span>
         <h1>Log in</h1> -->
         <div ng-controller="LoginController">
-          <div id='logo-github'></div>
-          <div ng-hide="currentUser.username" type="button" class="btn" onclick="location.href='auth/github';">login</div>
-          <div ng-hide="!currentUser.username">
-            <div type="button" class="btn" onclick="location.href='_/logout';">logout</div>
-              {{currentUser.name}}
-              {{currentUser.karma}}
-            </div>
+          <div id='logo-github'>
+              <img id='avatar' src={{currentUser.image_url}}>
           </div>
-          
-          
+          <div ng-hide="currentUser.username" onclick="location.href='auth/github';" style="color:white; font-size:2rem;">login</div>
+          <div id="userSettings" ng-hide="!currentUser.username" bs-dropdown="settings" style=" color:white; font-size:2rem;">Settings</div>
+        </div>
       </div>
       <div ng-controller="FormController">
         <form name="searchForm" class="submission-form" ng-submit="getSearchResults()">
@@ -54,14 +50,23 @@
             <input id='search' ng-model="searchValue" class='main-input-text' type='text' autocomplete='off' bs-typeahead='typeaheadSearchFn'>
           </div>
         </form>
-        <form name="itemForm" no-validate type='url' class="submission-form" ng-submit='showModal()'>
+        <!-- logged in users -->
+        <form ng-hide="!currentUser.username" name="itemForm" no-validate type='url' class="submission-form" ng-disabled='!itemForm.$valid' ng-submit='showModal()'>
           <div id='paste-link-input' class='main-input'>
             <div class='icon'></div>
             <div class='placeholder'>Paste a link</div>
             <input id='paste-link' class='main-input-text' type='url' ng-model="item.link"/ required>
           </div>
-          <button type="button" ng-disabled='!itemForm.$valid' ng-click='getSuggestedData(item.link)'class="btn" bs-modal="'./partials/tags_modal.html'">Submit</button>
         </form>
+        <!-- non-logged in users -->
+        <form ng-hide="currentUser.username" name="itemForm" no-validate type='url' class="submission-form" ng-disabled='!itemForm.$valid' ng-submit='showLoginModal()'>
+          <div id='paste-link-input' class='main-input'>
+            <div class='icon'></div>
+            <div class='placeholder'>Paste a link</div>
+            <input id='paste-link' class='main-input-text' type='url' ng-model="item.link"/ required>
+          </div>
+        </form>
+
       </div>
     </nav>
       <div ng-controller="HomeController">

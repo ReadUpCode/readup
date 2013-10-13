@@ -56,8 +56,10 @@ nav .tab .tab-icon{-webkit-transition:opacity 0.3s ease;-moz-transition:opacity 
 nav .tab ~ .tab{border-left:1px solid #4d4d4d}
 nav .tab:hover,nav .tab.open{background-color:#404040}
 nav #logo-main{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 0;height:80px;width:80px}
-nav #logo-github{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -220px;height:60px;width:60px;margin-top:10px;margin-left:10px}
+nav #logo-github{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -220px;height:60px;width:60px;margin-top:0;margin-left:10px;}
+nav #logo-github #avatar{border-width:0}
 nav .login_logout{position:relative;top:2px;color:#fff}
+nav .dropdown-menu{font-size:2rem;left:-70px}
 nav #search-input-tab .tab-icon{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -80px;height:40px;width:40px}
 nav #paste-link-input-tab .tab-icon{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -120px;height:40px;width:40px}
 nav #login .tab-icon{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -160px;height:40px;width:40px;margin-top:16px}
