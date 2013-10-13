@@ -5,8 +5,7 @@ controllers.controller('LoginController', ['$scope', '$http', '$location', 'logi
 
 	$scope.settings = [
 	{
-	    "text": "user profile",
-	    "href": "/"
+	    "text": $scope.currentUser.karma || 0 + " Karma"
 	  },
 	  {
 	    "text": "logout",
