@@ -38,8 +38,8 @@
           <div id='logo-github'>
               <img id='avatar' src={{currentUser.image_url}}>
           </div>
-          <div ng-hide="currentUser.username" onclick="location.href='auth/github';" style="color:white; font-size:2rem;">login</div>
-          <div id="userSettings" ng-hide="!currentUser.username" bs-dropdown="settings" style=" color:white; font-size:2rem;">Settings</div>
+          <div class="userSettings" ng-hide="currentUser.username" onclick="location.href='auth/github';">login</div>
+          <div class="userSettings" ng-hide="!currentUser.username" bs-dropdown="settings">Settings</div>
         </div>
       </div>
       <div ng-controller="FormController">
