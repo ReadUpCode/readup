@@ -8,6 +8,7 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
   }
 
   $scope.links = tagsFactory.getTagInfo($scope.tag);
+  $scope.relatedTags = tagsFactory.getRelatedTags($scope.tag);
 
   $scope.currentUser = loginFactory.getLoggedInUser();
 
