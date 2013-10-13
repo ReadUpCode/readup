@@ -10,7 +10,7 @@ module.exports = function(app){
   app.post('/_/items', items.create);
   app.post('/_/preview', links.getText);
 
-  app.get('/_/items', items.get);
+  // app.get('/_/items', items.get);
   app.get('/_/items/:id', items.getOne);
   app.get('/_/items/:id/score', items.getScore);
 

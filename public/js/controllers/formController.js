@@ -7,7 +7,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   $scope.checkbox = {};
   $scope.currentUser = loginFactory.getLoggedInUser();
 
-  $scope.item = {tags : {}, categories: {}};
+  $scope.item = { tags : {}, categories: {} };
   $scope.send = function(){
     var suggestedTags = $scope.suggestedData.$$v.tags;
     for (var each in suggestedTags) {
@@ -18,6 +18,11 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
         $scope.item.categories[category] = category;
       }
     }
+
+    console.log($scope.suggestedData)
+    $scope.item.title = $('#title-input').val()
+
+    console.log('blah', $scope.item.title)
     $http.post('/_/items', $scope.item).success(function() {
     });
   };
