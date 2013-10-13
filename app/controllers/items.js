@@ -18,6 +18,34 @@ exports.getAllTagsForItem = function(req, res){
   });
 };
 
+var valDeferred;
+
+var validateURL = function(link) {
+  phantom.create(function(err,ph) {
+    ph.createPage(function(err,page) {
+      page.open(link, function(err, status) {
+        if (err === null && status==="success") {
+          valDeferred.resolve(true);
+        } else {
+          valDeferred.resolve(false);
+        }
+      });
+    });
+  });
+};
+
+exports.validateAndCreate = function(req, res) {
+  valDeferred = Q.defer();
+  validateURL(req.body.link);
+  valDeferred.promise.then(function(validURL){
+    if (validURL) {
+      exports.create(req,res);
+    } else {
+      res.send('link validation error');
+    }
+  });
+};
+
 exports.create = function(req, res){
   if(req.user){
     var title;
