@@ -14,7 +14,7 @@
   <li class='link' ng-repeat='link in links'>
     <div class='title-wrap'>
       <h1 class='link_title'>
-        <a href="{{link.link}}">{{link.title}}</a>
+        <a href="{{link.link}}" alt="{{link.title}}">{{link.title}}</a>
       </h1>
     <div>
     <h2><a href="{{link.link}}">{{link.link}}</a></h2>
@@ -48,9 +48,10 @@
     <div class='preview-logo' show-frame></div>
   </li>
 </ul>
-<div id='preview-pane'>
+<div id='preview-pane' scroll-position>
   <img></img>
   <div id='close-preview'>
+    x
   </div>
 </div>
 
