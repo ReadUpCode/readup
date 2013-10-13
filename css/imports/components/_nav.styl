@@ -46,6 +46,18 @@ nav
   .dropdown-menu
     font-size 2rem
     left -70px
+    background-color $ge-grey
+    overflow hidden
+    width 100%
+    z-index 1
+
+  .dropdown-menu li a
+    @include transition("all 0.1s ease")
+    border-top 1px solid $fo-grey
+    color $bo-grey
+    font $sans-xs
+    padding 16px 20px
+    text-decoration none
 
   #search-input-tab .tab-icon
     sprite_mixin(0px, 80px, 40px, 40px )
