@@ -6,6 +6,10 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   $scope.doneLoading = false;
   $scope.checkbox = {};
   $scope.currentUser = loginFactory.getLoggedInUser();
+  var $paste = angular.element('#paste-link');
+  $paste.on('paste', function() {
+    //TO DO : trigger link things.
+  });
 
   $scope.item = {tags : {}, categories: {}};
   $scope.send = function(){
