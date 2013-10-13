@@ -4,7 +4,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   var modalPromise = $modal({template: '../partials/tags_modal.html', persist: true, show: false, backdrop: 'static', scope: $scope});
   $scope.doneLoading = false;
   $scope.checkbox = {};
-
+  
   $scope.item = {tags : {}, categories: {}};
   $scope.send = function(){
     var suggestedTags = $scope.suggestedData.$$v.tags;
