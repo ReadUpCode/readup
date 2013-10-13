@@ -4,7 +4,9 @@
 </div>
 <div class="modal-body">
   <div class="item-info">
-    <div class='item-info title' ng-model='suggestedData.title'>{{suggestedData.title}}</div>
+    <form>
+    <input id='title-input' type='text' value ="{{suggestedData.title}}"></input>
+  </form>
     <div class='url'><a href='{{item.link}}'>{{item.link}}</a></div>
   </div>
   <div class='item-level'>
