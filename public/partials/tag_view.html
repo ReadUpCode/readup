@@ -42,7 +42,12 @@
       </div>
       <div class='vote-count'>{{link.score}}</div>
     </div>
-
+<!-- this is for both logged in and non-logged in-->
+    <div class='categories'>
+      <div class='categories-icon' ng-repeat='category in link.categories'>{{category.name}}
+        <div ng-include="getIconURL(link, $index)"></div>
+      </div> 
+    </div>
     <div class='preview-logo' show-frame></div>
   </li>
 </ul>
