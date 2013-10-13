@@ -39,4 +39,8 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
     }
   };
 
+  $scope.getIconURL = function(link, index) {
+    return '/partials/icon-' + link.categories[index].name + '.html';
+  };
+
 }]);
