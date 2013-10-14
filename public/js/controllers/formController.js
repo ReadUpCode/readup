@@ -4,18 +4,28 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   var modalPromise = $modal({template: '../partials/tags_modal.html', persist: true, show: false, backdrop: 'static', scope: $scope});
   var modalPromiseLogin = $modal({template: '../partials/tags_modal_login.html', persist: true, show: false, backdrop: 'static', scope: $scope});
   $scope.doneLoading = false;
-  $scope.checkbox = {};
+  $scope.types = {'Tutorial': {name: 'Tutorial', chosen: false},
+                  'Op/Ed': {name: 'Op/Ed', chosen: false},
+                  'Reference': {name: 'Reference', chosen: false},
+                  'Intro': {name: 'Intro', chosen: false}
+                 };
   $scope.currentUser = loginFactory.getLoggedInUser();
   var $paste = angular.element('#paste-link');
   $scope.hasLink = false;
-  var _this = this;
-  $paste.on('paste', function() {
-    //TO DO : trigger link things.
-    setTimeout(function() {
+
+  $paste.on('keyup paste', function() {
+    clearTimeout(timeoutID);
+    var timeoutID = setTimeout(function() {
       $scope.hasLink = true;
       $scope.getSuggestedData($scope.item.link);
-    }, 20);
+    }, 500);
   });
+  // $paste.on('focusout', function() {
+  //   console.log('blur event called');
+  //   $scope.hasLink = false;
+  // });
+
+  //SHOULD CHANGE SCOPE.CATEGORIES THING TO TYPES ON THE SERVER SIDE TOO!!!
 
   $scope.item = {tags : {}, categories: {}};
   $scope.send = function(){
@@ -23,9 +33,9 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     for (var each in suggestedTags) {
       $scope.item.tags[suggestedTags[each]] = suggestedTags[each];
     }
-    for (var category in $scope.checkbox) {
-      if($scope.checkbox[category]) {
-        $scope.item.categories[category] = category;
+    for (var category in $scope.types) {
+      if($scope.types[category].chosen) {
+        $scope.item.categories[category.name] = category.name;
       }
     }
     $http.post('/_/items', $scope.item).success(function() {
@@ -36,18 +46,40 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     for (var i = 0; i < allTags.length; i++) {
       var trimmed = allTags[i].trim();
       $scope.item.tags[trimmed] = trimmed;
+      $scope.suggestedData.$$v.tags[trimmed] = trimmed;
     }
   };
-  $scope.removeTag = function(tag, suggested){
-    if (suggested === 'suggested') {
-      delete $scope.item.suggestedData.tags[tag];
-    }else {
+  $scope.toggleTag = function(tag, suggested){
+    // if (suggested === 'suggested') {
+    //   delete $scope.suggestedData.$$v.tags[tag];
+    // }else {
+    //   delete $scope.item.tags[tag];
+    // }
+    if ($scope.item.tags[tag] === tag) {
       delete $scope.item.tags[tag];
+    }else {
+      $scope.item.tags[tag] = tag;
+    }
+  };
+
+  $scope.toggleClass = function(thing, type) {
+    if (type === 'type') {
+      return thing.chosen ? 'selected' : '';
+    }else {
+      return thing in $scope.item.tags ? 'selected' : '';
     }
   };
 
   $scope.getSearchResults = function() {
     searchFactory.searchDatabase($scope.searchValue);
+  };
+
+  $scope.toggleType = function(type) {
+    if (type.chosen) {
+      type.chosen = false;
+    }else {
+      type.chosen = true;
+    }
   };
 
   $scope.showModal = function() {
