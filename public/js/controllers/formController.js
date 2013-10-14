@@ -7,8 +7,14 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   $scope.checkbox = {};
   $scope.currentUser = loginFactory.getLoggedInUser();
   var $paste = angular.element('#paste-link');
+  $scope.hasLink = false;
+  var _this = this;
   $paste.on('paste', function() {
     //TO DO : trigger link things.
+    setTimeout(function() {
+      $scope.hasLink = true;
+      $scope.getSuggestedData($scope.item.link);
+    }, 20);
   });
 
   $scope.item = {tags : {}, categories: {}};
