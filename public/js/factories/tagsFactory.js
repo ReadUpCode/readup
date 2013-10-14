@@ -49,13 +49,17 @@ factories.factory('tagsFactory', function($http, $q) {
   };
 
   factory.getStackOverflow = function(tagName){
+    var result = {};
     var deferred = $q.defer();
     var requestURL = 'http://api.stackoverflow.com/1.1/tags/' + tagName + '/wikis?jsonp=JSON_CALLBACK';
     $http.jsonp(requestURL).success(function(data){
-      console.log(data);
+      result.summary = data.tag_wikis[0].wiki_excerpt;
+      result.urlTag = encodeURIComponent(tagName);
+      deferred.resolve(result);
     }).error(function(err){
         console.log(err);
       });
+    return deferred.promise;
   }
 
   return factory;
