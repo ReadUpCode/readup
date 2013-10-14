@@ -1,2 +1,28 @@
+.popover.right 
+  background-color $ho-grey
+  .arrow
+    border-right-color $ho-grey
+  .arrow:after
+    border-right-color $ho-grey
+
 .popover-text
-	font $sans-xxs-light
+  font $sans-xxs-light
+  color $bd-grey
+  margin-top 10px
+
+.popover-content
+  width 145px
+
+.popover-close
+  font-size 15px
+  color $bd-grey
+
+.popover-github
+  sprite_mixin(0px, 220px, 60px, 60px)
+  margin-right auto
+  margin-left auto
+  transition opacity .33s ease-in-out
+  opacity .25
+
+.popover-github:hover
+  opacity 1

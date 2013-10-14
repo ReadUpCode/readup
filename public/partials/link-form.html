@@ -1,0 +1,19 @@
+<div class='link-form'>
+  <span id='spinner' us-spinner='{lines:6, length: 0, width: 15, radius: 12}' ng-hide='doneLoading'></span>
+  <h1 class='link-form-title' ng-model='suggestedData.title'>{{suggestedData.title}}</h1>
+  <div class='link-form-section'>
+    <h2>Pick topics:</h2>
+    <div class='show-tags'>
+      <div ng-repeat="tag in suggestedData.tags" class="tag" ng-click="toggleTag(tag,'suggested')" ng-class='toggleClass(tag)'>{{tag}}</div>
+    </div>
+    <div class='link-form-topic-form' ng-sumbit='addTag(tag)'>
+      <input id='link-form-topic-search' type="text" ng-model="tag" bs-typeahead="typeaheadFn"/ placholder="search for topics...">
+      <!-- <button class='link-form-topic-submit' ng-click='addTag(tag)'>Add</button> -->
+    </div>
+  </div>
+  <div class='link-form-section'>
+    <h2>Pick type (optional):</h2>
+      <div ng-repeat='type in types' class='tag' ng-click='toggleType(type)' ng-class='toggleClass(type, "type")'>{{type.name}}</div>
+  </div>
+  <button class="btn item-submit close" data-dismiss="modal" ng-click="hide();send()">Add Link</button>
+</div>

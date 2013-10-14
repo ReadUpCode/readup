@@ -48,5 +48,38 @@ factories.factory('tagsFactory', function($http, $q) {
     return deferred.promise;
   };
 
+  factory.getStackOverflow = function(tagName){
+    var result = {};
+    var deferred = $q.defer();
+    var requestURL = 'http://api.stackoverflow.com/1.1/tags/' + tagName + '/wikis?jsonp=JSON_CALLBACK';
+    $http.jsonp(requestURL).success(function(data){
+      if(!data.tag_wikis.length && tagName.substr(-2) === 'js'){
+        if(tagName === 'js'){
+          var updatedTag = 'javascript';
+        } else {
+          var updatedTag = tagName.slice(0, tagName.length-2) + '.js';
+        }
+        var updatedUrl = 'http://api.stackoverflow.com/1.1/tags/' + updatedTag + '/wikis?jsonp=JSON_CALLBACK';
+        $http.jsonp(updatedUrl).success(function(data){
+          result.summary = data.tag_wikis[0].wiki_excerpt;
+          result.urlTag = encodeURIComponent(tagName);
+          deferred.resolve(result);
+          }).error(function(err){
+            console.log(err);
+          });
+      } else if(!data.tag_wikis.length){
+        result.summary = 'Sorry, we weren\'t able to find anything about that tag.';
+        deferred.resolve(result);
+      } else {
+        result.summary = data.tag_wikis[0].wiki_excerpt;
+        result.urlTag = encodeURIComponent(tagName);
+        deferred.resolve(result);
+      }
+    }).error(function(err){
+        console.log(err);
+      });
+    return deferred.promise;
+  }
+
   return factory;
 });
