@@ -56,31 +56,7 @@
             <div class='icon'></div>
             <div class='placeholder'>Paste a link</div>
             <input id='paste-link' class='main-input-text' type='url' ng-model="item.link"/ required>
-            <div class='link-form' ng-show='hasLink'>
-              <span id='spinner' us-spinner='{lines:6, length: 0, width: 15, radius: 12}' ng-hide='doneLoading'></span>
-              <h1 class='link-form-title' ng-model='suggestedData.title'>{{suggestedData.title}}</h1>
-              <div class='link-form-section'>
-                <h2>Pick topics:</h2>
-                <div class='show-tags'>
-                  <div ng-repeat="suggested in suggestedData.tags" class="tag suggested-tags" ng-click="removeTag(suggested,'suggested')">{{suggested}}</div>
-                  <div ng-repeat="tag in item.tags" class="tag" ng-click="removeTag(tag)">{{tag}}</div>
-                </div>
-                <div class='link-form-topic-form' ng-sumbit='addTag(tag)'>
-                  <input id='link-form-topic-search' type="text" ng-model="tag" bs-typeahead="typeaheadFn"/ placholder="search for topics...">
-                  <!-- <button class='link-form-topic-submit' ng-click='addTag(tag)'>Add</button> -->
-                </div>
-              </div>
-              <div class='link-form-section'>
-                <h2>Pick type (optional):</h2>
-                <div class='level-buttons btn-group' bs-buttons-checkbox>
-                  <button type='button' class='btn category-buttons' ng-model='checkbox.tutorial'>Tutorial <i class='icon-lightbulb'></i></button>
-                  <button type='button' class='btn category-buttons' ng-model='checkbox.reference'>Reference <span class='icon-book' aria-hidden='true'></span></button>
-                  <button type='button' class='btn category-buttons' ng-model='checkbox.oped'>Op/Ed <span class='icon-bullhorn' aria-hidden='true'></span></button>
-                  <button type='button' class='btn category-buttons' ng-model='checkbox.intro'>Intro <span class='icon-compass' aria-hidden='true'></span></button>
-                </div>
-              </div>
-              <button class="btn item-submit close" data-dismiss="modal" ng-click="hide();send()">Add Link</button>
-            </div>
+            <div ng-show='hasLink' ng-include="'partials/link-form.html'"></div>
           </div>
         </form>
         <!-- non-logged in users -->
