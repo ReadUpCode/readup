@@ -59,7 +59,9 @@ nav #logo-main{background-image:url("../images/sprite.svg");background-repeat:no
 nav #logo-github{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -220px;height:60px;width:60px;margin-top:0;margin-left:10px;}
 nav #logo-github #avatar{border-width:0}
 nav .login_logout{position:relative;top:2px;color:#fff}
-nav .dropdown-menu{font-size:2rem;left:-70px}
+nav .userSettings{color:#fff;font-size:2rem}
+nav .dropdown-menu{font-size:2rem;left:-70px;background-color:#404040;overflow:hidden;width:100%;z-index:1}
+nav .dropdown-menu li a{include:transition:"all 0.1s ease";;border-top:1px solid #666;color:#ccc;font:400 1.8rem "source-sans-pro",arial,sans;padding:16px 20px;text-decoration:none}
 nav #search-input-tab .tab-icon{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -80px;height:40px;width:40px}
 nav #paste-link-input-tab .tab-icon{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -120px;height:40px;width:40px}
 nav #login .tab-icon{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -160px;height:40px;width:40px;margin-top:16px}
@@ -149,4 +151,11 @@ header h2{color:#b8e864;display:inline-block;font:300 1.8rem "source-sans-pro",a
 #preview-pane #close-preview{font:400 3.6rem "source-sans-pro",arial,sans;position:absolute;top:10px;right:10px;background:#000;color:#fff;font-size:15px;text-align:center;vertical-align:middle;line-height:20px;width:20px;height:20px;}
 #preview-pane #close-preview:hover{cursor:pointer}
 .preview-logo{color:#fff}
-.popover-text{font:300 1.4rem "source-sans-pro",arial,sans}
+.popover.right{background-color:#333;}
+.popover.right .arrow{border-right-color:#333}
+.popover.right .arrow:after{border-right-color:#333}
+.popover-text{font:300 1.4rem "source-sans-pro",arial,sans;color:#c2c2c2;margin-top:10px}
+.popover-content{width:145px}
+.popover-close{font-size:15px;color:#c2c2c2}
+.popover-github{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -220px;height:60px;width:60px;margin-right:auto;margin-left:auto;-webkit-transition:opacity 0.33s ease-in-out;-moz-transition:opacity 0.33s ease-in-out;-o-transition:opacity 0.33s ease-in-out;-ms-transition:opacity 0.33s ease-in-out;transition:opacity 0.33s ease-in-out;opacity:.25;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=25)";filter:alpha(opacity=25)}
+.popover-github:hover{opacity:1;-ms-filter:none;filter:none}
