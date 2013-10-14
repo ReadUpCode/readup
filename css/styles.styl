@@ -5,6 +5,14 @@
 global-reset()
 *,*:before,*:after 
   box-sizing: border-box
+input
+  -webkit-appearnace none
+  border-radius 0
+  border none
+  margin 0
+  padding 0
+  resize none
+  outline none
 
 //Variables and Mixins
 @import ('./imports/mixins/_sprites.styl')
@@ -19,7 +27,6 @@ import_tree('./imports/variables')
 @import ('./imports/components/_title.styl')
 @import ('./imports/components/_links.styl')
 @import ('./imports/components/_about.styl')
-@import ('./imports/components/_tag-box.styl')
-@import ('./imports/components/_modal.styl')
+@import ('./imports/components/link-form.styl')
 @import ('./imports/components/_displayFrameDirective.styl')
 @import ('./imports/components/_popover.styl')
