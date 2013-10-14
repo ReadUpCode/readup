@@ -6,11 +6,11 @@ var request = require('request');
 var cheerio = require('cheerio');
 var Q = require('q');
 
-
 var Item = db.Item;
 var Tag = db.Tag;
 var Vote = db.Vote;
 var Category = db.Category;
+var Vote = db.Vote;
 
 exports.getAllTagsForItem = function(req, res){
   Item.find({where: {id: 1}}).success(function(item){
@@ -56,6 +56,15 @@ exports.create = function(req, res){
                   item.addCategory(category);
                 })
               }
+              Vote.find({where: ['ItemId=? AND UserId=?', item.dataValues.id, req.user.dataValues.id]})
+              .success(function(vote){
+                if(!vote){
+                  Vote.create({ UserId: req.user.dataValues.id, ItemId: item.dataValues.id, value: 1 });
+                }
+                else if (vote.selectedValues.value !== 1) {
+                  vote.updateAttributes({value: 1});
+                }
+              });
             } else {
               Item.findOrCreate({
                 title: req.body.title, link: req.body.link, UserId: req.user.dataValues.id }).success(function(item) {
