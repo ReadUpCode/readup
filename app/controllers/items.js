@@ -19,6 +19,7 @@ exports.getAllTagsForItem = function(req, res){
 };
 
 exports.create = function(req, res){
+  console.log('request', req.body)
   if(req.user){
     var title;
     Q.fcall(
@@ -41,32 +42,31 @@ exports.create = function(req, res){
       }
     ).then(
       function(title){
-        Item.create({
-          title: title, link: req.body.link, UserId: req.user.dataValues.id }).success(function(item) {
-          var tags = req.body.tags;
-          for(var i in tags){
-            Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
-              item.addTag(tag);
-            });
-          }
-          var categories = req.body.categories;
-          for (var j in categories) {
-            Category.findOrCreate({name: categories[j] }).success(function(category, created) {
-              item.addCategory(category);
-            })
-          }
-          item_id = item.dataValues.id;
-          link = req.body.link;
+        Item.findOrCreate({
+          title: req.body.title, link: req.body.link, UserId: req.user.dataValues.id }).success(function(item) {
+            var tags = req.body.tags;
+            for(var i in tags){
+              Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
+                item.addTag(tag);
+              });
+            }
+            var categories = req.body.categories;
+            for (var j in categories) {
+              Category.findOrCreate({name: categories[j] }).success(function(category, created) {
+                item.addCategory(category);
+              })
+            }
+            item_id = item.dataValues.id;
+            link = req.body.link;
 
           phantom.create(function(err,ph) {
-          return ph.createPage(function(err,page) {
-            page.set('viewportSize', { width: 1024, height: 768 });
-            return page.open(link, function(err,status) {
-                  page.render('public/item_images/' + item_id + '.png', function(){console.log('rendering');});
-                  page.close(function(){
-                })
+            return ph.createPage(function(err,page) {
+              page.set('viewportSize', { width: 1024, height: 768 });
+              return page.open(link, function(err,status) {
+                page.render('public/item_images/' + item_id + '.png', function(){console.log('rendering');});
+                page.close(function(){
+                });
               });
-              res.end('donezo');
             });
           });
         })

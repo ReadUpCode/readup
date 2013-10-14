@@ -1,11 +1,6 @@
 <h1 class='title' id='articles-title'>{{tag}}</h1> 
 <aside id='about'>
-  <p>
-    This topic is critical to computer science. Absolutely critical. You should totally 
-    read tons of articles about it. Employers will laugh at you if you don't know about this.
-    Your peers will shun you, and your significant other will start to question your...
-    <a href='#'>more on Wikipedia...</a>
-  </p>
+  <p>{{stackOverflowSummary.summary}} <a ng-href='http://stackoverflow.com/tags/{{stackOverflowSummary.urlTag}}/info'>More on Stack Overflow.</a></p>
   <div class='related-tags' ng-repeat='tag in relatedTags'>
     <div>{{tag}}</div>
   </div>
@@ -14,7 +9,7 @@
   <li class='link' ng-repeat='link in links'>
     <div class='title-wrap'>
       <h1 class='link_title'>
-        <a href="{{link.link}}">{{link.title}}</a>
+        <a href="{{link.link}}" alt="{{link.title}}">{{link.title}}</a>
       </h1>
     <div>
     <h2><a href="{{link.link}}">{{link.link}}</a></h2>
@@ -48,9 +43,10 @@
     <div class='preview-logo' show-frame></div>
   </li>
 </ul>
-<div id='preview-pane'>
+<div id='preview-pane' scroll-position>
   <img></img>
   <div id='close-preview'>
+    x
   </div>
 </div>
 

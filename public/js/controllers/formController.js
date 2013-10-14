@@ -27,7 +27,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
 
   //SHOULD CHANGE SCOPE.CATEGORIES THING TO TYPES ON THE SERVER SIDE TOO!!!
 
-  $scope.item = {tags : {}, categories: {}};
+  $scope.item = { tags : {}, categories: {} };
   $scope.send = function(){
     var suggestedTags = $scope.suggestedData.$$v.tags;
     for (var each in suggestedTags) {
@@ -38,6 +38,11 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
         $scope.item.categories[category.name] = category.name;
       }
     }
+
+    console.log($scope.suggestedData)
+    $scope.item.title = $('#title-input').val()
+
+    console.log('blah', $scope.item.title)
     $http.post('/_/items', $scope.item).success(function() {
     });
   };
