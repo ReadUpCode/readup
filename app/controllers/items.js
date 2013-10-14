@@ -18,6 +18,18 @@ exports.getAllTagsForItem = function(req, res){
   });
 };
 
+var castUpVote = function(userId, itemId) {
+  Vote.find({where: ['UserId=? AND ItemId=?', userId, itemId]})
+  .success(function(vote){
+    if(!vote){
+      Vote.create({ UserId: userId, ItemId: itemId, value: 1 });
+    }
+    else if (vote.selectedValues.value !== 1) {
+      vote.updateAttributes({value: 1});
+    }
+  });
+};
+
 exports.create = function(req, res){
   console.log('request', req.body)
   if(req.user){
@@ -56,15 +68,7 @@ exports.create = function(req, res){
                   item.addCategory(category);
                 })
               }
-              Vote.find({where: ['ItemId=? AND UserId=?', item.dataValues.id, req.user.dataValues.id]})
-              .success(function(vote){
-                if(!vote){
-                  Vote.create({ UserId: req.user.dataValues.id, ItemId: item.dataValues.id, value: 1 });
-                }
-                else if (vote.selectedValues.value !== 1) {
-                  vote.updateAttributes({value: 1});
-                }
-              });
+              castUpVote(req.user.dataValues.id, item.dataValues.id);
             } else {
               Item.findOrCreate({
                 title: req.body.title, link: req.body.link, UserId: req.user.dataValues.id }).success(function(item) {
@@ -80,8 +84,11 @@ exports.create = function(req, res){
                       item.addCategory(category);
                     })
                   }
-                  item_id = item.dataValues.id;
-                  link = req.body.link;
+
+                castUpVote(req.user.dataValues.id, item.dataValues.id);
+
+                item_id = item.dataValues.id;
+                link = req.body.link;
 
                 phantom.create(function(err,ph) {
                   return ph.createPage(function(err,page) {
