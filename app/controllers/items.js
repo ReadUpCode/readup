@@ -42,7 +42,7 @@ exports.create = function(req, res){
       }
     ).then(
       function(title){
-        Item.create({
+        Item.findOrCreate({
           title: req.body.title, link: req.body.link, UserId: req.user.dataValues.id }).success(function(item) {
             var tags = req.body.tags;
             for(var i in tags){
