@@ -12,6 +12,11 @@ exports.getAllItemsForUser = function(req, res){
   });
 };
 
+// exports.login = function(req, res){
+//   console.log('blahhh', req.session.cookie)
+//   res.send('hello')
+// }
+
 exports.addGitHubUser = function(ghUser, access_token, promise){
   var requestURL = 'https://api.github.com/user/emails?access_token=' + access_token;
   https.get(requestURL, function(res) {
@@ -51,7 +56,6 @@ exports.addGitHubUser = function(ghUser, access_token, promise){
 exports.findUser = function(userId, callback){
   // TODO: handle failure!
   User.find({where: {id: userId}}).success(function(user){
-    console.log('Did we find a user for %s', userId, user)
     return callback(null, user);
   });
 };

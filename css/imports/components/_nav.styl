@@ -32,8 +32,11 @@ nav
 
   #logo-github
     sprite_mixin(0px, 220px, 60px, 60px)
-    margin-top 10px
+    margin-top 0px
     margin-left 10px
+
+    #avatar
+      border-width 0
 
   .login_logout{
     position relative
@@ -41,6 +44,25 @@ nav
     color white
   }
 
+  .userSettings
+    color white
+    font-size 2rem
+
+  .dropdown-menu
+    font-size 2rem
+    left -70px
+    background-color $ge-grey
+    overflow hidden
+    width 100%
+    z-index 1
+
+  .dropdown-menu li a
+    @include transition("all 0.1s ease")
+    border-top 1px solid $fo-grey
+    color $bo-grey
+    font $sans-xs
+    padding 16px 20px
+    text-decoration none
 
   #search-input-tab .tab-icon
     sprite_mixin(0px, 80px, 40px, 40px )
@@ -50,7 +72,7 @@ nav
 
   #login
     .tab-icon
-      sprite_mixin(0px, 160px, 40px,   40px )
+      sprite_mixin(0px, 160px, 40px, 40px )
       margin-top 16px
 
     h1

@@ -5,12 +5,14 @@ var votes = require('../app/controllers/votes');
 var links = require('../app/controllers/links');
 var everyauth = require('everyauth');
 var everyauthConfig = require('./everyauthConfig.js');
+var validation = require('../app/lib/validation');
 
 module.exports = function(app){
-  app.post('/_/items', items.create);
+  app.post('/_/items', function(req, res) {
+    validation.validateURL(req, res, items.create);
+  });
   app.post('/_/preview', links.getText);
 
-  app.get('/_/items', items.get);
   app.get('/_/items/:id', items.getOne);
   app.get('/_/items/:id/score', items.getScore);
 

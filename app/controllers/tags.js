@@ -5,6 +5,7 @@ var sequelize = db.sequelize;
 var Item = db.Item;
 var Tag = db.Tag;
 var Vote = db.Vote;
+var Category = db.Category;
 
 exports.get = function(req, res){
   Tag.findAll().success(function(tags){
@@ -45,10 +46,20 @@ exports.getAllItemsForTag = function(req, res){
               for (var k=0; k < singleItem.tags.length; k++) {
                 resItem.tags.push(singleItem.tags[k].selectedValues);
               }
-              responses.push(resItem);
-              if(responses.length === tag.items.length){
-                res.send(responses);
-              }
+              Item.find({include: [Category], where: {id: item.selectedValues.id}})
+              .success(function(itemCats) {
+                resItem.categories = [];
+                console.log('itemCats!!!!!!!!!', itemCats);
+                var categories = itemCats.categories;
+                for (var i = 0; i < categories.length; i++) {
+                  resItem.categories.push(categories[i].selectedValues);
+                }
+                responses.push(resItem);
+                if(responses.length === tag.items.length){
+                  console.log('final response! ', responses)
+                  res.send(responses);
+                }
+              });
             });
           });
         });
