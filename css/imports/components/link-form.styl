@@ -31,6 +31,7 @@
       margin 0 4% 0 0
       padding 8px 12px 0px
       width 46%
+      position relative
 
       &:hover
         transition all 0.1s ease
@@ -40,6 +41,12 @@
       &.selected
         border-bottom 4px solid white
         color white
+
+        &:after
+          @extend .icon-checkmark:after
+          position absolute
+          right 0
+
 
     .link-form-topic-form
       margin: 20px 0 0 0
