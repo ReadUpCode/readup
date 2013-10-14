@@ -30,6 +30,22 @@ var castUpVote = function(userId, itemId) {
   });
 };
 
+var addTags = function(item, tags) {
+  for(var i in tags){
+    Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
+      item.addTag(tag);
+    });
+  }
+};
+
+var addCategories = function(item, categories) {
+  for (var j in categories) {
+    Category.findOrCreate({name: categories[j] }).success(function(category, created) {
+      item.addCategory(category);
+    })
+  }
+};
+
 exports.create = function(req, res){
   console.log('request', req.body)
   if(req.user){
@@ -56,35 +72,14 @@ exports.create = function(req, res){
       function(title){
         Item.find({ where:{link: req.body.link}}).success(function(item) {
             if (item) {
-              var tags = req.body.tags;
-              for(var i in tags){
-                Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
-                  item.addTag(tag);
-                });
-              }
-              var categories = req.body.categories;
-              for (var j in categories) {
-                Category.findOrCreate({name: categories[j] }).success(function(category, created) {
-                  item.addCategory(category);
-                })
-              }
+              addTags(item, req.body.tags);
+              addCategories(item, req.body.categories);
               castUpVote(req.user.dataValues.id, item.dataValues.id);
             } else {
-              Item.findOrCreate({
-                title: req.body.title, link: req.body.link, UserId: req.user.dataValues.id }).success(function(item) {
-                  var tags = req.body.tags;
-                  for(var i in tags){
-                    Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
-                      item.addTag(tag);
-                    });
-                  }
-                  var categories = req.body.categories;
-                  for (var j in categories) {
-                    Category.findOrCreate({name: categories[j] }).success(function(category, created) {
-                      item.addCategory(category);
-                    })
-                  }
-
+              Item.findOrCreate({title: req.body.title, link: req.body.link, UserId: req.user.dataValues.id })
+              .success(function(item) {
+                addTags(item, req.body.tags);
+                addCategories(item, req.body.categories);
                 castUpVote(req.user.dataValues.id, item.dataValues.id);
 
                 item_id = item.dataValues.id;
