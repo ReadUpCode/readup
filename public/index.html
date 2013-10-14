@@ -51,11 +51,12 @@
           </div>
         </form>
         <!-- logged in users -->
-        <form ng-hide="!currentUser.username" name="itemForm" no-validate type='url' class="submission-form" ng-disabled='!itemForm.$valid' ng-submit='showModal()'>
+        <form ng-hide="!currentUser.username" name="itemForm" no-validate type='url' class="submission-form" ng-disabled='!itemForm.$valid'>
           <div id='paste-link-input' class='main-input'>
             <div class='icon'></div>
             <div class='placeholder'>Paste a link</div>
             <input id='paste-link' class='main-input-text' type='url' ng-model="item.link"/ required>
+            <div ng-show='hasLink' ng-include="'partials/link-form.html'"></div>
           </div>
         </form>
         <!-- non-logged in users -->
