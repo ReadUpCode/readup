@@ -1,30 +1,46 @@
 var controllers = require('../app.js').controllers;
 
-controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', 'searchFactory', 'loginFactory', function($scope, $http, $modal, $q, tagsFactory, searchFactory, loginFactory) {
-  var modalPromise = $modal({template: '../partials/tags_modal.html', persist: true, show: false, backdrop: 'static', scope: $scope});
+controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', 'searchFactory', 'loginFactory', '$timeout', function($scope, $http, $modal, $q, tagsFactory, searchFactory, loginFactory, $timeout) {
   var modalPromiseLogin = $modal({template: '../partials/tags_modal_login.html', persist: true, show: false, backdrop: 'static', scope: $scope});
   $scope.doneLoading = true;
-  $scope.types = {'Tutorial': {name: 'Tutorial', chosen: false},
-                  'Op/Ed': {name: 'Op/Ed', chosen: false},
-                  'Reference': {name: 'Reference', chosen: false},
-                  'Intro': {name: 'Intro', chosen: false}
-                 };
+  $scope.types = {
+    'Tutorial': {
+      name: 'Tutorial',
+      chosen: false
+    },
+    'Op/Ed': {
+      name: 'Op/Ed',
+      chosen: false
+    },
+    'Reference': {
+      name: 'Reference',
+      chosen: false
+    },
+    'Intro': {
+      name: 'Intro',
+      chosen: false
+    }
+ };
   $scope.currentUser = loginFactory.getLoggedInUser();
   var $paste = angular.element('#paste-link');
+  var $body = angular.element('body');
+
   $scope.hasLink = false;
 
   $paste.on('keyup paste', function() {
-    clearTimeout(window.timeoutID);
-    window.timeoutID = setTimeout(function() {
+    $timeout.cancel(window.timeoutID);
+    window.timeoutID = $timeout(function() {
+      console.log('yo yo');
       $scope.hasLink = true;
       $scope.getSuggestedData($scope.item.link);
     }, 500);
   });
 
-  // $paste.on('focusout', function() {
-  //   console.log('blur event called');
-  //   $scope.hasLink = false;
-  // });
+  $body.on('click', function(event) {
+    $scope.hasLink = false;
+    $scope.$apply();
+    console.log($scope.hasLink);
+  });
 
   //SHOULD CHANGE SCOPE.CATEGORIES THING TO TYPES ON THE SERVER SIDE TOO!!!
 
@@ -102,7 +118,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   $scope.getSuggestedData = function(link) {
     var urlRegEx = /^(http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/[\w\-]+)*)(?:\/?|\/\w+\.[a-zA-Z]{2,4}(?:\?[\w]+\=[\w\-]+)?)?(?:\&[\w]+\=[\w\-]+)*)$/;
     var deferred = $q.defer();
-    
+
     //If entered data doesn't match the URL regex, then return error data, and don't actually make the AJAX request.
     if (!urlRegEx.test(link)) {
       deferred.resolve({title: "Snap! That link came back with nothing. How about pasting it in?", tags: []});
@@ -120,7 +136,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     });
   };
 
-  // autocomplete for adding tags
+  // Autocomplete for adding tags
   $scope.typeahead = tagsFactory.getSuggestedTags();
 
   $scope.typeaheadFn = function() {
@@ -129,7 +145,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     });
   };
 
-  // autocomplete for the search
+  // Autocomplete for the search
   $http.get('/_/tags').success(function(data){
     $scope.typeaheadSearch = data;
   });
