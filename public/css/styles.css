@@ -141,7 +141,8 @@ header h2{color:#b8e864;display:inline-block;font:300 1.8rem "source-sans-pro",a
 .link-form .link-form-section .tag.selected{border-bottom:4px solid #fff;color:#fff;}
 .link-form .link-form-section .tag.selected:after{position:absolute;right:0}
 .link-form .link-form-section .link-form-topic-form{margin:20px 0 0 0;}
-.link-form .link-form-section .link-form-topic-form #link-form-topic-search{background-color:#595959;color:#666;font:400 1.8rem "source-sans-pro",arial,sans;width:100%}
+.link-form .link-form-section .link-form-topic-form #link-form-topic-search{background-color:#595959;color:#bfbfbf;font:400 1.8rem "source-sans-pro",arial,sans;width:100%;padding-left:5px}
+.link-form .link-form-section .link-form-topic-form input:focus::-webkit-input-placeholder{color:transparent}
 .link-form .link-form-section .link-form-topic-form .link-form-topic-submit{background-color:$green;color:$white;font:400 1.8rem "source-sans-pro",arial,sans}
 .link-form .close{background-color:#b8e864;color:#fff;padding:14px;text-align:center;width:100%}
 @media screen and (min-width: 600px){.link-form{left:0;margin:0;position:absolute;top:80px}
