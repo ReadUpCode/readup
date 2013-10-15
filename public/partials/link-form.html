@@ -7,7 +7,7 @@
       <div ng-repeat="tag in suggestedData.tags" class="tag" ng-click="toggleTag(tag,'suggested')" ng-class='toggleClass(tag)'>{{tag}}</div>
     </div>
     <div class='link-form-topic-form' ng-sumbit='addTag(tag)'>
-      <input id='link-form-topic-search' type="text" ng-model="tag" bs-typeahead="typeaheadFn"/ placholder="search for topics...">
+      <input id='link-form-topic-search' type="text" ng-model="tag" bs-typeahead="typeaheadFn"/ placeholder="Add your own topics...">
       <!-- <button class='link-form-topic-submit' ng-click='addTag(tag)'>Add</button> -->
     </div>
   </div>
@@ -15,5 +15,5 @@
     <h2>Pick type (optional):</h2>
       <div ng-repeat='type in types' class='tag' ng-click='toggleType(type)' ng-class='toggleClass(type, "type")'>{{type.name}}</div>
   </div>
-  <button class="btn item-submit close" data-dismiss="modal" ng-click="hide();send()">Add Link</button>
+  <button class="btn item-submit close" ng-click="hide();send()">Add Link</button>
 </div>

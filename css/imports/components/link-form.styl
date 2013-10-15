@@ -31,6 +31,7 @@
       margin 0 4% 0 0
       padding 8px 12px 0px
       width 46%
+      position relative
 
       &:hover
         transition all 0.1s ease
@@ -41,14 +42,25 @@
         border-bottom 4px solid white
         color white
 
+        &:after
+          @extend .icon-checkmark:after
+          position absolute
+          right 0
+
+
     .link-form-topic-form
       margin: 20px 0 0 0
 
       #link-form-topic-search
         background-color $fe-grey
-        color $fo-grey
+        color $be-grey
         font $sans-xs
         width 100%
+        padding-left 5px
+
+      input:focus::-webkit-input-placeholder 
+        color: transparent;
+      
 
       .link-form-topic-submit
         background-color $green
@@ -56,11 +68,12 @@
         font $sans-xs
 
   .close
-    background-color $green-med
+    background-color #4CC255
     color white
     padding 14px
     text-align center
     width 100%
+    opacity 1
 
 
 @media screen-to-break-one
@@ -69,50 +82,3 @@
     margin 0
     position absolute
     top $block
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
