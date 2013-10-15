@@ -38,8 +38,29 @@
       font $sans-xs
       margin 4px 0 0
 
-  .tags 
-    display none
+  .related-tag-container
+    a
+      display block
+      color $fo-grey
+      &:hover
+        text-decoration none
+
+  .related-tag
+    border-bottom 2px solid
+    display inline-block
+    height 40px
+    margin 10px 3% 0
+    padding 15px 0 0 2%
+    width 44%
+    white-space nowrap
+    font $sans-xs-spaced
+    overflow hidden
+    text-overflow ellipsis
+    box-sizing border-box
+    vertical-align baseline
+
+  .related-tag:hover
+    border-bottom 4px solid $fo-grey
 
 @media screen-to-break-two
   #about
