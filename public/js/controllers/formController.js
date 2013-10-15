@@ -20,27 +20,12 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       name: 'Intro',
       chosen: false
     }
- };
+  };
+
   $scope.currentUser = loginFactory.getLoggedInUser();
-  var $paste = angular.element('#paste-link');
-  var $body = angular.element('body');
+
 
   $scope.hasLink = false;
-
-  $paste.on('keyup paste', function() {
-    $timeout.cancel(window.timeoutID);
-    window.timeoutID = $timeout(function() {
-      console.log('yo yo');
-      $scope.hasLink = true;
-      $scope.getSuggestedData($scope.item.link);
-    }, 500);
-  });
-
-  $body.on('click', function(event) {
-    $scope.hasLink = false;
-    $scope.$apply();
-    console.log($scope.hasLink);
-  });
 
   //SHOULD CHANGE SCOPE.CATEGORIES THING TO TYPES ON THE SERVER SIDE TOO!!!
 
@@ -66,15 +51,9 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     for (var i = 0; i < allTags.length; i++) {
       var trimmed = allTags[i].trim();
       $scope.item.tags[trimmed] = trimmed;
-      // $scope.suggestedData.$$v.tags[trimmed] = trimmed;
     }
   };
   $scope.toggleTag = function(tag, suggested){
-    // if (suggested === 'suggested') {
-    //   delete $scope.suggestedData.$$v.tags[tag];
-    // }else {
-    //   delete $scope.item.tags[tag];
-    // }
     if ($scope.item.tags[tag] === tag) {
       delete $scope.item.tags[tag];
     }else {
