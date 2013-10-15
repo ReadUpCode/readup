@@ -127,7 +127,10 @@ header h2{color:#b8e864;display:inline-block;font:300 1.8rem "source-sans-pro",a
 #about .stat{padding:20px 0 0;}
 #about .stat .stat-value{color:#4d4d4d;font:300 3.6rem "source-sans-pro",arial,sans}
 #about .stat .stat-label{font:400 1.8rem "source-sans-pro",arial,sans;margin:4px 0 0}
-#about .tags{display:none}
+#about .related-tag-container a{display:block;color:#666;}
+#about .related-tag-container a:hover{text-decoration:none}
+#about .related-tag{border-bottom:2px solid;display:inline-block;height:40px;margin:10px 3% 0;padding:15px 0 0 2%;width:44%;white-space:nowrap;font:400 1.3846153846153846rem "source-sans-pro",arial,sans;overflow:hidden;-o-text-overflow:ellipsis;text-overflow:ellipsis;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;vertical-align:baseline}
+#about .related-tag:hover{border-bottom:4px solid #666}
 @media screen and (min-width: 1000px){#about{border-bottom:none;border-top:6px solid #e6e6e6;float:right;margin-top:-26px;padding:40px 0 0;width:25%;}
 #about img,#about h2,#about p{margin:0 5%}
 #about img{max-height:none}
@@ -153,4 +156,11 @@ header h2{color:#b8e864;display:inline-block;font:300 1.8rem "source-sans-pro",a
 #preview-pane #close-preview{font:400 3.6rem "source-sans-pro",arial,sans;position:absolute;top:10px;right:10px;background:#000;color:#fff;font-size:15px;text-align:center;vertical-align:middle;line-height:20px;width:20px;height:20px;}
 #preview-pane #close-preview:hover{cursor:pointer}
 .preview-logo{color:#fff}
-.popover-text{font:300 1.4rem "source-sans-pro",arial,sans}
+.popover.right{background-color:#333;}
+.popover.right .arrow{border-right-color:#333}
+.popover.right .arrow:after{border-right-color:#333}
+.popover-text{font:300 1.4rem "source-sans-pro",arial,sans;color:#c2c2c2;margin-top:10px}
+.popover-content{width:145px}
+.popover-close{font-size:15px;color:#c2c2c2}
+.popover-github{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -220px;height:60px;width:60px;margin-right:auto;margin-left:auto;-webkit-transition:opacity 0.33s ease-in-out;-moz-transition:opacity 0.33s ease-in-out;-o-transition:opacity 0.33s ease-in-out;-ms-transition:opacity 0.33s ease-in-out;transition:opacity 0.33s ease-in-out;opacity:.25;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=25)";filter:alpha(opacity=25)}
+.popover-github:hover{opacity:1;-ms-filter:none;filter:none}
