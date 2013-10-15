@@ -1,7 +1,8 @@
 var controllers = require('../app.js').controllers;
 
 controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', 'searchFactory', 'loginFactory', '$timeout', function($scope, $http, $modal, $q, tagsFactory, searchFactory, loginFactory, $timeout) {
-  var modalPromiseLogin = $modal({template: '../partials/tags_modal_login.html', persist: true, show: false, backdrop: 'static', scope: $scope});
+  var urlRegEx = /^(http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/[\w\-]+)*)(?:\/?|\/\w+\.[a-zA-Z]{2,4}(?:\?[\w]+\=[\w\-]+)?)?(?:\&[\w]+\=[\w\-]+)*)$/;
+
   $scope.doneLoading = true;
   $scope.types = {
     'Tutorial': {
@@ -21,36 +22,53 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       chosen: false
     }
   };
+  $scope.item = { tags : {}, categories: {} , yourTags: {}};
+  $scope.typeaheadObj = {};
+  $scope.suggestedData = {};
 
   $scope.currentUser = loginFactory.getLoggedInUser();
-
-
   $scope.hasLink = false;
+  $scope.noTagsOnSubmit = false;
+
+
 
   //SHOULD CHANGE SCOPE.CATEGORIES THING TO TYPES ON THE SERVER SIDE TOO!!!
 
-  $scope.item = { tags : {}, categories: {} };
   $scope.send = function(){
-    var suggestedTags = $scope.suggestedData.$$v.tags;
-    for (var each in suggestedTags) {
-      $scope.item.tags[suggestedTags[each]] = suggestedTags[each];
+    //Tag Validity Checks
+    if (!Object.keys($scope.item.tags).length) {
+      $scope.noTagsOnSubmit = true;
+      console.log('tag check is happening');
+      return;
+    }
+    //URL Validity Check
+    if (!urlRegEx.test($scope.item.link)) {
+      $scope.suggestedData.title = 'Snap! That link came back with nothing. How about pasting it in?';
+      return;
     }
     for (var category in $scope.types) {
-      if($scope.types[category].chosen) {
-        $scope.item.categories[category.name] = category.name;
+      var categoryObj = $scope.types[category];
+      if(categoryObj.chosen) {
+        $scope.item.categories[categoryObj.name] = categoryObj.name;
       }
     }
 
-    $scope.item.title = $('#title-input').val();
+    // $scope.item.title = $('#title-input').val();
 
     $http.post('/_/items', $scope.item).success(function() {
     });
+    $scope.hideAndClearLinkForm();
   };
   $scope.addTag = function(tag){
+    if (!(tag in $scope.typeaheadObj)) {
+      return;
+    }
     var allTags = tag.split(',');
     for (var i = 0; i < allTags.length; i++) {
       var trimmed = allTags[i].trim();
       $scope.item.tags[trimmed] = trimmed;
+      $scope.item.yourTags[trimmed] = trimmed;
+      $scope.$apply();
     }
   };
   $scope.toggleTag = function(tag, suggested){
@@ -58,6 +76,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       delete $scope.item.tags[tag];
     }else {
       $scope.item.tags[tag] = tag;
+      $scope.noTagsOnSubmit = false;
     }
   };
 
@@ -81,17 +100,8 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     }
   };
 
-  $scope.showModal = function() {
-    $q.when(modalPromise).then(function(modalEl) {
-      modalEl.modal('show');
-    });
-    $scope.getSuggestedData($scope.item.link);
-  };
-
-  $scope.showLoginModal = function() {
-    $q.when(modalPromiseLogin).then(function(modalEl) {
-      modalEl.modal('show');
-    });
+  $scope.hideAndClearLinkForm = function() {
+    //TODO: Make this hide and clear data from link-form;
   };
 
   $scope.getSuggestedData = function(link) {
@@ -120,6 +130,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
 
   $scope.typeaheadFn = function() {
     return $.map($scope.typeahead, function(tag) {
+      $scope.typeaheadObj[tag.name] = tag.name;
       return tag.name;
     });
   };
