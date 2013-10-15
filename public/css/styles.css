@@ -6,10 +6,13 @@ caption,th,td{text-align:left;font-weight:normal;vertical-align:middle}
 a img{border:none}
 *,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 input{-webkit-appearnace:none;-webkit-border-radius:0;border-radius:0;border:none;margin:0;padding:0;resize:none;outline:none}
-@font-face{font-family:'icomoon';src:url("../lib/icomoon76310/fonts/icomoon.eot");src:url("../lib/icomoon76310/fonts/icomoon.eot?#iefix") format('embedded-opentype'),url("../lib/icomoon76310/fonts/icomoon.woff") format('woff'),url("../lib/icomoon76310/fonts/icomoon.ttf") format('truetype'),url("../lib/icomoon76310/fonts/icomoon.svg#icomoon") format('svg');font-weight:normal;font-style:normal}
-.icon-bullhorn,.icon-book{font-family:'icomoon';speak:none;font-style:normal;font-weight:normal;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased}
-.icon-bullhorn:before{content:"\e000"}
-.icon-book:before{content:"\e001"}
+@font-face{font-family:'readup-icons';src:url("../lib/readup-icons87652/fonts/readup-icons.eot");src:url("../lib/readup-icons87652/fonts/readup-icons.eot?#iefix") format('embedded-opentype'),url("../lib/readup-icons87652/fonts/readup-icons.woff") format('woff'),url("../lib/readup-icons87652/fonts/readup-icons.ttf") format('truetype'),url("../lib/readup-icons87652/fonts/readup-icons.svg#readup-icons") format('svg');font-weight:normal;font-style:normal}
+.icon-readup:before,.icon-eye:before,.icon-github:before,.icon-checkmark:before,.icon-checkmark:after,.link-form .link-form-section .tag.selected:after{font-family:'readup-icons';speak:none;font-style:normal;font-weight:normal;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased}
+.icon-readup:before{content:"\e000"}
+.icon-eye:before{content:"\e001"}
+.icon-github:before{content:"\e002"}
+.icon-checkmark:before{content:"\e003"}
+.icon-checkmark:after,.link-form .link-form-section .tag.selected:after{content:"\e003"}
 html{font-size:62.5%}
 .wf-loading body{opacity:0;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";filter:alpha(opacity=0)}
 body{color:#333;}
@@ -136,13 +139,15 @@ header h2{color:#b8e864;display:inline-block;font:300 1.8rem "source-sans-pro",a
 .link-form h1{color:#999;font:300 2.4rem "source-sans-pro",arial,sans;font-style:italic;line-height:1.1;margin:20px}
 .link-form .link-form-section{border-top:1px solid #4d4d4d;padding:20px 16px;width:100%;}
 .link-form .link-form-section h2{color:#fff;font:400 1.4rem "source-sans-pro",arial,sans}
-.link-form .link-form-section .tag{border-bottom:2px solid #666;color:#bfbfbf;cursor:pointer;display:inline-block;font:400 1.8rem "source-sans-pro",arial,sans;height:40px;margin:0 4% 0 0;padding:8px 12px 0;width:46%;}
+.link-form .link-form-section .tag{border-bottom:2px solid #666;color:#bfbfbf;cursor:pointer;display:inline-block;font:400 1.8rem "source-sans-pro",arial,sans;height:40px;margin:0 4% 0 0;padding:8px 12px 0;width:46%;position:relative;}
 .link-form .link-form-section .tag:hover{-webkit-transition:all 0.1s ease;-moz-transition:all 0.1s ease;-o-transition:all 0.1s ease;-ms-transition:all 0.1s ease;transition:all 0.1s ease;border-bottom:4px solid #808080;color:#d9d9d9}
-.link-form .link-form-section .tag.selected{border-bottom:4px solid #fff;color:#fff}
+.link-form .link-form-section .tag.selected{border-bottom:4px solid #fff;color:#fff;}
+.link-form .link-form-section .tag.selected:after{position:absolute;right:0}
 .link-form .link-form-section .link-form-topic-form{margin:20px 0 0 0;}
-.link-form .link-form-section .link-form-topic-form #link-form-topic-search{background-color:#595959;color:#666;font:400 1.8rem "source-sans-pro",arial,sans;width:100%}
+.link-form .link-form-section .link-form-topic-form #link-form-topic-search{background-color:#595959;color:#bfbfbf;font:400 1.8rem "source-sans-pro",arial,sans;width:100%;padding-left:5px}
+.link-form .link-form-section .link-form-topic-form input:focus::-webkit-input-placeholder{color:transparent}
 .link-form .link-form-section .link-form-topic-form .link-form-topic-submit{background-color:$green;color:$white;font:400 1.8rem "source-sans-pro",arial,sans}
-.link-form .close{background-color:#b8e864;color:#fff;padding:14px;text-align:center;width:100%}
+.link-form .close{background-color:#4cc255;color:#fff;padding:14px;text-align:center;width:100%;opacity:1;-ms-filter:none;filter:none}
 @media screen and (min-width: 600px){.link-form{left:0;margin:0;position:absolute;top:80px}
 }#preview-pane{position:absolute;top:250px;right:5%;height:420px;width:25%;margin-right:0;border:1px dashed #000;overflow:scroll;}
 #preview-pane #close-preview{font:400 3.6rem "source-sans-pro",arial,sans;position:absolute;top:10px;right:10px;background:#000;color:#fff;font-size:15px;text-align:center;vertical-align:middle;line-height:20px;width:20px;height:20px;}
