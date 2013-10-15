@@ -144,7 +144,7 @@ header h2{color:#b8e864;display:inline-block;font:300 1.8rem "source-sans-pro",a
 .link-form .link-form-section .link-form-topic-form #link-form-topic-search{background-color:#595959;color:#bfbfbf;font:400 1.8rem "source-sans-pro",arial,sans;width:100%;padding-left:5px}
 .link-form .link-form-section .link-form-topic-form input:focus::-webkit-input-placeholder{color:transparent}
 .link-form .link-form-section .link-form-topic-form .link-form-topic-submit{background-color:$green;color:$white;font:400 1.8rem "source-sans-pro",arial,sans}
-.link-form .close{background-color:#b8e864;color:#fff;padding:14px;text-align:center;width:100%}
+.link-form .close{background-color:#4cc255;color:#fff;padding:14px;text-align:center;width:100%;opacity:1;-ms-filter:none;filter:none}
 @media screen and (min-width: 600px){.link-form{left:0;margin:0;position:absolute;top:80px}
 }#preview-pane{position:absolute;top:250px;right:5%;height:420px;width:25%;margin-right:0;border:1px dashed #000;overflow:scroll;}
 #preview-pane #close-preview{font:400 3.6rem "source-sans-pro",arial,sans;position:absolute;top:10px;right:10px;background:#000;color:#fff;font-size:15px;text-align:center;vertical-align:middle;line-height:20px;width:20px;height:20px;}
