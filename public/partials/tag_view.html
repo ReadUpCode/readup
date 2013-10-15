@@ -6,7 +6,8 @@
   </div>
 </aside>
 <ul id='links'>
-  <li class='link' ng-repeat='link in links'>
+  <li class='link' ng-repeat='link in links| orderBy:"-score"'>
+    <h1>{{link.score}}</h1>
     <div class='title-wrap'>
       <h1 class='link_title'>
         <a href="{{link.link}}" alt="{{link.title}}">{{link.title}}</a>
