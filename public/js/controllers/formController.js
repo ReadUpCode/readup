@@ -3,7 +3,7 @@ var controllers = require('../app.js').controllers;
 controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', 'searchFactory', 'loginFactory', function($scope, $http, $modal, $q, tagsFactory, searchFactory, loginFactory) {
   var modalPromise = $modal({template: '../partials/tags_modal.html', persist: true, show: false, backdrop: 'static', scope: $scope});
   var modalPromiseLogin = $modal({template: '../partials/tags_modal_login.html', persist: true, show: false, backdrop: 'static', scope: $scope});
-  $scope.doneLoading = false;
+  $scope.doneLoading = true;
   $scope.types = {'Tutorial': {name: 'Tutorial', chosen: false},
                   'Op/Ed': {name: 'Op/Ed', chosen: false},
                   'Reference': {name: 'Reference', chosen: false},
@@ -14,12 +14,13 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   $scope.hasLink = false;
 
   $paste.on('keyup paste', function() {
-    clearTimeout(timeoutID);
-    var timeoutID = setTimeout(function() {
+    clearTimeout(window.timeoutID);
+    window.timeoutID = setTimeout(function() {
       $scope.hasLink = true;
       $scope.getSuggestedData($scope.item.link);
     }, 500);
   });
+
   // $paste.on('focusout', function() {
   //   console.log('blur event called');
   //   $scope.hasLink = false;
@@ -39,10 +40,8 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       }
     }
 
-    console.log($scope.suggestedData)
-    $scope.item.title = $('#title-input').val()
+    $scope.item.title = $('#title-input').val();
 
-    console.log('blah', $scope.item.title)
     $http.post('/_/items', $scope.item).success(function() {
     });
   };
@@ -51,7 +50,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     for (var i = 0; i < allTags.length; i++) {
       var trimmed = allTags[i].trim();
       $scope.item.tags[trimmed] = trimmed;
-      $scope.suggestedData.$$v.tags[trimmed] = trimmed;
+      // $scope.suggestedData.$$v.tags[trimmed] = trimmed;
     }
   };
   $scope.toggleTag = function(tag, suggested){
@@ -101,8 +100,17 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   };
 
   $scope.getSuggestedData = function(link) {
-    $scope.doneLoading = false;
+    var urlRegEx = /^(http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/[\w\-]+)*)(?:\/?|\/\w+\.[a-zA-Z]{2,4}(?:\?[\w]+\=[\w\-]+)?)?(?:\&[\w]+\=[\w\-]+)*)$/;
     var deferred = $q.defer();
+    
+    //If entered data doesn't match the URL regex, then return error data, and don't actually make the AJAX request.
+    if (!urlRegEx.test(link)) {
+      deferred.resolve({title: "Snap! That link came back with nothing. How about pasting it in?", tags: []});
+      $scope.suggestedData = deferred.promise;
+      return;
+    }
+    $scope.doneLoading = false;
+
     $http.post('/_/preview', {url: link}).success(function(data) {
       deferred.resolve(data);
     });
