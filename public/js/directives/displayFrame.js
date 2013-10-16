@@ -13,7 +13,8 @@ directives.directive("showFrame", function(){
         }).children('img').replaceWith(
             $('<img>', {
                 id: 'preview',
-                src: '/item_images/' + scope.link.id + '.png'
+                src: 'https://s3-us-west-2.amazonaws.com/readupimages/' + scope.link.id 
+
             }).css({
                 right: 0,
                 width: '100%',

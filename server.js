@@ -11,11 +11,18 @@ app.configure(function(){
   app.use(express.cookieParser());
   app.use(express.session({
     secret: process.env.SESSION_SECRET,
-    store: new MySQLSessionStore('readup', 'root', '', {})
+    store: new MySQLSessionStore(
+      process.env.MYSQL_DATABASE,
+      process.env.MYSQL_USERNAME,
+      process.env.MYSQL_PASSWORD,
+      {
+        host: process.env.MYSQL_HOST
+      }
+    )
   }));
   app.use(everyauth.middleware());
 });
 
 require('./config/routes')(app);
 
-app.listen(3000);
+app.listen(process.env.PORT);

@@ -1,8 +1,12 @@
 var Sequelize  = require('sequelize');
-// var sequelize = new Sequelize('mysql://root@127.0.0.1/readup',, {});
-var sequelize = new Sequelize('readup', 'root', '', {
-  host: "127.0.0.1",
-})
+var sequelize = new Sequelize(
+  process.env.MYSQL_DATABASE,
+  process.env.MYSQL_USERNAME,
+  process.env.MYSQL_PASSWORD,
+  {
+    host: process.env.MYSQL_HOST
+  }
+);
 
 var User = sequelize.define('User', {
   username: {
