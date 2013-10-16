@@ -19,9 +19,10 @@
       </h1>
     </div>
     <h2><a href="{{link.link}}">{{link.link}}</a></h2>
-    <div class='categories'>
-      <div class='categories-name' ng-repeat='category in link.categories'>| {{category.name}}
+    <div class='meta-data'>
+      <div class='categories-name' ng-repeat='category in link.categories'>{{category.name}}
       </div>
+      <div class='preview-logo' show-frame></div>
     </div>
 
 <!-- this is for non-logged in users -->
@@ -46,7 +47,6 @@
     </div>
 <!-- this is for both logged in and non-logged in-->
 
-    <div class='preview-logo' show-frame></div>
   </li>
 </ul>
 <div id='preview-pane' scroll-position>

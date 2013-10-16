@@ -3,4 +3,5 @@ node_modules
 start.sh
 :.DS_Store
 build
+public/css/styles.css
 public/item_images/
