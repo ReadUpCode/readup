@@ -14,11 +14,40 @@ var Item = db.Item;
 var Tag = db.Tag;
 var Vote = db.Vote;
 var Category = db.Category;
+var Vote = db.Vote;
 
 exports.getAllTagsForItem = function(req, res){
   Item.find({where: {id: 1}}).success(function(item){
     item.getTags().success(function(tags){console.log('ALL TAGS FOR ITEM 1', tags);});
   });
+};
+
+var castUpVote = function(userId, itemId) {
+  Vote.find({where: ['UserId=? AND ItemId=?', userId, itemId]})
+  .success(function(vote){
+    if(!vote){
+      Vote.create({ UserId: userId, ItemId: itemId, value: 1 });
+    }
+    else if (vote.selectedValues.value !== 1) {
+      vote.updateAttributes({value: 1});
+    }
+  });
+};
+
+var addTags = function(item, tags) {
+  for(var i in tags){
+    Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
+      item.addTag(tag);
+    });
+  }
+};
+
+var addCategories = function(item, categories) {
+  for (var j in categories) {
+    Category.findOrCreate({name: categories[j] }).success(function(category, created) {
+      item.addCategory(category);
+    })
+  }
 };
 
 exports.create = function(req, res){
@@ -45,22 +74,20 @@ exports.create = function(req, res){
       }
     ).then(
       function(title){
-        Item.findOrCreate({
-          title: req.body.title, link: req.body.link, UserId: req.user.dataValues.id }).success(function(item) {
-            var tags = req.body.tags;
-            for(var i in tags){
-              Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
-                item.addTag(tag);
-              });
-            }
-            var categories = req.body.categories;
-            for (var j in categories) {
-              Category.findOrCreate({name: categories[j] }).success(function(category, created) {
-                item.addCategory(category);
-              })
-            }
-            item_id = item.dataValues.id;
-            link = req.body.link;
+        Item.find({ where:{link: req.body.link}}).success(function(item) {
+            if (item) {
+              addTags(item, req.body.tags);
+              addCategories(item, req.body.categories);
+              castUpVote(req.user.dataValues.id, item.dataValues.id);
+            } else {
+              Item.findOrCreate({title: req.body.title, link: req.body.link, UserId: req.user.dataValues.id })
+              .success(function(item) {
+                addTags(item, req.body.tags);
+                addCategories(item, req.body.categories);
+                castUpVote(req.user.dataValues.id, item.dataValues.id);
+
+                item_id = item.dataValues.id;
+                link = req.body.link;
 
           phantom.create(function(err,ph) {
             return ph.createPage(function(err,page) {
@@ -84,12 +111,11 @@ exports.create = function(req, res){
                   });
                 });
               });
-            });
-          });
-        })
+            }
+        });
+
         res.end('done');
-      }
-    ).done(function(){console.log("DONE FINALLY")});
+      }).done(function(){console.log("DONE FINALLY")});
   } else {
     res.send(200);
   }

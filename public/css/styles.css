@@ -90,7 +90,8 @@ header h2{color:#b8e864;display:inline-block;font:300 1.8rem "source-sans-pro",a
 #links .link .title-wrap h1{width:500px;acolor:#333;font:400 3.6rem "source-sans-pro",arial,sans;white-space:nowrap;width:100%;overflow:hidden;-o-text-overflow:ellipsis;text-overflow:ellipsis}
 #links .link .preview-logo{background-image:url("../images/sprite.svg");background-repeat:no-repeat;background-position:0 -280px;height:60px;width:60px;}
 #links .link .preview-logo:hover{cursor:pointer}
-#links .link h2{color:#b3b3b3;font:sans-s-light;margin:10px 0 0;overflow:hidden}
+#links .link h2 a{color:#b3b3b3;font:300 2.4rem "source-sans-pro",arial,sans;margin:10px 0 0;overflow:hidden}
+#links .link .categories-name{font:300 1.8rem "source-sans-pro",arial,sans}
 #links .link .votes{font-size:0;height:32px;width:30px;margin:20px 0 0 10px;position:relative;width:90px;}
 #links .link .votes .up-vote-this{-webkit-border-radius:2px;border-radius:2px;-webkit-box-shadow:0 0 0 6px rgba(0,0,0,0.15);box-shadow:0 0 0 6px rgba(0,0,0,0.15);-webkit-transition:all 0.2s ease;-moz-transition:all 0.2s ease;-o-transition:all 0.2s ease;-ms-transition:all 0.2s ease;transition:all 0.2s ease;background-color:#333;cursor:pointer;height:32px;left:0;padding:7px 0 0;position:absolute;text-align:center;top:0;width:32px;}
 #links .link .votes .up-vote-this .up-arrow{-webkit-transition:all 0.2s ease;-moz-transition:all 0.2s ease;-o-transition:all 0.2s ease;-ms-transition:all 0.2s ease;transition:all 0.2s ease;background-color:#333;height:9px;margin:-5px -4px 0 0;position:absolute;right:0;top:50%;width:9px;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}
@@ -139,6 +140,7 @@ header h2{color:#b8e864;display:inline-block;font:300 1.8rem "source-sans-pro",a
 .link-form h1{color:#999;font:300 2.4rem "source-sans-pro",arial,sans;font-style:italic;line-height:1.1;margin:20px}
 .link-form .link-form-section{border-top:1px solid #4d4d4d;padding:20px 16px;width:100%;}
 .link-form .link-form-section h2{color:#fff;font:400 1.4rem "source-sans-pro",arial,sans}
+.link-form .link-form-section .link-form-tags-required{font:400 1.8rem "source-sans-pro",arial,sans;display:inline-block;color:#fff}
 .link-form .link-form-section .tag{border-bottom:2px solid #666;color:#bfbfbf;cursor:pointer;display:inline-block;font:400 1.8rem "source-sans-pro",arial,sans;height:40px;margin:0 4% 0 0;padding:8px 12px 0;width:46%;position:relative;}
 .link-form .link-form-section .tag:hover{-webkit-transition:all 0.1s ease;-moz-transition:all 0.1s ease;-o-transition:all 0.1s ease;-ms-transition:all 0.1s ease;transition:all 0.1s ease;border-bottom:4px solid #808080;color:#d9d9d9}
 .link-form .link-form-section .tag.selected{border-bottom:4px solid #fff;color:#fff;}
@@ -147,7 +149,8 @@ header h2{color:#b8e864;display:inline-block;font:300 1.8rem "source-sans-pro",a
 .link-form .link-form-section .link-form-topic-form #link-form-topic-search{background-color:#595959;color:#bfbfbf;font:400 1.8rem "source-sans-pro",arial,sans;width:100%;padding-left:5px}
 .link-form .link-form-section .link-form-topic-form input:focus::-webkit-input-placeholder{color:transparent}
 .link-form .link-form-section .link-form-topic-form .link-form-topic-submit{background-color:$green;color:$white;font:400 1.8rem "source-sans-pro",arial,sans}
-.link-form .close{background-color:#4cc255;color:#fff;padding:14px;text-align:center;width:100%;opacity:1;-ms-filter:none;filter:none}
+.link-form .close{background-color:#5dd166;color:#fff;padding:14px;text-align:center;width:100%;opacity:.9;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";filter:alpha(opacity=90);font:400 2.4rem "source-sans-pro",arial,sans;}
+.link-form .close:hover{-webkit-transition:0.2s ease;-moz-transition:0.2s ease;-o-transition:0.2s ease;-ms-transition:0.2s ease;transition:0.2s ease;opacity:1;-ms-filter:none;filter:none}
 @media screen and (min-width: 600px){.link-form{left:0;margin:0;position:absolute;top:80px}
 }#preview-pane{position:absolute;top:250px;right:5%;height:420px;width:25%;margin-right:0;border:1px dashed #000;overflow:scroll;}
 #preview-pane #close-preview{font:400 3.6rem "source-sans-pro",arial,sans;position:absolute;top:10px;right:10px;background:#000;color:#fff;font-size:15px;text-align:center;vertical-align:middle;line-height:20px;width:20px;height:20px;}

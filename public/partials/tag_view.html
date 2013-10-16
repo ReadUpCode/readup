@@ -1,4 +1,4 @@
-<h1 class='title' id='articles-title'>{{tag}}</h1> 
+<h1 class='title' id='articles-title'>{{tag}}</h1>
 <aside id='about'>
   <p>{{stackOverflowSummary.summary}} <a ng-href='http://stackoverflow.com/tags/{{stackOverflowSummary.urlTag}}/info'>More on Stack Overflow.</a></p>
   <br>
@@ -16,8 +16,12 @@
       <h1 class='link_title'>
         <a href="{{link.link}}" alt="{{link.title}}">{{link.title}}</a>
       </h1>
-    <div>
+    </div>
     <h2><a href="{{link.link}}">{{link.link}}</a></h2>
+    <div class='categories'>
+      <div class='categories-name' ng-repeat='category in link.categories'>| {{category.name}}
+      </div>
+    </div>
 
 <!-- this is for non-logged in users -->
     <div class="votes" ng-hide="currentUser.username">
@@ -40,11 +44,7 @@
       <div class='vote-count'>{{link.score}}</div>
     </div>
 <!-- this is for both logged in and non-logged in-->
-    <div class='categories'>
-      <div class='categories-icon' ng-repeat='category in link.categories'>{{category.name}}
-        <div ng-include="getIconURL(link, $index)"></div>
-      </div> 
-    </div>
+
     <div class='preview-logo' show-frame></div>
   </li>
 </ul>

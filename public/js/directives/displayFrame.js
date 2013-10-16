@@ -5,10 +5,9 @@ directives.directive("showFrame", function(){
  return function(scope, element) {
       element.bind("click", function(){
         var absolutePixels = $(element).offset();
-        console.log($(window).scrollTop())
-        $('#preview-pane').slideDown(1000)
-        $.get('https://s3-us-west-2.amazonaws.com/readupimages/' + scope.link.id)
-    .done(function() { 
+        $('#preview-pane').slideDown(1000);
+        $.get('/item_images/' + scope.link.id + '.png')
+    .done(function() {
         $('#preview-pane').css({
           // top: absolutePixels.top + 'px'
         }).children('img').replaceWith(
@@ -21,7 +20,7 @@ directives.directive("showFrame", function(){
                 width: '100%',
                 overflow: 'scroll'
             }))
-    }).fail(function() { 
+    }).fail(function() {
         $('#preview-pane').css({
           // top: absolutePixels.top + 'px'
         }).children('img').replaceWith(
@@ -32,30 +31,19 @@ directives.directive("showFrame", function(){
                 right: 0,
                 width: '100%',
                 overflow: 'scroll'
-            }))
-    })
-      })
-      
+          }));
+    });
+      });
+
       $('#close-preview').on('click', function(){
-        $(this).parent().hide()
-      })
+        $(this).parent().hide();
+      });
 
       angular.element('body').on('click', function(event){
-        console.log(!$(event.target).hasClass('preview-logo'))
-        console.log(event.target.id)
-        if(event.target.id !== 'preview-pane' && event.target.id !== 'preview' && !$(event.target).hasClass('preview-logo')){    
+        if(event.target.id !== 'preview-pane' && event.target.id !== 'preview' && !$(event.target).hasClass('preview-logo')){
 
-          $('#preview-pane').hide()
+          $('#preview-pane').hide();
         }
-      })
-
-      // var el = $('#preview-pane'),
-      // pos = el.position().top;
-      // console.log(pos)
-      // $(window).scroll(function() {
-      //   el.toggleClass('fixed', $(this).scrollTop() >= pos);
-      // });
-
-    
-    }
+      });
+    };
 });
