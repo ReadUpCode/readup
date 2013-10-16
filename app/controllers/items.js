@@ -1,11 +1,14 @@
-var express = require('express');
+T_var express = require('express');
 var db = require('../../config/db');
 var sequelize = db.sequelize;
 var phantom = require('node-phantom');
 var request = require('request');
 var cheerio = require('cheerio');
 var Q = require('q');
-
+var AWS = require('aws-sdk');
+var fs = require('fs')
+var s3 = new AWS.S3({region: 'us-west-2'});
+// AWS.config.loadFromPath(__dirname + '/../../config/config.json');
 
 var Item = db.Item;
 var Tag = db.Tag;
@@ -65,6 +68,20 @@ exports.create = function(req, res){
               return page.open(link, function(err,status) {
                 page.render('public/item_images/' + item_id + '.png', function(){console.log('rendering');});
                 page.close(function(){
+                  fs.readFile(__dirname + '/../../public/item_images/'+ item_id + '.png', function (err, data) {
+                    if (err) { throw err; }
+                    var image = new Buffer(data, 'binary')
+
+                    var params = {Bucket: 'readupimages', Key: item_id.toString(), ACL: "public-read", ContentType: 'image/png', Body: data};
+                                        s3.putObject(params, function(err, data) {
+                                          if (err) {
+                                            console.log("AMAZON ERROR", err)
+                                          } else {
+                                            console.log("Successfully uploaded data to myBucket/myKey");
+                                            console.log(data)
+                                          }
+                                        });
+                  });
                 });
               });
             });
