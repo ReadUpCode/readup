@@ -3,6 +3,8 @@ var db = require('../../config/db');
 var sequelize = db.sequelize;
 
 var Vote = db.Vote;
+var Item = db.Item;
+var User = db.User;
 
 exports.create = function(req, res){
 	Vote.find({where: ['ItemId=? AND UserId=?', req.body.id, req.user.dataValues.id]})
@@ -23,5 +25,14 @@ exports.create = function(req, res){
 				});
 			}
 		}
+	});
+};
+
+exports.updateKarma = function(req, res){
+	Item.find({where: {id: req.body.id}}).success(function(item){
+		User.find({where: {id: item.selectedValues.UserId}}).success(function(user){
+			var newKarma = user.selectedValues.karma + 10;
+			user.updateAttributes({karma: newKarma});
+		});
 	});
 };
