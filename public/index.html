@@ -35,8 +35,6 @@
       <div id='search-input-tab' class='tab'><div class='tab-icon'></div></div>
       <div id='paste-link-input-tab' class='tab'><div class='tab-icon'></div></div>
       <div id='log-in' class='tab'>
-        <!-- <span class='tab-icon'></span>
-        <h1>Log in</h1> -->
         <div ng-controller="LoginController">
           
           <div id='logo-github'>
@@ -70,7 +68,7 @@
                    ng-model="item.link"
                    link-form
                    required/>
-            <div ng-show='hasLink' ng-include="'partials/link-form.html'"></div>
+            <div ng-show='hasLink' ng-include="'partials/link_form.html'"></div>
           </div>
         </form>
         <!-- non-logged in users -->
@@ -83,6 +81,8 @@
             <div class='placeholder'>Paste a link</div>
             <input id='paste-link' class='main-input-text' type='url'
                    ng-model="item.link"
+                   data-placement='bottom'
+                   bs-popover="'./partials/link_form_logged_out_popover.html'"
                    required/>
           </div>
         </form>
@@ -93,5 +93,6 @@
         <div ng-view></div>
       </div>
   </div>
+  <footer>&copy2013 ReadUp</footer>
 </body>
 </html>

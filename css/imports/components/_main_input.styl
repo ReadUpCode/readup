@@ -10,6 +10,12 @@
   width 100%
   font-size 0
 
+  .popover
+    background-color $ho-grey
+    .arrow
+      &:after
+        border-bottom-color $ho-grey
+
   .main-input-text
   .placeholder
     transition color 0.3s ease
@@ -67,7 +73,7 @@
     width 100%
     z-index 1
 
-  .typeahead.dropdown-menu li 
+  .typeahead.dropdown-menu li
     a
       @include transition("all 0.1s ease")
       border-top 1px solid $fo-grey

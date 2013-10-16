@@ -16,7 +16,10 @@ module.exports = function(app){
   app.get('/_/items/:id', items.getOne);
   app.get('/_/items/:id/score', items.getScore);
 
-  app.post('/_/votes', votes.create);
+  app.post('/_/votes', function(req, res){
+    votes.create(req, res);
+    votes.updateKarma(req, res);
+  });
 
   app.get('/_/users/:id/items', users.getAllItemsForUser);
 
