@@ -7,14 +7,15 @@ directives.directive("showFrame", function(){
         var absolutePixels = $(element).offset();
         console.log($(window).scrollTop())
         $('#preview-pane').slideDown(1000)
-        $.get('/item_images/' + scope.link.id + '.png')
+        $.get('https://s3-us-west-2.amazonaws.com/readupimages/' + scope.link.id)
     .done(function() { 
         $('#preview-pane').css({
           // top: absolutePixels.top + 'px'
         }).children('img').replaceWith(
             $('<img>', {
                 id: 'preview',
-                src: '/item_images/' + scope.link.id + '.png'
+                src: 'https://s3-us-west-2.amazonaws.com/readupimages/' + scope.link.id 
+
             }).css({
                 right: 0,
                 width: '100%',
