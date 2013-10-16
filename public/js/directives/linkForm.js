@@ -5,7 +5,6 @@ directives.directive('linkForm', function($timeout){
     var $body = angular.element('body');
 
     element.on('focus', function() {
-      console.log('getting focus')
       scope.hasLink = true;
       scope.$apply();
     });
@@ -21,7 +20,6 @@ directives.directive('linkForm', function($timeout){
     $body.on('click', function() {
       scope.hasLink = false;
       scope.$apply();
-      console.log(scope.hasLink);
     });
   };
 });
