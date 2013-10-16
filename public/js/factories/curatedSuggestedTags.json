@@ -740,11 +740,6 @@
       "fulfills_required": false
     },
     {
-      "name": "networking",
-      "count": 13131,
-      "fulfills_required": false
-    },
-    {
       "name": "opencv",
       "count": 13041,
       "fulfills_required": false
@@ -1197,6 +1192,11 @@
     {
       "name": "mongo",
       "count": 8389,
+      "fulfills_required": false
+    },
+    {
+      "name": "meteorjs",
+      "count": 2140,
       "fulfills_required": false
     }
 ]
