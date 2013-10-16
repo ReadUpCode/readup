@@ -13,7 +13,7 @@
   <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
   <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
 
-  <script src="//use.edgefonts.net/source-sans-pro:n3,i3,n4,i4,n9.js"></script>      
+  <script src="//use.edgefonts.net/source-sans-pro:n3,i3,n4,i4,n9.js"></script>
   <script src="lib/bower_components/jquery/jquery.js"></script>
   <script src="lib/bower_components/angular/angular.js"></script>
   <script src="lib/spin.min.js"></script>
@@ -26,7 +26,7 @@
   <div id='main-container'>
     <header>
       <h1><a href="/">Read Up</a></h1>
-      
+
     </header>
     <nav>
       <div id='main-menu' class='tab'>
@@ -41,11 +41,11 @@
           <div id='logo-github'>
               <img id='avatar' src={{currentUser.image_url}}>
           </div>
-          <div class="userSettings" 
-               ng-hide="currentUser.username" 
+          <div class="userSettings"
+               ng-hide="currentUser.username"
                ><a href='auth/github' target='_self'>login</a></div>
-          <div class="userSettings" 
-               ng-show="currentUser.username" 
+          <div class="userSettings"
+               ng-show="currentUser.username"
                bs-dropdown="settings">Settings</div>
         </div>
       </div>
@@ -54,34 +54,35 @@
           <div id='search-input' class='main-input'>
             <div class='icon'></div>
             <div class='placeholder'>Find a topic</div>
-            <input id='search' class='main-input-text' type='text' autocomplete='off' 
-                   ng-model="searchValue" 
+            <input id='search' class='main-input-text' type='text' autocomplete='off'
+                   ng-model="searchValue"
                    bs-typeahead='typeaheadSearchFn'>
           </div>
         </form>
         <!-- logged in users -->
-        <form name="itemForm" no-validate type='url' class="submission-form" 
+        <form name="itemForm" no-validate type='url' class="submission-form"
               ng-disabled='!itemForm.$valid'
               ng-show="currentUser.username">
           <div id='paste-link-input' class='main-input'>
             <div class='icon'></div>
             <div class='placeholder'>Paste a link</div>
-            <input id='paste-link' class='main-input-text' type='url' 
-                   ng-model="item.link" 
+            <input id='paste-link' class='main-input-text' type='url'
+                   ng-model="item.link"
+                   link-form
                    required/>
             <div ng-show='hasLink' ng-include="'partials/link-form.html'"></div>
           </div>
         </form>
         <!-- non-logged in users -->
-        <form name="itemForm" no-validate type='url' class="submission-form" 
+        <form name="itemForm" no-validate type='url' class="submission-form"
               ng-disabled='itemForm.$invalid'
               ng-submit='showLoginModal()'
               ng-hide="currentUser.username">
           <div id='paste-link-input' class='main-input'>
             <div class='icon'></div>
             <div class='placeholder'>Paste a link</div>
-            <input id='paste-link' class='main-input-text' type='url' 
-                   ng-model="item.link" 
+            <input id='paste-link' class='main-input-text' type='url'
+                   ng-model="item.link"
                    required/>
           </div>
         </form>

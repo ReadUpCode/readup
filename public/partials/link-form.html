@@ -3,17 +3,21 @@
   <h1 class='link-form-title' ng-model='suggestedData.title'>{{suggestedData.title}}</h1>
   <div class='link-form-section'>
     <h2>Pick topics:</h2>
+    <div class='link-form-tags-required' ng-show='noTagsOnSubmit'>Hey there! Links are more helpful with topics. Add at least one.</div>
     <div class='show-tags'>
       <div ng-repeat="tag in suggestedData.tags" class="tag" ng-click="toggleTag(tag,'suggested')" ng-class='toggleClass(tag)'>{{tag}}</div>
+      <div ng-repeat="yourTag in item.yourTags" class="tag" ng-click="toggleTag(yourTag,'suggested')" ng-class='toggleClass(yourTag)'>{{yourTag}}</div>
     </div>
-    <div class='link-form-topic-form' ng-sumbit='addTag(tag)'>
-      <input id='link-form-topic-search' type="text" ng-model="tag" bs-typeahead="typeaheadFn"/ placeholder="Add your own topics...">
-      <!-- <button class='link-form-topic-submit' ng-click='addTag(tag)'>Add</button> -->
+    <div>
+      <div class='link-form-topic-form'>
+        <input id='link-form-topic-search' type="text" name='tag' ng-model="tag" bs-typeahead="typeaheadFn" placeholder="Add your own topics..."
+               add-tag/>
+      </div>
     </div>
   </div>
   <div class='link-form-section'>
     <h2>Pick type (optional):</h2>
       <div ng-repeat='type in types' class='tag' ng-click='toggleType(type)' ng-class='toggleClass(type, "type")'>{{type.name}}</div>
   </div>
-  <button class="btn item-submit close" ng-click="hide();send()">Add Link</button>
+  <div class="item-submit close" ng-click="send()">Add Link</div>
 </div>
