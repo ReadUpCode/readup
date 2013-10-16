@@ -1,0 +1,112 @@
+.submission-form
+  display inline
+
+.main-input
+  transition background-color 0.3s ease
+  background-color $ho-grey
+  display none
+  min-height $block
+  position relative
+  width 100%
+  font-size 0
+
+  .popover
+    background-color $ho-grey
+    .arrow
+      &:after
+        border-bottom-color $ho-grey
+
+  .main-input-text
+  .placeholder
+    transition color 0.3s ease
+    background-color transparent
+    color $do-grey
+    font $sans-s-light
+    left 0
+    line-height $block - 42
+    padding 22px 20px 20px
+    position absolute
+    top 0
+    width 100%
+
+  .placeholder
+    overflow hidden
+    white-space nowrap
+
+  .icon
+    transition opacity 0.3s ease
+    left 20px
+    opacity 0.5
+    position absolute
+    top 20px
+
+
+  &.open
+    background-color $ge-grey
+    display inline-block
+
+  &:hover
+  &.typing
+    background-color $ge-grey
+
+    .main-input-text
+      color white
+
+    .icon
+      opacity 1
+
+  &.has-text .placeholder
+    display none
+
+  &.typing.has-text .typeahead.dropdown-menu
+    border-top 1px solid $fo-grey
+    height: auto
+
+  .typeahead.dropdown-menu
+    background-color $ge-grey
+    border none
+    border-radius 0
+    box-shadow none
+    margin 0
+    overflow hidden
+    padding 0
+    width 100%
+    z-index 1
+
+  .typeahead.dropdown-menu li
+    a
+      @include transition("all 0.1s ease")
+      border-top 1px solid $fo-grey
+      color $bo-grey
+      font $sans-xs
+      padding 16px 20px
+      text-decoration none
+
+    &.active a
+    a:hover
+      background-color $fe-grey
+      background-image none
+      color white
+
+@media screen-to-break-one
+  .main-input
+    border-left 1px solid $go-grey
+    display inline-block
+    width 50%
+
+    .main-input-text
+    .placeholder
+      padding 22px 20px 20px 70px
+
+    &.typing .placeholder
+      display none
+
+    &:hover .placeholder
+    &.typing .placeholder
+      color white
+
+  #search-input .icon
+    sprite-search-white()
+
+  #paste-link-input .icon
+    sprite-plus-white()
