@@ -42,6 +42,10 @@
     a
       display block
       color $fo-grey
+      overflow hidden
+      text-overflow ellipsis
+      box-sizing border-box
+      vertical-align baseline
       &:hover
         text-decoration none
 
@@ -54,13 +58,11 @@
     width 44%
     white-space nowrap
     font $sans-xs-spaced
-    overflow hidden
-    text-overflow ellipsis
-    box-sizing border-box
-    vertical-align baseline
 
-  .related-tag:hover
-    border-bottom 4px solid $fo-grey
+
+    &:hover
+      transition all 0.2s ease
+      border-bottom 4px solid $fo-grey
 
 @media screen-to-break-two
   #about

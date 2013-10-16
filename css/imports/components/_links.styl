@@ -5,28 +5,45 @@
     padding 0 24px 40px
     position relative
 
-    .title-wrap 
+    .title-wrap
       max-height  200px
-      h1 
+      h1
         width 500px
         a
         color $ho-grey
         font $sans-m
-        white-space nowrap
-        width 100%            
-        overflow hidden   /* "overflow" value must be different from "visible" */ 
+        margin 0
+        overflow hidden   /* "overflow" value must be different from "visible" */
         text-overflow ellipsis  // text-overflow ellipsis
-        
+        white-space nowrap
+        width 100%
 
-    .preview-logo
-      sprite-preview()
-      &:hover
-        cursor pointer
     h2
-      color $co-grey
-      font sans-s-light
-      margin 10px 0 0
-      overflow hidden
+      a
+        color $co-grey
+        font $sans-xs-light
+        margin 10px 0 0
+        overflow hidden
+
+    .meta-data
+      .categories-name
+        display inline-block
+        font $sans-xs-light
+
+        &:after
+          content "|"
+          margin-right 5px
+
+      .preview-logo
+        display inline-block
+        margin-left -10px
+        position relative
+        top 10px
+        sprite-preview()
+
+        &:hover
+          cursor pointer
+
 
     .votes
       font-size 0
@@ -53,7 +70,7 @@
         .up-arrow
           transition all 0.2s ease
           background-color $ho-grey
-          height 9px 
+          height 9px
           margin -5px -4px 0 0
           position absolute
           right 0
@@ -93,7 +110,7 @@
         .up-arrow
           transition all 0.2s ease
           background-color $ab-grey
-          height 9px 
+          height 9px
           margin -5px -4px 0 0
           position absolute
           right 0
@@ -134,7 +151,7 @@
       .down-arrow {
         transition all 0.2s ease
         background-color $ho-grey
-        height 9px 
+        height 9px
         margin -5px -4px 0 0
         position absolute
         right 0
@@ -176,7 +193,7 @@
       .down-arrow {
         transition all 0.2s ease
         background-color $ab-grey
-        height 9px 
+        height 9px
         margin -5px -4px 0 0
         position absolute
         right 0
@@ -207,7 +224,7 @@
         left 25px
         margin 0
         position absolute
-        top 1px 
+        top 1px
         width auto
 
         .vote-count
