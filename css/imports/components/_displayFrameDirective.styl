@@ -1,13 +1,15 @@
 #preview-pane 
   position absolute 
-  top 250px
+  top 270px
   right 5% 
-  height 420px
-  width 25% 
+  height 300px
+  width 85% 
   margin-right 0px 
-  border 1px dashed black
   overflow scroll
-  // display none
+  display none
+  // border 4px solid black
+  img
+    border 4px double black
 
   #close-preview
     font $sans-m
@@ -27,5 +29,27 @@
 
 .preview-logo
   color white
+  margin-left 100px
 
-  
+
+@media screen-to-break-one
+  #preview-pane 
+    width 48%
+    right 2%
+    height 300px
+
+@media screen-to-break-middle
+  #preview-pane
+    width 44%
+    height 300px
+
+
+@media screen-to-break-two
+  #preview-pane
+    width 28%
+    right 2%
+    height 420px
+
+
+
+
