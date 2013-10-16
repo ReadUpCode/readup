@@ -38,15 +38,15 @@
         <!-- <span class='tab-icon'></span>
         <h1>Log in</h1> -->
         <div ng-controller="LoginController">
+          
           <div id='logo-github'>
-              <img id='avatar' src={{currentUser.image_url}}>
+              <a href='auth/github' target='_self'><img id='avatar' src={{currentUser.image_url}} /></a>
           </div>
           <div class="userSettings" 
-               ng-hide="currentUser.username" 
-               ><a href='auth/github' target='_self'>login</a></div>
-          <div class="userSettings" 
                ng-show="currentUser.username" 
-               bs-dropdown="settings">Settings</div>
+               bs-dropdown="settings">
+               <div><i class="icon-double-angle-down"></i></div>
+          </div>
         </div>
       </div>
       <div ng-controller="FormController">
