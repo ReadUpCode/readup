@@ -38,7 +38,6 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     //Tag Validity Checks
     if (!Object.keys($scope.item.tags).length) {
       $scope.noTagsOnSubmit = true;
-      console.log('tag check is happening');
       return;
     }
     //URL Validity Check
@@ -64,8 +63,8 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
         title: 'Success! Developers everywhere thank you for your link.',
         tags: []
       };
+      $scope.item.link = '';
     });
-    $scope.hideAndClearLinkForm();
   };
   $scope.addTag = function(tag){
     if (!(tag in $scope.typeaheadObj)) {
@@ -76,6 +75,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       var trimmed = allTags[i].trim();
       $scope.item.tags[trimmed] = trimmed;
       $scope.item.yourTags[trimmed] = trimmed;
+      $scope.noTagsOnSubmit = false;
       $scope.$apply();
     }
   };
@@ -98,6 +98,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
 
   $scope.getSearchResults = function() {
     searchFactory.searchDatabase($scope.searchValue);
+    event.srcElement[0].value = '';
   };
 
   $scope.toggleType = function(type) {
@@ -106,11 +107,6 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     }else {
       type.chosen = true;
     }
-  };
-
-  $scope.hideAndClearLinkForm = function() {
-    //TODO: Make this hide and clear data from link-form;
-    // $scope.hasLink = false;
   };
 
   $scope.getSuggestedData = function(link) {
