@@ -55,7 +55,15 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
 
     // $scope.item.title = $('#title-input').val();
 
+    //Start spinner as we know we're actually sending the link up to the server.
+    $scope.doneLoading = false;
+
     $http.post('/_/items', $scope.item).success(function() {
+      $scope.doneLoading = true;
+      $scope.suggestedData = {
+        title: 'Success! Developers everywhere thank you for your link.',
+        tags: []
+      };
     });
     $scope.hideAndClearLinkForm();
   };
@@ -102,6 +110,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
 
   $scope.hideAndClearLinkForm = function() {
     //TODO: Make this hide and clear data from link-form;
+    // $scope.hasLink = false;
   };
 
   $scope.getSuggestedData = function(link) {

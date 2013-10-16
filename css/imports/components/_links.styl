@@ -27,12 +27,29 @@
     h2
       a
         color $co-grey
-        font $sans-s-light
+        font $sans-xs-light
         margin 10px 0 0
         overflow hidden
 
-    .categories-name
-      font $sans-xs-light
+    .meta-data
+      .categories-name
+        display inline-block
+        font $sans-xs-light
+
+        &:after
+          content "|"
+          margin-right 5px
+
+      .preview-logo
+        display inline-block
+        margin-left -10px
+        position relative
+        top 10px
+        sprite-preview()
+
+        &:hover
+          cursor pointer
+
 
     .votes
       font-size 0
