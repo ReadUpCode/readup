@@ -30,7 +30,7 @@
     </header>
     <nav>
       <div id='main-menu' class='tab'>
-        <div id='logo-main'></div>
+        <a href='/'><div id='logo-main'></div></a>
       </div>
       <div id='search-input-tab' class='tab'><div class='tab-icon'></div></div>
       <div id='paste-link-input-tab' class='tab'><div class='tab-icon'></div></div>
@@ -42,20 +42,11 @@
           <div id='logo-github'>
               <a href='auth/github' target='_self'><img id='avatar' src={{currentUser.image_url}} /></a>
           </div>
-<<<<<<< HEAD
           <div class="userSettings" 
                ng-show="currentUser.username" 
                bs-dropdown="settings">
                <div><i class="icon-double-angle-down"></i></div>
           </div>
-=======
-          <div class="userSettings"
-               ng-hide="currentUser.username"
-               ><a href='auth/github' target='_self'>login</a></div>
-          <div class="userSettings"
-               ng-show="currentUser.username"
-               bs-dropdown="settings">Settings</div>
->>>>>>> 844b9946f26ff1f33a3614805837a490aed4317f
         </div>
       </div>
       <div ng-controller="FormController">
