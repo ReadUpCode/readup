@@ -68,8 +68,10 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   };
   $scope.addTag = function(tag){
     if (!(tag in $scope.typeaheadObj)) {
+      $scope.newTag = true;
       return;
     }
+    console.log(event);
     var allTags = tag.split(',');
     for (var i = 0; i < allTags.length; i++) {
       var trimmed = allTags[i].trim();
