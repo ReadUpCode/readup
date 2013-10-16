@@ -37,23 +37,14 @@
       <div id='log-in' class='tab'>
         <div ng-controller="LoginController">
           
-          <div id='logo-github'>
-              <a href='auth/github' target='_self'><img id='avatar' src={{currentUser.image_url}} /></a>
+          <div id='logo-github' ng-click="updateLocation()">
+              <a ng-href='auth/github/#{{urlHash}}' target='_self'><img id='avatar' src={{currentUser.image_url}} /></a>
           </div>
-<<<<<<< HEAD
           <div class="userSettings" 
                ng-show="currentUser.username" 
                bs-dropdown="settings">
                <div><i class="icon-double-angle-down"></i></div>
           </div>
-=======
-          <div class="userSettings"
-               ng-hide="currentUser.username"
-               ><a href='auth/github' target='_self'>login</a></div>
-          <div class="userSettings"
-               ng-show="currentUser.username"
-               bs-dropdown="settings">Settings</div>
->>>>>>> 844b9946f26ff1f33a3614805837a490aed4317f
         </div>
       </div>
       <div ng-controller="FormController">
