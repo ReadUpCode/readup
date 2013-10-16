@@ -18,7 +18,8 @@ module.exports = function(app){
 
   app.post('/_/votes', function(req, res){
     votes.create(req, res);
-    votes.updateKarma(req, res);
+    votes.updateKarmaPoster(req, res);
+    votes.updateKarmaVoter(req, res);
   });
 
   app.get('/_/users/:id/items', users.getAllItemsForUser);
