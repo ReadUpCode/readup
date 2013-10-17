@@ -12,7 +12,11 @@
 </aside>
 
 <div class='filter-word'>Filter</div>
-<div class='filter-options' ng-repeat='category in cats' ng-click="switchCat(category)">
+<div class='filter-options'
+     ng-repeat='category in cats'
+     ng-click="switchCat(category, $index)"
+     ng-class="{selected: $index==selectedCategory}"
+     >
 {{category}}
 </div>
 
