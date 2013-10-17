@@ -52,7 +52,7 @@ factories.factory('tagsFactory', function($http, $q) {
     var result = {};
     var deferred = $q.defer();
     var requestURL = 'http://api.stackoverflow.com/1.1/tags/' + tagName + '/wikis?jsonp=JSON_CALLBACK';
-    $http.jsonp(requestURL).success(function(data){
+    $http.jsonp(requestURL, {key: process.env.SO_KEY}).success(function(data){
       if(!data.tag_wikis.length && tagName.substr(-2) === 'js'){
         if(tagName === 'js'){
           var updatedTag = 'javascript';
@@ -60,7 +60,7 @@ factories.factory('tagsFactory', function($http, $q) {
           var updatedTag = tagName.slice(0, tagName.length-2) + '.js';
         }
         var updatedUrl = 'http://api.stackoverflow.com/1.1/tags/' + updatedTag + '/wikis?jsonp=JSON_CALLBACK';
-        $http.jsonp(updatedUrl).success(function(data){
+        $http.jsonp(updatedUrl, {key: process.env.SO_KEY}).success(function(data){
           result.summary = data.tag_wikis[0].wiki_excerpt;
           result.urlTag = encodeURIComponent(tagName);
           deferred.resolve(result);
