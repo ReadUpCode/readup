@@ -115,8 +115,8 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
 
     //If entered data doesn't match the URL regex, then return error data, and don't actually make the AJAX request.
     if (!urlRegEx.test(link)) {
-      deferred.resolve({title: "Snap! That link came back with nothing. How about pasting it in?", tags: []});
-      $scope.suggestedData = deferred.promise;
+      var badURL = {title: "Snap! That link came back with nothing. How about pasting it in?", tags: []};
+      $scope.suggestedData = badURL;
       return;
     }
     $scope.doneLoading = false;

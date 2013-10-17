@@ -37,8 +37,8 @@
       <div id='log-in' class='tab'>
         <div ng-controller="LoginController">
           
-          <div id='logo-github'>
-              <a href='auth/github' target='_self'><img id='avatar' src={{currentUser.image_url}} /></a>
+          <div id='logo-github' ng-click="updateLocation()">
+              <a ng-href='auth/github/#{{urlHash}}' target='_self'><img id='avatar' src={{currentUser.image_url}} /></a>
           </div>
           <div class="userSettings" 
                ng-show="currentUser.username" 

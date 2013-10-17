@@ -28,11 +28,22 @@ exports.create = function(req, res){
 	});
 };
 
-exports.updateKarma = function(req, res){
+exports.updateKarmaPoster = function(req, res){
 	Item.find({where: {id: req.body.id}}).success(function(item){
 		User.find({where: {id: item.selectedValues.UserId}}).success(function(user){
-			var newKarma = user.selectedValues.karma + 10;
+			var newKarma = user.selectedValues.karma + 9;
 			user.updateAttributes({karma: newKarma});
 		});
+	});
+};
+
+exports.updateKarmaVoter = function(req, res){
+	Vote.findAll({where: ['ItemId=? AND value=?', req.body.id, 1]}).success(function(data){
+		for(var i = 0; i < data.length; i++){
+			User.find({where: {id: data[i].selectedValues.UserId}}).success(function(user){
+				var newKarma = user.selectedValues.karma + 1;
+				user.updateAttributes({karma: newKarma});
+			});
+		}
 	});
 };

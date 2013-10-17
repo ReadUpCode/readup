@@ -7,23 +7,18 @@
 
     .title-wrap
       max-height  200px
-      h1 
+      h1
         width 100%
-        overflow hidden   /* "overflow" value must be different from "visible" */ 
+        overflow hidden   /* "overflow" value must be different from "visible" */
         text-overflow ellipsis  // text-overflow ellipsis
         color $ho-grey
         a
           color $ho-grey
           font $sans-m
           white-space nowrap
-          width 100%  
-          font-size 2rem          
+          width 100%
+          font-size 2rem
 
-    .preview-logo
-      sprite-preview()
-      height 50px;
-      &:hover
-        cursor pointer
     h2
       a
         color $co-grey
@@ -31,8 +26,32 @@
         margin 10px 0 0
         overflow hidden
 
-    .categories-name
-      font $sans-xs-light
+    .meta-data
+      .categories-name
+      .tags-name
+        display inline-block
+        font $sans-xs-light
+        top 3px
+        position relative
+
+        &:before
+          content "|"
+          margin 0 5px
+
+      .tags-name
+        font $sans-xs
+
+
+      .preview-logo
+        display inline-block
+        margin-left -10px
+        position relative
+        sprite-preview()
+        top 10px
+
+        &:hover
+          cursor pointer
+
 
     .votes
       font-size 0
@@ -231,4 +250,4 @@
           a
             font-size 3.6rem
 
-      
+

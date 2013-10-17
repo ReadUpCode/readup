@@ -19,9 +19,9 @@
     </div>
     <h2><a href="{{link.link}}">{{link.link}}</a></h2>
     <div class='meta-data'>
-      <div class='categories-name' ng-repeat='category in link.categories'>{{category.name}}
-      </div>
       <div class='preview-logo' show-frame></div>
+      <div class='categories-name' ng-repeat='category in link.categories'>{{category.name}}</div>
+      <div class='tags-name' ng-repeat='tag in link.tags'><a ng-href='#/{{tag.name}}'> {{tag.name}}</a></div>
     </div>
 
 <!-- this is for non-logged in users -->
