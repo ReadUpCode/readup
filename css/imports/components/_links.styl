@@ -219,6 +219,28 @@
       &:active .down-arrow
         transition all 0s ease
 
+.filter-word
+  font $sans-xs
+  margin 10px 3% 0
+  padding 15px 0 0 0.5%
+
+.filter-options
+  border-bottom 2px solid
+  display inline-block
+  font $sans-xs-light
+  height 40px
+  margin 10px 3% 0
+  padding 15px 0 0 0.5%
+  width 25%
+  white-space nowrap
+  color $fo-grey
+  box-sizing border-box
+  vertical-align baseline
+
+  &:hover
+    transition all 0.2s ease
+    border-bottom 4px solid $fo-grey
+
 
 @media screen-to-break-one
   #links
@@ -239,6 +261,10 @@
 
         .vote-count
           font $sans-ms-light
+  .filter-options
+    width 10%
+  .filter-word
+    margin 10px 2% 0 2%
 
 
 @media screen-to-break-two
