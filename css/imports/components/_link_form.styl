@@ -56,6 +56,44 @@
           position absolute
           right 0
 
+    .tag-popover
+      background-color $ge-grey
+      border 2px solid $ac-grey
+      left 14%
+      margin-top 7px
+      position absolute
+      height auto
+      width 75%
+      z-index 2
+
+      &:after
+        border-bottom 10px solid gray
+        border-right 10px solid transparent
+        border-left 10px solid transparent
+        content ""
+        left 43%
+        margin-top -12px
+        position absolute
+        top 0
+
+      .tag-popover-text
+        color $ac-grey
+        font $sans-xs-light
+        padding 5px
+
+      .tag-item-submit
+        background-color #5DD166
+        color white
+        text-align center
+        width 100%
+        opacity 0.9
+        padding 7px
+        font $sans-xs
+
+        &:hover
+          transition all 0.2s ease
+          opacity 1
+
 
     .link-form-topic-form
       margin: 20px 0 0 0
