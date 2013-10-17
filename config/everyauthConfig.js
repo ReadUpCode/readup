@@ -1,3 +1,4 @@
+var environConfig = require('./environConfig');
 var everyauth = require('everyauth');
 var https = require('https');
 var users = require('../app/controllers/users.js');
@@ -18,8 +19,8 @@ everyauth.everymodule.logoutPath('/_/logout');
 
 everyauth.github
   .scope('user:email')
-  .appId(process.env.APP_ID)
-  .appSecret(process.env.APP_SECRET)
+  .appId(environConfig.APP_ID)
+  .appSecret(environConfig.APP_SECRET)
   // TODO: handle user denying access to their account info
   .handleAuthCallbackError(function(req, res){
     console.log('******error req:', req);
