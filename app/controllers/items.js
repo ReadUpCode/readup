@@ -8,6 +8,7 @@ var Q = require('q');
 var AWS = require('aws-sdk');
 var fs = require('fs')
 var s3 = new AWS.S3({region: 'us-west-2'});
+var async = require('async')
 // AWS.config.loadFromPath(__dirname + '/../../config/config.json');
 
 var Item = db.Item;
@@ -62,13 +63,40 @@ exports.create = function(req, res){
             item_id = item.dataValues.id;
             link = req.body.link;
 
-          phantom.create(function(err,ph) {
+          // phantom.create(function(err,ph) {
+          //   return ph.createPage(function(err,page) {
+          //     page.set('viewportSize', { width: 1024, height: 768 });
+          //     return page.open(link, function(err,status) {
+          //       page.render('public/item_images/' + item_id + '.png', function(){console.log('rendering');});
+          //       page.close(function(){
+          //         fs.readFile(__dirname + '/../../public/item_images/'+ item_id + '.png', function (err, data) {
+          //           if (err) { throw err; }
+          //           var image = new Buffer(data, 'binary')
+
+          //           var params = {Bucket: 'readupimages', Key: item_id.toString(), ACL: "public-read", ContentType: 'image/png', Body: data};
+          //                               s3.putObject(params, function(err, data) {
+          //                                 if (err) {
+          //                                   console.log("AMAZON ERROR", err)
+          //                                 } else {
+          //                                   console.log("Successfully uploaded data to myBucket/myKey");
+          //                                   console.log(data)
+          //                                 }
+          //                               });
+          //         });
+          //       });
+          //     });
+          //   });
+          // });
+          var callback = function(){console.log("WOWIEWOWIE")}
+          var q = async.queue(function (task, callback) {
+            console.log('hello ' + task.id);
+            phantom.create(function(err,ph) {
             return ph.createPage(function(err,page) {
               page.set('viewportSize', { width: 1024, height: 768 });
-              return page.open(link, function(err,status) {
-                page.render('public/item_images/' + item_id + '.png', function(){console.log('rendering');});
+              return page.open(task.link, function(err,status) {
+                page.render('public/item_images/' + task.item_id + '.png', function(){console.log('rendering');});
                 page.close(function(){
-                  fs.readFile(__dirname + '/../../public/item_images/'+ item_id + '.png', function (err, data) {
+                  fs.readFile(__dirname + '/../../public/item_images/'+ task.item_id + '.png', function (err, data) {
                     if (err) { throw err; }
                     var image = new Buffer(data, 'binary')
 
@@ -86,6 +114,13 @@ exports.create = function(req, res){
               });
             });
           });
+            callback();
+          }, 2);
+
+          q.push({item_id: item_id, link: link}, function(foo,bar){
+            console.log(foo, bar)
+          })
+
         })
         res.end('done');
       }
