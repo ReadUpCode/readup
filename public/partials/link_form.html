@@ -3,16 +3,17 @@
   <h1 class='link-form-title' ng-model='suggestedData.title'>{{suggestedData.title}}</h1>
   <div class='link-form-section'>
     <h2>Pick topics:</h2>
-    <div class='link-form-tags-required' ng-show='noTagsOnSubmit'>Hey there! Links are more helpful with topics. Add at least one.</div>
+    <div class='link-form-tags-required' ng-show='linkForm.noTagsOnSubmit'>Hey there! Links are more helpful with topics. Add at least one.</div>
     <div class='show-tags'>
       <div ng-repeat="tag in suggestedData.tags" class="tag" ng-click="toggleTag(tag,'suggested')" ng-class='toggleClass(tag)'>{{tag}}</div>
       <div ng-repeat="yourTag in item.yourTags" class="tag" ng-click="toggleTag(yourTag,'suggested')" ng-class='toggleClass(yourTag)'>{{yourTag}}</div>
     </div>
     <div>
       <div class='link-form-topic-form'>
-        <input id='link-form-topic-search' type="text" name='tag' ng-model="tag" bs-typeahead="typeaheadFn" placeholder="Add your own topics..."
+        <input id='link-form-topic-search' type="text" name='tag' ng-model="linkForm.tag" bs-typeahead="typeaheadFn" placeholder="Add your own topics..."
                add-tag/>
       </div>
+      <div ng-show='linkForm.newTag' ng-include="'./partials/new_tag_popover.html'"></div>
     </div>
   </div>
   <div class='link-form-section'>

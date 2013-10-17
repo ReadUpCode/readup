@@ -5,20 +5,20 @@ directives.directive('linkForm', function($timeout){
     var $body = angular.element('body');
 
     element.on('focus', function() {
-      scope.hasLink = true;
+      scope.linkForm.hasLink = true;
       scope.$apply();
     });
 
     element.on('keyup paste', function() {
       $timeout.cancel(window.timeoutID);
-      scope.hasLink = true;
+      scope.linkForm.hasLink = true;
       window.timeoutID = $timeout(function() {
         scope.getSuggestedData(scope.item.link);
       }, 500);
     });
 
     $body.on('click', function() {
-      scope.hasLink = false;
+      scope.linkForm.hasLink = false;
       scope.$apply();
     });
   };
