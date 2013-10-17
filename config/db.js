@@ -1,10 +1,12 @@
+var environConfig = require('./environConfig');
 var Sequelize  = require('sequelize');
+
 var sequelize = new Sequelize(
-  process.env.MYSQL_DATABASE,
-  process.env.MYSQL_USERNAME,
-  process.env.MYSQL_PASSWORD,
+  environConfig.MYSQL_DATABASE,
+  environConfig.MYSQL_USERNAME,
+  environConfig.MYSQL_PASSWORD,
   {
-    host: process.env.MYSQL_HOST
+    host: environConfig.MYSQL_HOST
   }
 );
 
