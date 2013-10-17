@@ -27,8 +27,12 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   $scope.suggestedData = {};
 
   $scope.currentUser = loginFactory.getLoggedInUser();
-  $scope.hasLink = false;
-  $scope.noTagsOnSubmit = false;
+  $scope.linkForm = {
+    tag: '',
+    noTagsOnSubmit: false,
+    newTag: false,
+    hasLink: false
+  };
 
 
 
@@ -37,7 +41,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   $scope.send = function(){
     //Tag Validity Checks
     if (!Object.keys($scope.item.tags).length) {
-      $scope.noTagsOnSubmit = true;
+      $scope.linkForm.noTagsOnSubmit = true;
       return;
     }
     //URL Validity Check
@@ -66,8 +70,12 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       $scope.item.link = '';
     });
   };
-  $scope.addTag = function(tag){
-    if (!(tag in $scope.typeaheadObj)) {
+  $scope.addTag = function(tag, newTag){
+    newTag = newTag === 'newTag' ? true : false;
+    debugger;
+    if ((!(tag in $scope.typeaheadObj)) && !newTag) {
+      $scope.linkForm.newTag = true;
+      $scope.$apply();
       return;
     }
     var allTags = tag.split(',');
@@ -75,16 +83,22 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       var trimmed = allTags[i].trim();
       $scope.item.tags[trimmed] = trimmed;
       $scope.item.yourTags[trimmed] = trimmed;
-      $scope.noTagsOnSubmit = false;
-      $scope.$apply();
+      $scope.linkForm.noTagsOnSubmit = false;
     }
+    $scope.linkForm.tag = '';
+    if(!newTag) $scope.$apply();
   };
+
+  $scope.hideNewTag = function() {
+    $scope.linkForm.newTag = false;
+  };
+
   $scope.toggleTag = function(tag, suggested){
     if ($scope.item.tags[tag] === tag) {
       delete $scope.item.tags[tag];
     }else {
       $scope.item.tags[tag] = tag;
-      $scope.noTagsOnSubmit = false;
+      $scope.linkForm.noTagsOnSubmit = false;
     }
   };
 
