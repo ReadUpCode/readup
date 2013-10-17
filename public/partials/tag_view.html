@@ -10,8 +10,13 @@
   </div>
   </div>
 </aside>
+
+<div class='filter-options' ng-repeat='category in cats' ng-click="switchCat(category)">
+{{category}}
+</div>
+
 <ul id='links'>
-  <li class='link' ng-repeat='link in links| orderBy:"-score"'>
+  <li class='link' ng-repeat='link in links| filter:curCat | orderBy:"-score"'>
     <div class='title-wrap'>
       <h1 class='link_title'>
         <a href="{{link.link}}" alt="{{link.title}}">{{link.title}}</a>

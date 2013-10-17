@@ -10,6 +10,7 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
   $scope.links = tagsFactory.getTagInfo($scope.tag);
   $scope.relatedTags = tagsFactory.getRelatedTags($scope.tag);
   $scope.stackOverflowSummary = tagsFactory.getStackOverflow($scope.tag);
+  $scope.cats = ['OpEd', 'Video', 'Tutorial', 'Reference', 'All'];
 
   $scope.currentUser = loginFactory.getLoggedInUser();
 
@@ -43,6 +44,25 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
 
   $scope.getIconURL = function(link, index) {
     return '/partials/icon-' + link.categories[index].name + '.html';
+  };
+
+  $scope.catSelection = function(link){
+    if($scope.curCat === 'All'){
+      return true;
+    }
+    if($scope.curCat in link.categories){
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  $scope.switchCat = function(category){
+    if(category === 'All'){
+      $scope.curCat = '';
+    } else {
+      $scope.curCat = category;
+    }
   };
 
 }]);
