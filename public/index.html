@@ -36,12 +36,12 @@
       <div id='paste-link-input-tab' class='tab'><div class='tab-icon'></div></div>
       <div id='log-in' class='tab'>
         <div ng-controller="LoginController">
-          
+
           <div id='logo-github' ng-click="updateLocation()">
               <a ng-href='auth/github/#{{urlHash}}' target='_self'><img id='avatar' src={{currentUser.image_url}} /></a>
           </div>
-          <div class="userSettings" 
-               ng-show="currentUser.username" 
+          <div class="userSettings"
+               ng-show="currentUser.username"
                bs-dropdown="settings">
                <div><i class="icon-double-angle-down"></i></div>
           </div>
@@ -68,7 +68,7 @@
                    ng-model="item.link"
                    link-form
                    required/>
-            <div ng-show='hasLink' ng-include="'partials/link_form.html'"></div>
+            <div ng-show='linkForm.hasLink' ng-include="'partials/link_form.html'"></div>
           </div>
         </form>
         <!-- non-logged in users -->
