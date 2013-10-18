@@ -74,8 +74,33 @@ nav
         position relative
         margin 0 auto
         text-shadow 0px 1px white 
+  .popover.bottom
+    background-color $ho-grey
+    .popover-close
+      position absolute
+      top 0
+      right 5px
+    .popover-text
+      text-align center
+      font $sans-xs-light
+      .user-stats
+        text-align center
+        padding-top 5px
+        padding-bottom 5px
+    .arrow
+      left 65%
+    .arrow:after
+      border-bottom-color $ho-grey
+    .popover-content
+      width 110px
+  .user-logout
+    text-align center
+    background-color $ee-grey
+    border-radius 2px
+    a
+    &:visited
+      color inherit
 
-  
   .dropdown-menu
     font-size 2rem
     left -70px

@@ -38,11 +38,13 @@
         <div ng-controller="LoginController">
 
           <div id='logo-github' ng-click="updateLocation()">
-              <a ng-href='auth/github/#{{urlHash}}' target='_self'><img id='avatar' src={{currentUser.image_url}} /></a>
+              <a ng-href='auth/github/#{{urlHash}}' target='_self'><img ng-show="currentUser.username" id='avatar' src={{currentUser.image_url}} />
+              <img ng-hide="currentUser.username" id='avatar' src='./images/transparent-01.png' /></a>
           </div>
-          <div class="userSettings"
-               ng-show="currentUser.username"
-               bs-dropdown="settings">
+          <div class="userSettings" 
+               ng-show="currentUser.username" 
+               data-placement='bottom'
+               bs-popover="'./partials/user_info_popover.html'">
                <div><i class="icon-double-angle-down"></i></div>
           </div>
         </div>
