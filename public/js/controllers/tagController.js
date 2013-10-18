@@ -46,23 +46,13 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
     return '/partials/icon-' + link.categories[index].name + '.html';
   };
 
-  $scope.catSelection = function(link){
-    if($scope.curCat === 'All'){
-      return true;
-    }
-    if($scope.curCat in link.categories){
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  $scope.switchCat = function(category){
+  $scope.switchCat = function(category, index){
     if(category === 'All'){
       $scope.curCat = '';
     } else {
       $scope.curCat = category;
     }
+    $scope.selectedCategory = index;
   };
 
 }]);
