@@ -44,7 +44,7 @@ var q = async.queue(function (task, callback) {
     });
   });
   callback();
-}, 10);
+}, 100);
 
 exports.getAllTagsForItem = function(req, res){
   Item.find({where: {id: 1}}).success(function(item){
