@@ -3,7 +3,9 @@ var request        = require('request');
 var cheerio        = require('cheerio');
 var fs             = require('fs');
 var cleanTopTagArr = require('../../config/topTags.js').cleanTopTagArr;
-var ALCHEMY_KEY    = process.env.ALCHEMY_KEY;
+var environConfig = require('../../config/environConfig');
+
+var ALCHEMY_KEY    = environConfig.ALCHEMY_KEY;
 var topTagArr, topTags;
 
 fs.readFile(__dirname + '/../../public/js/factories/curatedSuggestedTags.json', 'utf8', function(err, data) {
