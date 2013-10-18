@@ -1,18 +1,18 @@
-var topTags = {};
 var permutations = {
   '-' : '-',
   '.' : '.',
   ' ' : ' ',
   ''  : ''
 };
-
 var specialTags = {
   'js' : 'javascript'
 };
 
-for (var each in specialTags) {
-  topTags[each] = specialTags[each];
-}
+var addSpecialTags = function(resultTags) {
+  for (var each in specialTags) {
+    resultTags[each] = specialTags[each];
+  }
+};
 
 var createPermutations = function(cleanJSTag) {
   var results = [];
@@ -22,34 +22,36 @@ var createPermutations = function(cleanJSTag) {
   return results;
 };
 
-var makeDashesSpaces = function(multiWordTag) {
+var makeDashesSpaces = function(multiWordTag, resultTags) {
   var tagWithSpaces = multiWordTag.replace(/-/g,' ');
-  topTags[tagWithSpaces] = multiWordTag;
-  topTags[multiWordTag] = multiWordTag;
+  resultTags[tagWithSpaces] = multiWordTag;
+  resultTags[multiWordTag] = multiWordTag;
 };
 
-var makeJSclean = function(jsTag) {
+var makeJSclean = function(jsTag, resultTags) {
   var cleanJSTag = jsTag.replace(/[. -]*(js)$/,'');
-  topTags[cleanJSTag] = cleanJSTag+'js';
+  resultTags[cleanJSTag] = cleanJSTag+'js';
   var permutations = createPermutations(cleanJSTag);
   for (var i = 0; i < permutations.length; i++) {
-    topTags[permutations[i]] = cleanJSTag+'js';
+    resultTags[permutations[i]] = cleanJSTag+'js';
   }
 };
 
 
 
 exports.cleanTopTagArr = function(topTagArr) {
+  var resultTags = {};
+  addSpecialTags(resultTags);
   for (var tag = 0; tag < topTagArr.length; tag++) {
     var tagName = topTagArr[tag].name;
     if (tagName.match(/(js)$/)) {
-      makeJSclean(tagName);
+      makeJSclean(tagName, resultTags);
     }else if(tagName.indexOf('-') !== -1) {
-      makeDashesSpaces(tagName);
+      makeDashesSpaces(tagName, resultTags);
     }else{
-      topTags[tagName] = tagName;
+      resultTags[tagName] = tagName;
     }
   }
-  return topTags;
+  return resultTags;
 };
 

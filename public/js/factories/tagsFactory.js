@@ -3,9 +3,21 @@ var suggestedTagsFile = require('./1000SuggestedTags.json');
 
 factories.factory('tagsFactory', function($http, $q) {
   var factory = {};
+  var cleanSuggestedTags = function(suggestedTagsFile) {
+    for (var i = 0; i < suggestedTagsFile.length; i++) {
+      var tagName = suggestedTagsFile[i].name;
+      if (tagName.match(/(js)$/)) {
+        var cleanJSTag = tagName.replace(/[. -]*(js)$/,'js');
+        suggestedTagsFile[i].name = cleanJSTag;
+      }
+    }
+    return suggestedTagsFile;
+  };
 
   factory.getSuggestedTags = function() {
-    return factory.suggestedTags = suggestedTagsFile;
+    var cleanTags = cleanSuggestedTags(suggestedTagsFile);
+    factory.suggestedTags = cleanTags;
+    return factory.suggestedTags;
   };
 
   factory.getAllTags = function(){
