@@ -10,7 +10,7 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
   $scope.links = tagsFactory.getTagInfo($scope.tag);
   $scope.relatedTags = tagsFactory.getRelatedTags($scope.tag);
   $scope.stackOverflowSummary = tagsFactory.getStackOverflow($scope.tag);
-  $scope.cats = ['All', 'OpEd', 'Intro', 'Tutorial', 'Reference'];
+  $scope.cats = ['All', 'Op/Ed', 'Intro', 'Tutorial', 'Reference'];
 
   $scope.currentUser = loginFactory.getLoggedInUser();
 

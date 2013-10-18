@@ -38,8 +38,17 @@ var getTitleText = function(body, res, suggestedData) {
   var titleArray = cleanTitle(titleText);
 
   for (var j = 0; j < titleArray.length; j++) {
-    if (titleArray[j] in topTags) {
-      suggestedData.tags[topTags[titleArray[j]]] = topTags[titleArray[j]];
+    var singleWord = titleArray[j];
+    var twoWords = titleArray[j] + '-' + titleArray[j+1];
+    var threeWords = titleArray[j] + '-' + titleArray[j+1] + '-' + titleArray[j+2];
+    if (singleWord in topTags) {
+      suggestedData.tags[topTags[singleWord]] = topTags[singleWord];
+    }
+    if (twoWords in topTags) {
+      suggestedData.tags[topTags[twoWords]] = topTags[twoWords];
+    }
+    if (threeWords in topTags) {
+      suggestedData.tags[topTags[threeWords]] = topTags[threeWords];
     }
   }
   suggestedData.title = titleText;
@@ -63,8 +72,17 @@ exports.getText = function(req, res) {
       var suggestedData = {tags: {}, title:''};
 
       for (var i = 0; i < cleanKeywords.length; i++) {
-        if (cleanKeywords[i] in topTags) {
-          suggestedData.tags[topTags[cleanKeywords[i]]] = topTags[cleanKeywords[i]];
+        var singleWord = cleanKeywords[i];
+        var twoWords = cleanKeywords[i] + '-' + cleanKeywords[i+1];
+        var threeWords = cleanKeywords[i] + '-' + cleanKeywords[i+1] + '-' + cleanKeywords[i+2];
+        if (singleWord in topTags) {
+          suggestedData.tags[topTags[singleWord]] = topTags[singleWord];
+        }
+        if (twoWords in topTags) {
+          suggestedData.tags[topTags[twoWords]] = topTags[twoWords];
+        }
+        if (threeWords in topTags) {
+          suggestedData.tags[topTags[threeWords]] = topTags[threeWords];
         }
       }
       request.get(req.body.url, function(error, response, body) {
