@@ -22,7 +22,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       chosen: false
     }
   };
-  $scope.item = { tags : {}, categories: {} , yourTags: {}};
+  $scope.item = { tags : {}, categories: {} , yourTags: {}, title: ''};
   $scope.typeaheadObj = {};
   $scope.suggestedData = {};
 
@@ -31,7 +31,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     tag: '',
     noTagsOnSubmit: false,
     newTag: false,
-    hasLink: false
+    hasLink: false,
   };
 
 
@@ -56,7 +56,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       }
     }
 
-    // $scope.item.title = $('#title-input').val();
+    $scope.item.title = $('#set-title').text();
 
     //Start spinner as we know we're actually sending the link up to the server.
     $scope.doneLoading = false;
@@ -64,15 +64,15 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     $http.post('/_/items', $scope.item).success(function() {
       $scope.doneLoading = true;
       $scope.suggestedData = {
-        title: 'Success! Developers everywhere thank you for your link.',
+        warning: 'Success! Developers everywhere thank you for your link.',
         tags: []
       };
       $scope.item.link = '';
     });
   };
+
   $scope.addTag = function(tag, newTag){
     newTag = newTag === 'newTag' ? true : false;
-    debugger;
     if ((!(tag in $scope.typeaheadObj)) && !newTag) {
       $scope.linkForm.newTag = true;
       $scope.$apply();
@@ -129,7 +129,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
 
     //If entered data doesn't match the URL regex, then return error data, and don't actually make the AJAX request.
     if (!urlRegEx.test(link)) {
-      var badURL = {title: "Snap! That link came back with nothing. How about pasting it in?", tags: []};
+      var badURL = {warning: "Snap! That link came back with nothing. How about pasting it in?", tags: []};
       $scope.suggestedData = badURL;
       return;
     }
