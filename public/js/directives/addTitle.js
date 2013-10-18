@@ -7,6 +7,7 @@ directives.directive('addTitle', function() {
       if (event.keyCode === 13 && title.val().length > 0) {
         title.replaceWith('<h1 id="set-title">' + title.val() + '</h1>')
         scope.item.noTitleOnSubmit = false
+        scope.$apply();
       }
     });
   };
