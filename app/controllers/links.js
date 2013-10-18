@@ -21,7 +21,6 @@ var cleanAllKeywords = function(keywordsArr) {
     var splitKeywords = fullText.split(/\.| /);
     cleanKeywordsArray = cleanKeywordsArray.concat(splitKeywords);
   }
-  console.log('clean Keywords Array = ', cleanKeywordsArray);
   return cleanKeywordsArray;
 };
 
@@ -45,6 +44,8 @@ var getTitleText = function(body, res, suggestedData) {
   res.json(suggestedData);
 };
 
+
+//Gets keywords for given URL from Alchemy, and then cleans it and compares against our database of terms.
 exports.getText = function(req, res) {
   var apiUrl = 'http://access.alchemyapi.com/calls/url/URLGetRankedKeywords?apikey='+ALCHEMY_KEY+'&maxRetrieve=15&url='+req.body.url+'&outputMode=json';
   request.post({url:apiUrl}, function(error, response, body) {
@@ -55,7 +56,6 @@ exports.getText = function(req, res) {
       }catch(e) {
         throw e;
       }
-      console.log(result);
       var keywordsArr = result.keywords;
       var cleanKeywords = cleanAllKeywords(keywordsArr);
       var suggestedData = {tags: {}, title:''};
