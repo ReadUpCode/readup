@@ -4,6 +4,7 @@
   margin $block 0 0 0
   width 100%
   z-index 1
+  
   #spinner
     left 50%
     top 30%
@@ -15,6 +16,48 @@
     font-style italic
     line-height: 1.1
     margin 20px
+
+  #title-warning
+    margin 3px
+
+  input#link-form-title
+    color $do-grey
+    font $sans-s-light
+    font-style italic
+    line-height: 1.1
+    width 100%
+    background-color $fe-grey
+    padding 3px
+  
+  .title-section
+    padding 10px
+
+  h1#set-title
+    display inline-block
+    margin 0
+    border-bottom 4px solid white
+    color white
+    text-overflow ellipsis
+    white-space nowrap
+    overflow hidden
+    width 85%
+
+    &:after
+        @extend .icon-checkmark:after
+        float right
+        padding-left 10px
+        font-size 1.8rem
+
+
+    &:hover
+        transition all 0.1s ease
+        border-bottom 4px solid $eo-grey
+        color $ae-grey
+
+
+      
+
+      
 
   .link-form-section
     border-top 1px solid $go-grey
@@ -50,6 +93,9 @@
       &.selected
         border-bottom 4px solid white
         color white
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
 
         &:after
           @extend .icon-checkmark:after
