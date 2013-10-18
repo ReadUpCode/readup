@@ -22,7 +22,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       chosen: false
     }
   };
-  $scope.item = { tags : {}, categories: {} , yourTags: {}};
+  $scope.item = { tags : {}, categories: {} , yourTags: {}, title: ''};
   $scope.typeaheadObj = {};
   $scope.suggestedData = {};
 
@@ -31,7 +31,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     tag: '',
     noTagsOnSubmit: false,
     newTag: false,
-    hasLink: false
+    hasLink: false,
   };
 
 
@@ -39,14 +39,23 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   //SHOULD CHANGE SCOPE.CATEGORIES THING TO TYPES ON THE SERVER SIDE TOO!!!
 
   $scope.send = function(){
+    $scope.item.title = $('#set-title').text();
+
+    //Title Validity Check
+    if ($scope.item.title.length === 0){
+      $scope.item.noTitleOnSubmit = true;
+      return
+    }
+    
     //Tag Validity Checks
     if (!Object.keys($scope.item.tags).length) {
       $scope.linkForm.noTagsOnSubmit = true;
       return;
     }
+
     //URL Validity Check
     if (!urlRegEx.test($scope.item.link)) {
-      $scope.suggestedData.title = 'Snap! That link came back with nothing. How about pasting it in?';
+      $scope.suggestedData.warning = 'Snap! That link came back with nothing. How about pasting it in?';
       return;
     }
     for (var category in $scope.types) {
@@ -56,7 +65,6 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       }
     }
 
-    // $scope.item.title = $('#title-input').val();
 
     //Start spinner as we know we're actually sending the link up to the server.
     $scope.doneLoading = false;
@@ -64,15 +72,15 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     $http.post('/_/items', $scope.item).success(function() {
       $scope.doneLoading = true;
       $scope.suggestedData = {
-        title: 'Success! Developers everywhere thank you for your link.',
+        warning: 'Success! Developers everywhere thank you for your link.',
         tags: []
       };
       $scope.item.link = '';
     });
   };
+
   $scope.addTag = function(tag, newTag){
     newTag = newTag === 'newTag' ? true : false;
-    debugger;
     if ((!(tag in $scope.typeaheadObj)) && !newTag) {
       $scope.linkForm.newTag = true;
       $scope.$apply();
@@ -129,7 +137,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
 
     //If entered data doesn't match the URL regex, then return error data, and don't actually make the AJAX request.
     if (!urlRegEx.test(link)) {
-      var badURL = {title: "Snap! That link came back with nothing. How about pasting it in?", tags: []};
+      var badURL = {warning: "Snap! That link came back with nothing. How about pasting it in?", tags: []};
       $scope.suggestedData = badURL;
       return;
     }
