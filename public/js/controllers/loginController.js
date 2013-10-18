@@ -7,12 +7,4 @@ controllers.controller('LoginController', ['$scope', '$http', '$location', 'logi
     $scope.urlHash = $location.url();
   }
 
-  $scope.settings = [
-  {
-      "text": $scope.currentUser.karma || 0 + " Karma"
-    },
-    {
-      "text": "logout",
-      "href": '_/logout'
-    }];
 }]);
