@@ -16,6 +16,36 @@ var Tag = db.Tag;
 var Vote = db.Vote;
 var Category = db.Category;
 
+
+var callback = function(){console.log("task added")}
+var q = async.queue(function (task, callback) {
+  phantom.create(function(err,ph) {
+    return ph.createPage(function(err,page) {
+      page.set('viewportSize', { width: 1024, height: 768 });
+      return page.open(task.link, function(err,status) {
+        page.render('public/item_images/' + task.item_id + '.png', function(){console.log('rendering');});
+        page.close(function(){
+          fs.readFile(__dirname + '/../../public/item_images/'+ task.item_id + '.png', function (err, data) {
+            if (err) { throw err; }
+            var image = new Buffer(data, 'binary')
+
+            var params = {Bucket: 'readupimages', Key: item_id.toString(), ACL: "public-read", ContentType: 'image/png', Body: data};
+            s3.putObject(params, function(err, data) {
+              if (err) {
+                console.log("AMAZON ERROR", err)
+              } else {
+                console.log("Successfully uploaded data to myBucket/myKey");
+                console.log(data)
+              }
+            });
+          });
+        });
+      });
+    });
+  });
+  callback();
+}, 100);
+
 exports.getAllTagsForItem = function(req, res){
   Item.find({where: {id: 1}}).success(function(item){
     item.getTags().success(function(tags){console.log('ALL TAGS FOR ITEM 1', tags);});
@@ -51,7 +81,9 @@ var addCategories = function(item, categories) {
 };
 
 exports.create = function(req, res){
+  
   console.log('request', req.body)
+  
   if(req.user){
     var title;
     Q.fcall(
@@ -89,36 +121,6 @@ exports.create = function(req, res){
               item_id = item.dataValues.id;
               link = req.body.link;
 
-              var callback = function(){console.log("WOWIEWOWIE")}
-              var q = async.queue(function (task, callback) {
-
-                console.log('hello ' + task.id);
-                phantom.create(function(err,ph) {
-                  return ph.createPage(function(err,page) {
-                    page.set('viewportSize', { width: 1024, height: 768 });
-                    return page.open(task.link, function(err,status) {
-                      page.render('public/item_images/' + task.item_id + '.png', function(){console.log('rendering');});
-                      page.close(function(){
-                        fs.readFile(__dirname + '/../../public/item_images/'+ task.item_id + '.png', function (err, data) {
-                          if (err) { throw err; }
-                          var image = new Buffer(data, 'binary')
-
-                          var params = {Bucket: 'readupimages', Key: item_id.toString(), ACL: "public-read", ContentType: 'image/png', Body: data};
-                          s3.putObject(params, function(err, data) {
-                            if (err) {
-                              console.log("AMAZON ERROR", err)
-                            } else {
-                              console.log("Successfully uploaded data to myBucket/myKey");
-                              console.log(data)
-                            }
-                          });
-                        });
-                      });
-                    });
-                  });
-                });
-                callback();
-              }, 2);
               q.push({item_id: item_id, link: link}, function(foo,bar){
                 console.log(foo, bar)
               });
