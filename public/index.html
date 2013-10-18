@@ -42,7 +42,8 @@
           </div>
           <div class="userSettings" 
                ng-show="currentUser.username" 
-               bs-dropdown="settings">
+               data-placement='bottom'
+               bs-popover="'./partials/user_info_popover.html'">
                <div><i class="icon-double-angle-down"></i></div>
           </div>
         </div>
