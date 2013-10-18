@@ -34,6 +34,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     hasLink: false,
   };
 
+  $scope.item.noTitleOnSubmit = false;
 
 
   //SHOULD CHANGE SCOPE.CATEGORIES THING TO TYPES ON THE SERVER SIDE TOO!!!
@@ -46,7 +47,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       $scope.item.noTitleOnSubmit = true;
       return
     }
-    
+
     //Tag Validity Checks
     if (!Object.keys($scope.item.tags).length) {
       $scope.linkForm.noTagsOnSubmit = true;
