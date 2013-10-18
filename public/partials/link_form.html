@@ -3,6 +3,7 @@
   <div class='link-form-section title-section'>
     <h1 id='title-warning' ng-hide='!suggestedData.warning'>{{suggestedData.warning}}</h1>
     <h2>Set Title:</h2>
+    <div class='link-form-tags-required' ng-show='item.noTitleOnSubmit'>Please title your link!</div>
     <input id='link-form-title' type='text' value="{{suggestedData.title}}" 
       add-title/>
   </div>

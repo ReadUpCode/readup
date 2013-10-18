@@ -39,14 +39,23 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   //SHOULD CHANGE SCOPE.CATEGORIES THING TO TYPES ON THE SERVER SIDE TOO!!!
 
   $scope.send = function(){
+    $scope.item.title = $('#set-title').text();
+
+    //Title Validity Check
+    if ($scope.item.title.length === 0){
+      $scope.item.noTitleOnSubmit = true;
+      return
+    }
+    
     //Tag Validity Checks
     if (!Object.keys($scope.item.tags).length) {
       $scope.linkForm.noTagsOnSubmit = true;
       return;
     }
+
     //URL Validity Check
     if (!urlRegEx.test($scope.item.link)) {
-      $scope.suggestedData.title = 'Snap! That link came back with nothing. How about pasting it in?';
+      $scope.suggestedData.warning = 'Snap! That link came back with nothing. How about pasting it in?';
       return;
     }
     for (var category in $scope.types) {
@@ -56,7 +65,6 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       }
     }
 
-    $scope.item.title = $('#set-title').text();
 
     //Start spinner as we know we're actually sending the link up to the server.
     $scope.doneLoading = false;
