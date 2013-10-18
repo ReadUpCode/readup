@@ -22,6 +22,34 @@ exports.getAllTagsForItem = function(req, res){
   });
 };
 
+var addUpVote = function(userId, itemId) {
+  Vote.find({where: ['UserId=? AND ItemId=?', userId, itemId]})
+  .success(function(vote){
+    if(!vote){
+      Vote.create({ UserId: userId, ItemId: itemId, value: 1 });
+    }
+    else if (vote.selectedValues.value !== 1) {
+      vote.updateAttributes({value: 1});
+    }
+  });
+};
+
+var addTags = function(item, tags) {
+  for(var i in tags){
+    Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
+      item.addTag(tag);
+    });
+  }
+};
+
+var addCategories = function(item, categories) {
+  for (var j in categories) {
+    Category.findOrCreate({name: categories[j] }).success(function(category, created) {
+      item.addCategory(category);
+    })
+  }
+};
+
 exports.create = function(req, res){
   console.log('request', req.body)
   if(req.user){
@@ -46,82 +74,57 @@ exports.create = function(req, res){
       }
     ).then(
       function(title){
-        Item.findOrCreate({
-          title: req.body.title, link: req.body.link, UserId: req.user.dataValues.id }).success(function(item) {
-            var tags = req.body.tags;
-            for(var i in tags){
-              Tag.findOrCreate({ name: tags[i] }).success(function(tag, created) {
-                item.addTag(tag);
-              });
-            }
-            var categories = req.body.categories;
-            for (var j in categories) {
-              Category.findOrCreate({name: categories[j] }).success(function(category, created) {
-                item.addCategory(category);
-              })
-            }
-            item_id = item.dataValues.id;
-            link = req.body.link;
+        Item.find({ where:{link: req.body.link}}).success(function(item) {
+          if (item) {
+            addTags(item, req.body.tags);
+            addCategories(item, req.body.categories);
+            addUpVote(req.user.dataValues.id, item.dataValues.id);
+          } else {
+            Item.findOrCreate({title: req.body.title, link: req.body.link, UserId: req.user.dataValues.id })
+            .success(function(item) {
+              addTags(item, req.body.tags);
+              addCategories(item, req.body.categories);
+              addUpVote(req.user.dataValues.id, item.dataValues.id);
 
-          // phantom.create(function(err,ph) {
-          //   return ph.createPage(function(err,page) {
-          //     page.set('viewportSize', { width: 1024, height: 768 });
-          //     return page.open(link, function(err,status) {
-          //       page.render('public/item_images/' + item_id + '.png', function(){console.log('rendering');});
-          //       page.close(function(){
-          //         fs.readFile(__dirname + '/../../public/item_images/'+ item_id + '.png', function (err, data) {
-          //           if (err) { throw err; }
-          //           var image = new Buffer(data, 'binary')
+              item_id = item.dataValues.id;
+              link = req.body.link;
 
-          //           var params = {Bucket: 'readupimages', Key: item_id.toString(), ACL: "public-read", ContentType: 'image/png', Body: data};
-          //                               s3.putObject(params, function(err, data) {
-          //                                 if (err) {
-          //                                   console.log("AMAZON ERROR", err)
-          //                                 } else {
-          //                                   console.log("Successfully uploaded data to myBucket/myKey");
-          //                                   console.log(data)
-          //                                 }
-          //                               });
-          //         });
-          //       });
-          //     });
-          //   });
-          // });
-          var callback = function(){console.log("WOWIEWOWIE")}
-          var q = async.queue(function (task, callback) {
-            console.log('hello ' + task.id);
-            phantom.create(function(err,ph) {
-            return ph.createPage(function(err,page) {
-              page.set('viewportSize', { width: 1024, height: 768 });
-              return page.open(task.link, function(err,status) {
-                page.render('public/item_images/' + task.item_id + '.png', function(){console.log('rendering');});
-                page.close(function(){
-                  fs.readFile(__dirname + '/../../public/item_images/'+ task.item_id + '.png', function (err, data) {
-                    if (err) { throw err; }
-                    var image = new Buffer(data, 'binary')
+              var callback = function(){console.log("WOWIEWOWIE")}
+              var q = async.queue(function (task, callback) {
 
-                    var params = {Bucket: 'readupimages', Key: item_id.toString(), ACL: "public-read", ContentType: 'image/png', Body: data};
-                                        s3.putObject(params, function(err, data) {
-                                          if (err) {
-                                            console.log("AMAZON ERROR", err)
-                                          } else {
-                                            console.log("Successfully uploaded data to myBucket/myKey");
-                                            console.log(data)
-                                          }
-                                        });
+                console.log('hello ' + task.id);
+                phantom.create(function(err,ph) {
+                  return ph.createPage(function(err,page) {
+                    page.set('viewportSize', { width: 1024, height: 768 });
+                    return page.open(task.link, function(err,status) {
+                      page.render('public/item_images/' + task.item_id + '.png', function(){console.log('rendering');});
+                      page.close(function(){
+                        fs.readFile(__dirname + '/../../public/item_images/'+ task.item_id + '.png', function (err, data) {
+                          if (err) { throw err; }
+                          var image = new Buffer(data, 'binary')
+
+                          var params = {Bucket: 'readupimages', Key: item_id.toString(), ACL: "public-read", ContentType: 'image/png', Body: data};
+                          s3.putObject(params, function(err, data) {
+                            if (err) {
+                              console.log("AMAZON ERROR", err)
+                            } else {
+                              console.log("Successfully uploaded data to myBucket/myKey");
+                              console.log(data)
+                            }
+                          });
+                        });
+                      });
+                    });
                   });
                 });
+                callback();
+              }, 2);
+              q.push({item_id: item_id, link: link}, function(foo,bar){
+                console.log(foo, bar)
               });
             });
-          });
-            callback();
-          }, 2);
-
-          q.push({item_id: item_id, link: link}, function(foo,bar){
-            console.log(foo, bar)
-          })
-
-        })
+          }
+        });
         res.end('done');
       }
     ).done(function(){console.log("DONE FINALLY")});

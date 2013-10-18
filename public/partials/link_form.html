@@ -1,6 +1,12 @@
 <div class='link-form'>
-  <span id='spinner' us-spinner='{lines:6, length: 0, width: 15, radius: 12}' ng-hide='doneLoading'></span>
-  <h1 class='link-form-title' ng-model='suggestedData.title'>{{suggestedData.title}}</h1>
+  <span id='spinner' us-spinner='{lines:6, length: 0, width: 15, radius: 12, color: "grey"}' ng-hide='doneLoading'></span>
+  <div class='link-form-section title-section'>
+    <h1 id='title-warning' ng-hide='!suggestedData.warning'>{{suggestedData.warning}}</h1>
+    <h2>Set Title:</h2>
+    <div class='link-form-tags-required' ng-show='item.noTitleOnSubmit'>Please title your link!</div>
+    <input id='link-form-title' type='text' value="{{suggestedData.title}}" 
+      add-title/>
+  </div>
   <div class='link-form-section'>
     <h2>Pick topics:</h2>
     <div class='link-form-tags-required' ng-show='linkForm.noTagsOnSubmit'>Hey there! Links are more helpful with topics. Add at least one.</div>
