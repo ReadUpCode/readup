@@ -4,7 +4,7 @@
   margin $block 0 0 0
   width 100%
   z-index 1
-  
+
   #spinner
     left 50%
     top 30%
@@ -28,7 +28,7 @@
     width 100%
     background-color $fe-grey
     padding 3px
-  
+
   .title-section
     padding 10px
 
@@ -55,9 +55,9 @@
         color $ae-grey
 
 
-      
 
-      
+
+
 
   .link-form-section
     border-top 1px solid $go-grey
@@ -81,9 +81,12 @@
       font $sans-xs
       height 40px
       margin 0 4% 0 0
-      padding 8px 12px 0px
-      width 46%
+      padding 8px 19px 0px 12px
+      overflow hidden
       position relative
+      text-overflow ellipsis
+      width 46%
+      white-space nowrap
 
       &:hover
         transition all 0.1s ease
@@ -93,9 +96,7 @@
       &.selected
         border-bottom 4px solid white
         color white
-        overflow hidden
-        text-overflow ellipsis
-        white-space nowrap
+
 
         &:after
           @extend .icon-checkmark:after
