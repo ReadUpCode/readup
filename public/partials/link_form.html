@@ -4,7 +4,7 @@
     <h1 id='title-warning' ng-hide='!suggestedData.warning'>{{suggestedData.warning}}</h1>
     <h2>Set Title:</h2>
     <div class='link-form-tags-required' ng-show='item.noTitleOnSubmit'>Please title your link!</div>
-    <input id='link-form-title' type='text' value="{{suggestedData.title}}" 
+    <input id='link-form-title' type='text' value="{{suggestedData.title}}"
       add-title/>
   </div>
   <div class='link-form-section'>
@@ -24,7 +24,7 @@
   </div>
   <div class='link-form-section'>
     <h2>Pick type:</h2>
-      <div ng-repeat='type in types' class='tag' ng-click='toggleType(type)' ng-class='toggleClass(type, "type")'>{{type.name}}</div>
+      <div ng-repeat="type in types | orderBy:'order'" class='tag' ng-click='toggleType(type)' ng-class='toggleClass(type, "type")'>{{type.name}}</div>
   </div>
   <div class="item-submit close" ng-click="send()">Add Link</div>
 </div>

@@ -4,24 +4,28 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   var urlRegEx = /^(http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/.+)))$/;
 
   $scope.doneLoading = true;
-  $scope.types = {
-    'Tutorial': {
-      name: 'Tutorial',
-      chosen: false
+  $scope.types = [
+    {
+      name: 'Tool',
+      chosen: false,
+      order: 'd'
     },
-    'Op/Ed': {
+    {
       name: 'Op/Ed',
-      chosen: false
+      chosen: false,
+      order: 'c'
     },
-    'Reference': {
+    {
       name: 'Reference',
-      chosen: false
+      chosen: false,
+      order: 'b'
     },
-    'Intro': {
-      name: 'Intro',
-      chosen: false
+    {
+      name: 'Tutorial',
+      chosen: false,
+      order: 'a'
     }
-  };
+  ];
   $scope.item = { tags : {}, categories: {} , yourTags: {}, title: ''};
   $scope.typeaheadObj = {};
   $scope.suggestedData = {};
