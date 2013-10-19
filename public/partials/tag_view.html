@@ -1,3 +1,4 @@
+<script src="lib/hackerNewsShareButton.js"></script>
 <h1 class='title' id='articles-title'>{{tag}}</h1>
 <aside id='about'>
   <p>{{stackOverflowSummary.summary}} <a ng-href='http://stackoverflow.com/tags/{{stackOverflowSummary.urlTag}}/info' target='_blank'>More on Stack Overflow.</a></p>
@@ -35,7 +36,14 @@
         <a twitter href="https://twitter.com/share" class="twitter-share-button"
           data-url="{{link.link}}"
           data-text="{{link.text}}"
-          data-via="readupcode" data-count="none" data-dnt="true"></a>
+          data-via="readupcode" data-count="none" data-dnt="true">
+        </a>
+        <a href="http://news.ycombinator.com/submit" class="hn-share-button"
+          data-title="{{link.title}}"
+          data-url="{{link.link}}"
+          target="_blank">
+          Vote on HN
+        </a>
       </div>
     </div>
 
