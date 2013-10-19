@@ -9,7 +9,6 @@ directives.directive('twitter', [
             attr.url,
             element[0],
             function(el) {}, {
-              count: 'none',
               text: attr.text,
               via: attr.via
             }
