@@ -1195,7 +1195,7 @@
       "fulfills_required": false
     },
     {
-      "name": "meteorjs",
+      "name": "meteor",
       "count": 2140,
       "fulfills_required": false
     }
