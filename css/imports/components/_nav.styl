@@ -77,7 +77,7 @@ nav
   #log-in
     .popover.bottom
       background-color $ho-grey
-      .logout-popover
+      .popover-content
         width 110px
         .popover-close
           position absolute
@@ -94,12 +94,12 @@ nav
         left 65%
       .arrow:after
         border-bottom-color $ho-grey
-      .popover-content
-        width 159px
       .user-logout
         text-align center
         background-color $ee-grey
         border-radius 2px
+        &:hover
+          color $ho-grey
         a
         &:visited
           color inherit

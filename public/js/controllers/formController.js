@@ -1,27 +1,32 @@
 var controllers = require('../app.js').controllers;
+var suggestedTagsFile = require('../factories/1000SuggestedTags.json');
 
 controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', 'searchFactory', 'loginFactory', '$timeout', function($scope, $http, $modal, $q, tagsFactory, searchFactory, loginFactory, $timeout) {
-  var urlRegEx = /^(http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/.+)))$/;
+  var urlRegEx = /^(http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/[\w\-]+)*)(?:\/?|\/\w+\.[a-zA-Z]{2,4}(?:\?[\w]+\=[\w\-]+)?)?(?:\&[\w]+\=[\w\-]+)*)$/;
 
   $scope.doneLoading = true;
-  $scope.types = {
-    'Tutorial': {
-      name: 'Tutorial',
-      chosen: false
+  $scope.types = [
+    {
+      name: 'Tool',
+      chosen: false,
+      order: 'd'
     },
-    'Op/Ed': {
+    {
       name: 'Op/Ed',
-      chosen: false
+      chosen: false,
+      order: 'c'
     },
-    'Reference': {
+    {
       name: 'Reference',
-      chosen: false
+      chosen: false,
+      order: 'b'
     },
-    'Intro': {
-      name: 'Intro',
-      chosen: false
+    {
+      name: 'Tutorial',
+      chosen: false,
+      order: 'a'
     }
-  };
+  ];
   $scope.item = { tags : {}, categories: {} , yourTags: {}, title: ''};
   $scope.typeaheadObj = {};
   $scope.suggestedData = {};
@@ -34,7 +39,6 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     hasLink: false,
   };
 
-  $scope.item.noTitleOnSubmit = false;
 
 
   //SHOULD CHANGE SCOPE.CATEGORIES THING TO TYPES ON THE SERVER SIDE TOO!!!
@@ -47,7 +51,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       $scope.item.noTitleOnSubmit = true;
       return
     }
-
+    
     //Tag Validity Checks
     if (!Object.keys($scope.item.tags).length) {
       $scope.linkForm.noTagsOnSubmit = true;
@@ -87,7 +91,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
 
   $scope.addTag = function(tag, newTag){
     newTag = newTag === 'newTag' ? true : false;
-    if ((!(tag in $scope.typeaheadObj)) && !newTag) {
+    if (($scope.typeahead.indexOf(tag) === -1) && !newTag) {
       $scope.linkForm.newTag = true;
       $scope.$apply();
       return;
@@ -138,7 +142,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   };
 
   $scope.getSuggestedData = function(link) {
-    var urlRegEx = /^(http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/.+)))$/;
+    var urlRegEx = /^(http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/[\w\-]+)*)(?:\/?|\/\w+\.[a-zA-Z]{2,4}(?:\?[\w]+\=[\w\-]+)?)?(?:\&[\w]+\=[\w\-]+)*)$/;
     var deferred = $q.defer();
 
     //If entered data doesn't match the URL regex, then return error data, and don't actually make the AJAX request.
@@ -159,14 +163,27 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   };
 
   // Autocomplete for adding tags
-  $scope.typeahead = tagsFactory.getSuggestedTags();
 
-  $scope.typeaheadFn = function() {
-    return $.map($scope.typeahead, function(tag) {
-      $scope.typeaheadObj[tag.name] = tag.name;
-      return tag.name;
+$scope.typeaheadFn = function(query, callback) {
+  if(!$scope.suggestedTags){
+    var cleanTags = suggestedTagsFile;
+    $http.get('/_/tags').success(function(data){
+      for(var i = 0; i < data.length; i++){
+        cleanTags[data[i].name] = data[i].name;
+      }
+      console.log(cleanTags);
+      var results = [];
+      for (var key in cleanTags){
+        results.push(key);
+      }
+      console.log(results);
+      $scope.typeahead = results;
+      callback(results);
     });
-  };
+  } else {
+    callback($scope.typeahead);
+  }
+};
 
   // Autocomplete for the search
   $http.get('/_/tags').success(function(data){

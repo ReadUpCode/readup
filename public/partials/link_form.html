@@ -25,7 +25,7 @@
   </div>
   <div class='link-form-section'>
     <h2>Pick type:</h2>
-      <div ng-repeat='type in types' class='tag' ng-click='toggleType(type)' ng-class='toggleClass(type, "type")'>{{type.name}}</div>
+      <div ng-repeat="type in types | orderBy:'order'" class='tag' ng-click='toggleType(type)' ng-class='toggleClass(type, "type")'>{{type.name}}</div>
   </div>
   <div class="item-submit close" ng-click="send()">Add Link</div>
 </div>
