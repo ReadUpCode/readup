@@ -77,6 +77,11 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
         tags: []
       };
       $scope.item.link = '';
+      $scope.item.yourTags = {};
+      $scope.tags = [];
+      for (var each in $scope.types){
+        $scope.types[each].chosen = false;
+      }
     });
   };
 
