@@ -32,6 +32,11 @@
   .title-section
     padding 10px
 
+    .link-form-title-required 
+      font $sans-xs
+      display inline-block
+      color white
+
   h1#set-title
     display inline-block
     margin 0
@@ -40,11 +45,12 @@
     text-overflow ellipsis
     white-space nowrap
     overflow hidden
-    width 85%
+    width 95%
 
     &:after
         @extend .icon-checkmark:after
-        float right
+        position absolute
+        right 7%
         padding-left 10px
         font-size 1.8rem
 
@@ -68,7 +74,7 @@
       color white
       font $sans-xxs
 
-    .link-form-tags-required
+    .link-form-tags-required 
       font $sans-xs
       display inline-block
       color white

@@ -17,34 +17,54 @@ var Vote = db.Vote;
 var Category = db.Category;
 
 
-var callback = function(){console.log("task added")}
+var callback = function(err){console.log(err)}
 var q = async.queue(function (task, callback) {
   phantom.create(function(err,ph) {
     return ph.createPage(function(err,page) {
-      page.set('viewportSize', { width: 1024, height: 768 });
       return page.open(task.link, function(err,status) {
-        page.render('public/item_images/' + task.item_id + '.png', function(){console.log('rendering');});
-        page.close(function(){
-          fs.readFile(__dirname + '/../../public/item_images/'+ task.item_id + '.png', function (err, data) {
-            if (err) { throw err; }
-            var image = new Buffer(data, 'binary')
+        page.includeJs('http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', function(err) {
+        //jQuery Loaded.
+        //Wait for a bit for AJAX content to load on the page. Here, we are waiting 5 seconds.
+          setTimeout(function() {
+            return page.evaluate(function() {
+              var height = $(document).height()
+              var width = $(document).width()
+              return {
+                height: height,
+                width: width
+              };
+            }, function(err,result) {
+              
+              page.set('clipRect', {height: result.height > 2000 ? 2000 : result.height, width: result.width});
 
-            var params = {Bucket: 'readupimages', Key: item_id.toString(), ACL: "public-read", ContentType: 'image/png', Body: data};
-            s3.putObject(params, function(err, data) {
-              if (err) {
-                console.log("AMAZON ERROR", err)
-              } else {
-                console.log("Successfully uploaded data to myBucket/myKey");
-                console.log(data)
-              }
+              console.log("TASK.ITEM_ID", task.item_id)
+
+              page.render('public/item_images/' + task.item_id + '.png', function(){
+                console.log('rendering');
+                fs.readFile(__dirname + '/../../public/item_images/'+ task.item_id + '.png', function (err, data) {
+                  if (err) { throw err; }
+                  var image = new Buffer(data, 'binary')
+
+                  var params = {Bucket: 'readupimages', Key: task.item_id.toString(), ACL: "public-read", ContentType: 'image/jpeg', Body: data};
+                  s3.putObject(params, function(err, data) {
+                    if (err) {
+                      console.log("AMAZON ERROR", err)
+                    } else {
+                      console.log("Successfully uploaded data to myBucket/myKey");
+                      console.log(data)
+                    }
+                  });
+                });
+              });
+              ph.exit();
             });
-          });
+          }, 3000);
         });
       });
     });
   });
   callback();
-}, 100);
+}, 1);
 
 exports.getAllTagsForItem = function(req, res){
   Item.find({where: {id: 1}}).success(function(item){
@@ -83,34 +103,16 @@ var addCategories = function(item, categories) {
 exports.create = function(req, res){
   
   console.log('request', req.body)
+  res.end('done');
   
   if(req.user){
-    var title;
     Q.fcall(
       function(){
-        deferred = Q.defer()
-        request(req.body.link, function(error, response, body) {
-        // Hand the HTML response off to Cheerio and assign that to
-        //  a local $ variable to provide familiar jQuery syntax.
-          var $ = cheerio.load(body);
-
-        // Exactly the same code that we used in the browser before:
-          // var title;
-          $('title').each(function() {
-            title = $(this).text();
-            deferred.resolve(title.replace(/^[\s+\.]|[\s+\.]$/g, ""))
-          });
-          return title.replace(/ +?/g, '')
-        })
-        return deferred.promise
-      }
-    ).then(
-      function(title){
         Item.find({ where:{link: req.body.link}}).success(function(item) {
           if (item) {
             addTags(item, req.body.tags);
             addCategories(item, req.body.categories);
-            addUpVote(req.user.dataValues.id, item.dataValues.id);
+            addUpVote(req.user.dataValues.id, item.dataValues.id);            
           } else {
             Item.findOrCreate({title: req.body.title, link: req.body.link, UserId: req.user.dataValues.id })
             .success(function(item) {
@@ -127,7 +129,6 @@ exports.create = function(req, res){
             });
           }
         });
-        res.end('done');
       }
     ).done(function(){console.log("DONE FINALLY")});
   } else {
