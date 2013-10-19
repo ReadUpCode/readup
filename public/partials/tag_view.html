@@ -32,18 +32,22 @@
       <div class='preview-logo' show-frame></div>
       <div class='categories-name' ng-repeat='category in link.categories'>{{category.name}}</div>
       <div class='tags-name' ng-repeat='tag in link.tags'><a ng-href='#/{{tag.name}}'> {{tag.name}}</a></div>
-      <div class='twitter-share'>
-        <a twitter href="https://twitter.com/share" class="twitter-share-button"
-          data-url="{{link.link}}"
-          data-text="{{link.text}}"
-          data-via="readupcode" data-count="none" data-dnt="true">
-        </a>
-        <a href="http://news.ycombinator.com/submit" class="hn-share-button"
-          data-title="{{link.title}}"
-          data-url="{{link.link}}"
-          target="_blank">
-          Vote on HN
-        </a>
+      <div class='share'>
+        <div class='twitter-share'>
+          <a twitter href="https://twitter.com/share" class="twitter-share-button"
+            data-url="{{link.link}}"
+            data-text="{{link.title}}"
+            data-via="readupcode" data-count="none" data-dnt="true">
+          </a>
+        </div>
+        <div class='hn-share'>
+          <a href="http://news.ycombinator.com/submit" class="hn-share-button"
+            data-title="{{link.title}}"
+            data-url="{{link.link}}"
+            target="_blank">
+            Vote on HN
+          </a>
+        </div>
       </div>
     </div>
 
