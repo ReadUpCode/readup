@@ -1,7 +1,7 @@
 var controllers = require('../app.js').controllers;
 
 controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', 'searchFactory', 'loginFactory', '$timeout', function($scope, $http, $modal, $q, tagsFactory, searchFactory, loginFactory, $timeout) {
-  var urlRegEx = /^(http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/[\w\-]+)*)(?:\/?|\/\w+\.[a-zA-Z]{2,4}(?:\?[\w]+\=[\w\-]+)?)?(?:\&[\w]+\=[\w\-]+)*)$/;
+  var urlRegEx = /^(http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/.+)))$/;
 
   $scope.doneLoading = true;
   $scope.types = {
@@ -34,6 +34,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     hasLink: false,
   };
 
+  $scope.item.noTitleOnSubmit = false;
 
 
   //SHOULD CHANGE SCOPE.CATEGORIES THING TO TYPES ON THE SERVER SIDE TOO!!!
@@ -46,7 +47,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       $scope.item.noTitleOnSubmit = true;
       return
     }
-    
+
     //Tag Validity Checks
     if (!Object.keys($scope.item.tags).length) {
       $scope.linkForm.noTagsOnSubmit = true;
@@ -132,7 +133,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   };
 
   $scope.getSuggestedData = function(link) {
-    var urlRegEx = /^(http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/[\w\-]+)*)(?:\/?|\/\w+\.[a-zA-Z]{2,4}(?:\?[\w]+\=[\w\-]+)?)?(?:\&[\w]+\=[\w\-]+)*)$/;
+    var urlRegEx = /^(http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/.+)))$/;
     var deferred = $q.defer();
 
     //If entered data doesn't match the URL regex, then return error data, and don't actually make the AJAX request.

@@ -23,7 +23,6 @@ var cleanAllKeywords = function(keywordsArr) {
     var splitKeywords = fullText.split(/\.| /);
     cleanKeywordsArray = cleanKeywordsArray.concat(splitKeywords);
   }
-  console.log('clean Keywords Array = ', cleanKeywordsArray);
   return cleanKeywordsArray;
 };
 
@@ -39,14 +38,25 @@ var getTitleText = function(body, res, suggestedData) {
   var titleArray = cleanTitle(titleText);
 
   for (var j = 0; j < titleArray.length; j++) {
-    if (titleArray[j] in topTags) {
-      suggestedData.tags[topTags[titleArray[j]]] = topTags[titleArray[j]];
+    var singleWord = titleArray[j];
+    var twoWords = titleArray[j] + '-' + titleArray[j+1];
+    var threeWords = titleArray[j] + '-' + titleArray[j+1] + '-' + titleArray[j+2];
+    if (singleWord in topTags) {
+      suggestedData.tags[topTags[singleWord]] = topTags[singleWord];
+    }
+    if (twoWords in topTags) {
+      suggestedData.tags[topTags[twoWords]] = topTags[twoWords];
+    }
+    if (threeWords in topTags) {
+      suggestedData.tags[topTags[threeWords]] = topTags[threeWords];
     }
   }
   suggestedData.title = titleText;
   res.json(suggestedData);
 };
 
+
+//Gets keywords for given URL from Alchemy, and then cleans it and compares against our database of terms.
 exports.getText = function(req, res) {
   var apiUrl = 'http://access.alchemyapi.com/calls/url/URLGetRankedKeywords?apikey='+ALCHEMY_KEY+'&maxRetrieve=15&url='+req.body.url+'&outputMode=json';
   request.post({url:apiUrl}, function(error, response, body) {
@@ -57,14 +67,22 @@ exports.getText = function(req, res) {
       }catch(e) {
         throw e;
       }
-      console.log(result);
       var keywordsArr = result.keywords;
       var cleanKeywords = cleanAllKeywords(keywordsArr);
       var suggestedData = {tags: {}, title:''};
 
       for (var i = 0; i < cleanKeywords.length; i++) {
-        if (cleanKeywords[i] in topTags) {
-          suggestedData.tags[topTags[cleanKeywords[i]]] = topTags[cleanKeywords[i]];
+        var singleWord = cleanKeywords[i];
+        var twoWords = cleanKeywords[i] + '-' + cleanKeywords[i+1];
+        var threeWords = cleanKeywords[i] + '-' + cleanKeywords[i+1] + '-' + cleanKeywords[i+2];
+        if (singleWord in topTags) {
+          suggestedData.tags[topTags[singleWord]] = topTags[singleWord];
+        }
+        if (twoWords in topTags) {
+          suggestedData.tags[topTags[twoWords]] = topTags[twoWords];
+        }
+        if (threeWords in topTags) {
+          suggestedData.tags[topTags[threeWords]] = topTags[threeWords];
         }
       }
       request.get(req.body.url, function(error, response, body) {
