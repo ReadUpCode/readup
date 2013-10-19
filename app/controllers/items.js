@@ -103,6 +103,7 @@ var addCategories = function(item, categories) {
 exports.create = function(req, res){
   
   console.log('request', req.body)
+  res.end('done');
   
   if(req.user){
     Q.fcall(
@@ -111,8 +112,7 @@ exports.create = function(req, res){
           if (item) {
             addTags(item, req.body.tags);
             addCategories(item, req.body.categories);
-            addUpVote(req.user.dataValues.id, item.dataValues.id);
-            res.end('done');  
+            addUpVote(req.user.dataValues.id, item.dataValues.id);            
           } else {
             Item.findOrCreate({title: req.body.title, link: req.body.link, UserId: req.user.dataValues.id })
             .success(function(item) {
@@ -122,8 +122,6 @@ exports.create = function(req, res){
 
               item_id = item.dataValues.id;
               link = req.body.link;
-
-              res.end('done');
 
               q.push({item_id: item_id, link: link}, function(foo,bar){
                 console.log(foo, bar)
