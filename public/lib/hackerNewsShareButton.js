@@ -6,4 +6,4 @@ setTimeout(
             s = d.getElementsByTagName(t)[0];
         g.src = '//hnbutton.appspot.com/static/hn.min.js';
         s.parentNode.insertBefore(g, s);
-}, 150);
+}, 300);
