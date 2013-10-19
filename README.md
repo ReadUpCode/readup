@@ -18,18 +18,18 @@ Read Up is built by developers, for developers. It’s open source, and we welco
 - **Grunt** - With only a 2.5 week development sprint, Grunt saved us precious time by automating our compilation, build and watch tasks. 
 
 #### About Us:
-  We built [Read Up](readup.co) at [Hack Reactor](http://hackreactor.com/). Many thanks to the community there for all the support.
+We built [Read Up](readup.co) at [Hack Reactor](http://hackreactor.com/). Many thanks to the community there for all the support.
 
-  Blake West
-  	GitHub](https://github.com/bwest87) [LinkdIn](www.linkedin.com/in/blakewest87) [Website](http://sympatheticvibration.com/)
+Blake West
+[GitHub](https://github.com/bwest87) [LinkdIn](www.linkedin.com/in/blakewest87) [Website](http://sympatheticvibration.com/)
 
-  Brett Hoyer
-    [GitHub](https://github.com/BrettHoyer) [LinkdIn](http://www.linkedin.com/in/bretthoyer) [Website](http://thehoyer.com/)
+Brett Hoyer
+[GitHub](https://github.com/BrettHoyer) [LinkdIn](http://www.linkedin.com/in/bretthoyer) [Website](http://thehoyer.com/)
 
-  Doug Kong
-    [GitHub](https://github.com/DougKong) [LinkdIn](www.linkedin.com/in/dougkong) [Website](http://dougkong.com/)
+Doug Kong
+[GitHub](https://github.com/DougKong) [LinkdIn](www.linkedin.com/in/dougkong) [Website](http://dougkong.com/)
 
-  Jess MacQueen
-    [GitHub](https://github.com/macqueen) [LinkdIn](http://www.linkedin.com/in/jessmacqueen) [Website](http://jessmacqueen.com/)
+Jess MacQueen
+[GitHub](https://github.com/macqueen) [LinkdIn](http://www.linkedin.com/in/jessmacqueen) [Website](http://jessmacqueen.com/)
 
 Huge thanks to [Mike Sall](http://sall.co/) for his contributions to the beautiful design of ReadUp, and for initiating the idea. 
