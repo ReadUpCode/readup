@@ -8,9 +8,11 @@ var Vote = db.Vote;
 var Category = db.Category;
 
 exports.get = function(req, res){
-  Tag.findAll().success(function(tags){
-    res.send(tags);
-  });
+  db.sequelize
+    .query('SELECT Tags.id, Tags.name, COUNT(*) as popularity FROM Tags INNER JOIN ItemsTags ON Tags.id = ItemsTags.TagId GROUP BY Tags.id, Tags.name')
+    .success(function(tags){
+      res.send(tags);
+    });
 };
 
 exports.getAllItemsForTag = function(req, res){
