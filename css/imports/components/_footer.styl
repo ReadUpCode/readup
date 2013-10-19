@@ -1,6 +1,31 @@
-footer{
-  color: $bo-grey;
-  font: $sans-xs;
-  margin: 80px 0 0;
-  text-align: center;
-}
+footer
+  color $bo-grey
+  font 400 1.7rem "source-sans-pro",arial,sans;
+  margin auto
+  text-align center
+  width 100%
+
+  div
+    display inline-block
+
+  .divider
+    &:before
+      content '|'
+      margin-right 5px
+
+  .footer-link
+    color $do-grey
+
+@media screen-to-break-one
+  footer
+    font $sans-xs
+
+    div
+      margin-left 1.5%
+
+    .divider
+      &:before
+        content '|'
+        margin-right 15px
+
+
