@@ -8,10 +8,22 @@ var environConfig = require('../../config/environConfig');
 var ALCHEMY_KEY    = environConfig.ALCHEMY_KEY;
 var topTagArr, topTags;
 
-fs.readFile(__dirname + '/../../public/js/factories/curatedSuggestedTags.json', 'utf8', function(err, data) {
-  if (err) {throw err;}
-  topTagArr = JSON.parse(data);
-  topTags = cleanTopTagArr(topTagArr);
+//This reads file and runs the cleaning mechanisms and then writes to disk. Keeping this in case we need to change it later. But generally,
+//it just reads the cleaned file once and stores it to memory.
+
+// fs.readFile(__dirname + '/../../public/js/factories/curatedSuggestedTags.json', 'utf8', function(err, data) {
+//   if (err) {throw err;}
+//   topTagArr = JSON.parse(data);
+//   topTags = cleanTopTagArr(topTagArr);
+//   var strTopTags = JSON.stringify(topTags);
+//   fs.writeFile('app/lib/cleanedCuratedTags.json', strTopTags, function() {
+//     console.log('successfully wrote json file');
+//   });
+// });
+
+// Reads cleaned tags file, and saves to memory;
+fs.readFile(__dirname + '/../lib/cleanedCuratedTags.json', 'utf8', function(err, data) {
+  topTags = JSON.parse(data);
 });
 
 var cleanAllKeywords = function(keywordsArr) {
