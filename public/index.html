@@ -2,17 +2,34 @@
 <html ng-app="readUp">
 <head>
   <title>READ UP</title>
+  <!--Meta Data-->
   <meta charset='utf-8'>
   <meta name='viewport' content='width=device-width initial-scale=1.0'>
   <meta name='apple-mobile-web-app-title' content='Read Up'>
   <meta name='apple-mobile-web-app-capable' content='yes'>
+
+  <!--Stylesheets-->
   <link rel="stylesheet" type="text/css" href="lib/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
   <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
+  <!--Favicon-->
   <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
-  <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
 
+  <!--Google Analytics-->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-44980820-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <!--JS includes-->
   <script src="//use.edgefonts.net/source-sans-pro:n3,i3,n4,i4,n9.js"></script>
   <script src="lib/bower_components/jquery/jquery.js"></script>
   <script src="lib/bower_components/angular/angular.js"></script>
@@ -23,6 +40,7 @@
   <script src="lib/bower_components/angular-strap/dist/angular-strap.min.js"></script>
   <script src="build/bundle.js"></script>
 </head>
+
 <body>
   <div id='main-container'>
     <header>
@@ -42,8 +60,8 @@
               <a ng-href='auth/github/#{{urlHash}}' target='_self'><img ng-show="currentUser.username" id='avatar' src={{currentUser.image_url}} />
               <img ng-hide="currentUser.username" id='avatar' src='./images/transparent-01.png' /></a>
           </div>
-          <div class="userSettings" 
-               ng-show="currentUser.username" 
+          <div class="userSettings"
+               ng-show="currentUser.username"
                data-placement='bottom'
                bs-popover="'./partials/user_info_popover.html'">
                <div><i class="icon-double-angle-down"></i></div>
@@ -96,6 +114,10 @@
         <div ng-view></div>
       </div>
   </div>
-  <footer>&copy2013 ReadUp</footer>
+  <footer>
+    <div><a class='footer-link'href='https://github.com/ReadUpCode/readup' target='_blank'>Improve Read Up</a></div>
+    <div class='divider'>Lovingly made at <a class='footer-link' href='http://www.hackreactor.com' target='_blank'>Hack Reactor</a></div>
+    <div class='divider'>&copy2013 ReadUp</div>
+  </footer>
 </body>
 </html>
