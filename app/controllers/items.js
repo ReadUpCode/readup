@@ -21,30 +21,45 @@ var callback = function(err){console.log(err)}
 var q = async.queue(function (task, callback) {
   phantom.create(function(err,ph) {
     return ph.createPage(function(err,page) {
-      page.set('viewportSize', { width: 1024, height: 768 });
       return page.open(task.link, function(err,status) {
+        page.includeJs('http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', function(err) {
+        //jQuery Loaded.
+        //Wait for a bit for AJAX content to load on the page. Here, we are waiting 5 seconds.
+          setTimeout(function() {
+            return page.evaluate(function() {
+              var height = $(document).height()
+              var width = $(document).width()
+              return {
+                height: height,
+                width: width
+              };
+            }, function(err,result) {
+              
+              page.set('clipRect', {height: result.height > 2000 ? 2000 : result.height, width: result.width});
 
-        console.log("TASK.ITEM_ID", task.item_id)
+              console.log("TASK.ITEM_ID", task.item_id)
 
-        page.render('public/item_images/' + task.item_id + '.png', function(){
-          console.log('rendering');
-          fs.readFile(__dirname + '/../../public/item_images/'+ task.item_id + '.png', function (err, data) {
-            if (err) { throw err; }
-            var image = new Buffer(data, 'binary')
+              page.render('public/item_images/' + task.item_id + '.png', function(){
+                console.log('rendering');
+                fs.readFile(__dirname + '/../../public/item_images/'+ task.item_id + '.png', function (err, data) {
+                  if (err) { throw err; }
+                  var image = new Buffer(data, 'binary')
 
-            var params = {Bucket: 'readupimages', Key: task.item_id.toString(), ACL: "public-read", ContentType: 'image/png', Body: data};
-            s3.putObject(params, function(err, data) {
-              if (err) {
-                console.log("AMAZON ERROR", err)
-              } else {
-                console.log("Successfully uploaded data to myBucket/myKey");
-                console.log(data)
-              }
+                  var params = {Bucket: 'readupimages', Key: task.item_id.toString(), ACL: "public-read", ContentType: 'image/jpeg', Body: data};
+                  s3.putObject(params, function(err, data) {
+                    if (err) {
+                      console.log("AMAZON ERROR", err)
+                    } else {
+                      console.log("Successfully uploaded data to myBucket/myKey");
+                      console.log(data)
+                    }
+                  });
+                });
+              });
+              ph.exit();
             });
-          });
+          }, 3000);
         });
-        // page.close(function(){
-        // });
       });
     });
   });
@@ -97,6 +112,7 @@ exports.create = function(req, res){
             addTags(item, req.body.tags);
             addCategories(item, req.body.categories);
             addUpVote(req.user.dataValues.id, item.dataValues.id);
+            res.end('done');  
           } else {
             Item.findOrCreate({title: req.body.title, link: req.body.link, UserId: req.user.dataValues.id })
             .success(function(item) {
@@ -107,13 +123,14 @@ exports.create = function(req, res){
               item_id = item.dataValues.id;
               link = req.body.link;
 
+              res.end('done');
+
               q.push({item_id: item_id, link: link}, function(foo,bar){
                 console.log(foo, bar)
               });
             });
           }
         });
-        res.end('done');
       }
     ).done(function(){console.log("DONE FINALLY")});
   } else {
