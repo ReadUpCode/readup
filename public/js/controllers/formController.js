@@ -78,11 +78,11 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       $scope.doneLoading = true;
       $scope.suggestedData = {
         warning: 'Success! Developers everywhere thank you for your link.',
-        tags: []
+        tags: {}
       };
       $scope.item.link = '';
       $scope.item.yourTags = {};
-      $scope.tags = [];
+      $scope.item.tags = {};
       for (var each in $scope.types){
         $scope.types[each].chosen = false;
       }
