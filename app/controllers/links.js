@@ -71,7 +71,12 @@ var getTitleText = function(body, res, suggestedData) {
 //Gets keywords for given URL from Alchemy, and then cleans it and compares against our database of terms.
 exports.getText = function(req, res) {
   var apiUrl = 'http://access.alchemyapi.com/calls/url/URLGetRankedKeywords?apikey='+ALCHEMY_KEY+'&maxRetrieve=15&url='+req.body.url+'&outputMode=json';
+  var errorData = {tags: {}, title: "Hmm, that came back with nothing. Double check your link. Or, if you know it's right, then add a title and topics"};
   request.post({url:apiUrl}, function(error, response, body) {
+    if (error || response.statusCode !== 200) {
+      console.log('in the error block');
+      res.json(errorData);
+    }
     if (!error && response.statusCode === 200){
       var result;
       try {
@@ -80,6 +85,9 @@ exports.getText = function(req, res) {
         throw e;
       }
       var keywordsArr = result.keywords;
+      if (!keywordsArr.length) {
+        res.json(errorData);
+      }
       var cleanKeywords = cleanAllKeywords(keywordsArr);
       var suggestedData = {tags: {}, title:''};
 
