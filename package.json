@@ -38,7 +38,9 @@
     "q": "~0.9.7",
     "stylus-import-tree": "~0.1.8",
     "aws-sdk": "~1.8.1",
-    "async": "~0.2.9"
+    "async": "~0.2.9",
+    "superagent": "~0.15.7",
+    "expect.js": "~0.2.0"
   },
   "devDependencies": {
     "grunt-nodemon": "~0.1.1",
