@@ -37,6 +37,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     noTagsOnSubmit: false,
     newTag: false,
     hasLink: false,
+    editMode: false
   };
 
 
@@ -44,7 +45,8 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   //SHOULD CHANGE SCOPE.CATEGORIES THING TO TYPES ON THE SERVER SIDE TOO!!!
 
   $scope.send = function(){
-    $scope.item.title = $('#set-title').text();
+    //Set title from element
+    $scope.item.title = $scope.suggestedData.title;
 
     //Title Validity Check
     if ($scope.item.title.length === 0){
@@ -165,26 +167,26 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
 
   // Autocomplete for adding tags
 
-$scope.typeaheadFn = function(query, callback) {
-  if(!$scope.suggestedTags){
-    var cleanTags = suggestedTagsFile;
-    $http.get('/_/tags').success(function(data){
-      for(var i = 0; i < data.length; i++){
-        cleanTags[data[i].name] = data[i].name;
-      }
-      console.log(cleanTags);
-      var results = [];
-      for (var key in cleanTags){
-        results.push(key);
-      }
-      console.log(results);
-      $scope.typeahead = results;
-      callback(results);
-    });
-  } else {
-    callback($scope.typeahead);
-  }
-};
+  $scope.typeaheadFn = function(query, callback) {
+    if(!$scope.suggestedTags){
+      var cleanTags = suggestedTagsFile;
+      $http.get('/_/tags').success(function(data){
+        for(var i = 0; i < data.length; i++){
+          cleanTags[data[i].name] = data[i].name;
+        }
+        console.log(cleanTags);
+        var results = [];
+        for (var key in cleanTags){
+          results.push(key);
+        }
+        console.log(results);
+        $scope.typeahead = results;
+        callback(results);
+      });
+    } else {
+      callback($scope.typeahead);
+    }
+  };
 
   // Autocomplete for the search
   $http.get('/_/tags').success(function(data){
@@ -195,5 +197,10 @@ $scope.typeaheadFn = function(query, callback) {
     return $.map($scope.typeaheadSearch, function(tag) {
       return tag.name;
     });
+  };
+
+  $scope.changeEditMode = function() {
+    $scope.linkForm.editMode = !$scope.linkForm.editMode;
+    console.log($scope.suggestedData);
   };
 }]);
