@@ -4,9 +4,13 @@
     <h1 id='title-warning' ng-hide='!suggestedData.warning'>{{suggestedData.warning}}</h1>
     <h2>Set Title:</h2>
     <div class='link-form-tags-required' ng-show='item.noTitleOnSubmit'>We couldn't find a title for this link. Please add one.</div>
-    <h1 id='set-title' ng-show='suggestedData.title'>{{suggestedData.title}}</h1>
-    <input id='link-form-title' type='text' ng-show="!suggestedData.title" value="{{suggestedData.title}}"
-      add-title/>
+    <h1 id='set-title'
+        ng-show='suggestedData.title && !linkForm.editMode'
+        ng-click='changeEditMode()'>{{suggestedData.title}}</h1>
+    <input id='link-form-title' type='text'
+           ng-show="!suggestedData.title || linkForm.editMode"
+           value="{{suggestedData.title}}"
+           add-title/>
   </div>
   <div class='link-form-section'>
     <h2>Pick topics:</h2>
