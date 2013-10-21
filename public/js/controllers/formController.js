@@ -150,6 +150,8 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       $scope.suggestedData = badURL;
       return;
     }
+
+    //Starts loading spinner
     $scope.doneLoading = false;
 
     $http.post('/_/preview', {url: link}).success(function(data) {
