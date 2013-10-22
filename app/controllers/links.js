@@ -1,4 +1,4 @@
-var phantom        = require('node-phantom');
+  var phantom        = require('node-phantom');
 var request        = require('request');
 var cheerio        = require('cheerio');
 var fs             = require('fs');
