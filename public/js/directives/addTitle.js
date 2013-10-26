@@ -9,6 +9,7 @@ directives.directive('addTitle', function() {
         scope.item.noTitleOnSubmit = false;
         scope.suggestedData.title = title.val();
         scope.changeEditMode();
+        scope.$apply();
       }
     });
   };
