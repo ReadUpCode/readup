@@ -12,11 +12,6 @@ exports.getAllItemsForUser = function(req, res){
   });
 };
 
-// exports.login = function(req, res){
-//   console.log('blahhh', req.session.cookie)
-//   res.send('hello')
-// }
-
 exports.addGitHubUser = function(ghUser, access_token, promise){
   var requestURL = 'https://api.github.com/user/emails?access_token=' + access_token;
   https.get(requestURL, function(res) {
@@ -42,6 +37,7 @@ exports.addGitHubUser = function(ghUser, access_token, promise){
           });
         } else {
           userData.github_id = ghID;
+          userData.karma = 0;
           User.create(userData).success(function(user){
             console.log('user created in DB');
             return promise.fulfill(user);

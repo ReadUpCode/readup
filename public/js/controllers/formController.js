@@ -51,7 +51,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     //Title Validity Check
     if ($scope.item.title.length === 0){
       $scope.item.noTitleOnSubmit = true;
-      return
+      return;
     }
 
     //Tag Validity Checks
@@ -75,7 +75,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       $scope.doneLoading = true;
       $scope.suggestedData = {
         warning: 'Success! Developers everywhere thank you for your link.',
-        tags: [],
+        tags: {}
       };
       $scope.item.link = '';
       $scope.item.yourTags = {};
