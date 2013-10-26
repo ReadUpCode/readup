@@ -2,13 +2,13 @@
   <span id='spinner' us-spinner='{lines:6, length: 0, width: 15, radius: 12, color: "grey"}' ng-hide='doneLoading'></span>
   <div class='link-form-section title-section'>
     <h1 id='title-warning' ng-hide='!suggestedData.warning'>{{suggestedData.warning}}</h1>
-    <h2>Set Title:</h2>
+    <h2 ng-hide='suggestedData.warning'>Set Title:</h2>
     <div class='link-form-tags-required' ng-show='item.noTitleOnSubmit'>We couldn't find a title for this link. Please add one.</div>
     <h1 id='set-title'
         ng-show='suggestedData.title && !linkForm.editMode'
         ng-click='changeEditMode()'>{{suggestedData.title}}</h1>
     <input id='link-form-title' type='text'
-           ng-show="!suggestedData.title || linkForm.editMode"
+           ng-show="(!suggestedData.title || linkForm.editMode) && !suggestedData.warning"
            value="{{suggestedData.title}}"
            add-title/>
   </div>
