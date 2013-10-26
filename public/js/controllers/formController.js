@@ -60,11 +60,6 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       return;
     }
 
-    //URL Validity Check
-    if (!urlRegEx.test($scope.item.link)) {
-      $scope.suggestedData.warning = 'Snap! That link came back with nothing. How about pasting it in?';
-      return;
-    }
     for (var category in $scope.types) {
       var categoryObj = $scope.types[category];
       if(categoryObj.chosen) {
@@ -80,11 +75,11 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       $scope.doneLoading = true;
       $scope.suggestedData = {
         warning: 'Success! Developers everywhere thank you for your link.',
-        tags: []
+        tags: [],
       };
       $scope.item.link = '';
       $scope.item.yourTags = {};
-      $scope.tags = [];
+      $scope.item.tags = {};
       for (var each in $scope.types){
         $scope.types[each].chosen = false;
       }
@@ -144,7 +139,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   };
 
   $scope.getSuggestedData = function(link) {
-    var deferred = $q.defer();
+    var urlRegEx = /(http|https|ftp):\/\/[-a-zA-Z0-9@:%_\+.~#?&\/\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?$&\/\/=]*)?/gi;
 
     //If entered data doesn't match the URL regex, then return error data, and don't actually make the AJAX request.
     if (!urlRegEx.test(link)) {
@@ -157,10 +152,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     $scope.doneLoading = false;
 
     $http.post('/_/preview', {url: link}).success(function(data) {
-      deferred.resolve(data);
-    });
-    $scope.suggestedData = deferred.promise;
-    deferred.promise.then(function() {
+      $scope.suggestedData = data;
       $scope.doneLoading = true;
     });
   };
@@ -201,6 +193,5 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
 
   $scope.changeEditMode = function() {
     $scope.linkForm.editMode = !$scope.linkForm.editMode;
-    console.log($scope.suggestedData);
   };
 }]);
