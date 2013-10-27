@@ -3,6 +3,6 @@
 <div class="popover-text">
   <p>To vote please log in with GitHub</p>
 </div>
-<a href="/auth/github">
-<div class="popover-github"></div>
-</a>
+<div class="popover-github" ng-click='updateLocation()'>
+  <a ng-href='auth/github/#{{urlHash}}'></a>
+</div>

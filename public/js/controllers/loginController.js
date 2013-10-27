@@ -5,6 +5,6 @@ controllers.controller('LoginController', ['$scope', '$http', '$location', 'logi
 
   $scope.updateLocation = function(){
     $scope.urlHash = $location.url();
-  }
+  };
 
 }]);

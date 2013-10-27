@@ -1,7 +1,7 @@
 var controllers = require('../app.js').controllers;
 var suggestedTagsFile = require('../factories/1000SuggestedTags.json');
 
-controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', 'searchFactory', 'loginFactory', '$timeout', function($scope, $http, $modal, $q, tagsFactory, searchFactory, loginFactory, $timeout) {
+controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', 'searchFactory', 'loginFactory', '$timeout', '$location', function($scope, $http, $modal, $q, tagsFactory, searchFactory, loginFactory, $timeout, $location) {
   var urlRegEx = /^(http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/[\w\-]+)*)(?:\/?|\/\w+\.[a-zA-Z]{2,4}(?:\?[\w]+\=[\w\-]+)?)?(?:\&[\w]+\=[\w\-]+)*)$/;
 
   $scope.doneLoading = true;
@@ -39,7 +39,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     hasLink: false,
   };
 
-
+  $scope.urlHash = $location.url();
 
   //SHOULD CHANGE SCOPE.CATEGORIES THING TO TYPES ON THE SERVER SIDE TOO!!!
 
@@ -195,4 +195,9 @@ $scope.typeaheadFn = function(query, callback) {
       return tag.name;
     });
   };
+
+  $scope.updateLocation = function(){
+    $scope.urlHash = $location.url();
+  };
+
 }]);
