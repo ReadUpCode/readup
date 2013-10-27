@@ -1,12 +1,13 @@
 var controllers = require('../app.js').controllers;
 
-controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory', '$http', 'loginFactory', function($scope, $routeParams, tagsFactory, $http, loginFactory) {
+controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory', '$http', 'loginFactory', '$location', function($scope, $routeParams, tagsFactory, $http, loginFactory, $location) {
   if(tagsFactory.curTag !== $routeParams.tag) {
     $scope.tag = tagsFactory.setTagName($routeParams.tag);
   }else{
     $scope.tag = tagsFactory.curTag;
   }
 
+  $scope.urlHash = $location.url();
   $scope.links = tagsFactory.getTagInfo($scope.tag);
   $scope.relatedTags = tagsFactory.getRelatedTags($scope.tag);
   $scope.stackOverflowSummary = tagsFactory.getStackOverflow($scope.tag);
@@ -53,6 +54,10 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
       $scope.curCat = category;
     }
     $scope.selectedCategory = index;
+  };
+
+  $scope.updateLocation = function(){
+    $scope.urlHash = $location.url();
   };
 
 }]);
