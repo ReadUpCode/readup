@@ -1,8 +1,8 @@
 var controllers = require('../app.js').controllers;
 var suggestedTagsFile = require('../factories/1000SuggestedTags.json');
 
-controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', 'searchFactory', 'loginFactory', '$timeout', '$location', function($scope, $http, $modal, $q, tagsFactory, searchFactory, loginFactory, $timeout, $location) {
-  var urlRegEx = /^(http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/[\w\-]+)*)(?:\/?|\/\w+\.[a-zA-Z]{2,4}(?:\?[\w]+\=[\w\-]+)?)?(?:\&[\w]+\=[\w\-]+)*)$/;
+controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', 'searchFactory', 'loginFactory', '$timeout', "$location", function($scope, $http, $modal, $q, tagsFactory, searchFactory, loginFactory, $timeout, $location) {
+  var urlRegEx = /(http|https|ftp):\/\/[-a-zA-Z0-9@:%_\+.~#?&\/\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?$&\/\/=]*)?/gi;
 
   $scope.doneLoading = true;
   $scope.types = [
@@ -37,6 +37,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     noTagsOnSubmit: false,
     newTag: false,
     hasLink: false,
+    editMode: false
   };
 
   $scope.urlHash = $location.url();
@@ -44,25 +45,21 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   //SHOULD CHANGE SCOPE.CATEGORIES THING TO TYPES ON THE SERVER SIDE TOO!!!
 
   $scope.send = function(){
-    $scope.item.title = $('#set-title').text();
+    //Set title from element
+    $scope.item.title = $scope.suggestedData.title;
 
     //Title Validity Check
     if ($scope.item.title.length === 0){
       $scope.item.noTitleOnSubmit = true;
-      return
+      return;
     }
-    
+
     //Tag Validity Checks
     if (!Object.keys($scope.item.tags).length) {
       $scope.linkForm.noTagsOnSubmit = true;
       return;
     }
 
-    //URL Validity Check
-    if (!urlRegEx.test($scope.item.link)) {
-      $scope.suggestedData.warning = 'Snap! That link came back with nothing. How about pasting it in?';
-      return;
-    }
     for (var category in $scope.types) {
       var categoryObj = $scope.types[category];
       if(categoryObj.chosen) {
@@ -142,8 +139,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
   };
 
   $scope.getSuggestedData = function(link) {
-    var urlRegEx = /^(http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/[\w\-]+)*)(?:\/?|\/\w+\.[a-zA-Z]{2,4}(?:\?[\w]+\=[\w\-]+)?)?(?:\&[\w]+\=[\w\-]+)*)$/;
-    var deferred = $q.defer();
+    var urlRegEx = /(http|https|ftp):\/\/[-a-zA-Z0-9@:%_\+.~#?&\/\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?$&\/\/=]*)?/gi;
 
     //If entered data doesn't match the URL regex, then return error data, and don't actually make the AJAX request.
     if (!urlRegEx.test(link)) {
@@ -151,39 +147,38 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
       $scope.suggestedData = badURL;
       return;
     }
+
+    //Starts loading spinner
     $scope.doneLoading = false;
 
     $http.post('/_/preview', {url: link}).success(function(data) {
-      deferred.resolve(data);
-    });
-    $scope.suggestedData = deferred.promise;
-    deferred.promise.then(function() {
+      $scope.suggestedData = data;
       $scope.doneLoading = true;
     });
   };
 
   // Autocomplete for adding tags
 
-$scope.typeaheadFn = function(query, callback) {
-  if(!$scope.suggestedTags){
-    var cleanTags = suggestedTagsFile;
-    $http.get('/_/tags').success(function(data){
-      for(var i = 0; i < data.length; i++){
-        cleanTags[data[i].name] = data[i].name;
-      }
-      console.log(cleanTags);
-      var results = [];
-      for (var key in cleanTags){
-        results.push(key);
-      }
-      console.log(results);
-      $scope.typeahead = results;
-      callback(results);
-    });
-  } else {
-    callback($scope.typeahead);
-  }
-};
+  $scope.typeaheadFn = function(query, callback) {
+    if(!$scope.suggestedTags){
+      var cleanTags = suggestedTagsFile;
+      $http.get('/_/tags').success(function(data){
+        for(var i = 0; i < data.length; i++){
+          cleanTags[data[i].name] = data[i].name;
+        }
+        console.log(cleanTags);
+        var results = [];
+        for (var key in cleanTags){
+          results.push(key);
+        }
+        console.log(results);
+        $scope.typeahead = results;
+        callback(results);
+      });
+    } else {
+      callback($scope.typeahead);
+    }
+  };
 
   // Autocomplete for the search
   $http.get('/_/tags').success(function(data){
@@ -196,8 +191,11 @@ $scope.typeaheadFn = function(query, callback) {
     });
   };
 
+  $scope.changeEditMode = function() {
+    $scope.linkForm.editMode = !$scope.linkForm.editMode;
+  };
+
   $scope.updateLocation = function(){
     $scope.urlHash = $location.url();
   };
-
 }]);
