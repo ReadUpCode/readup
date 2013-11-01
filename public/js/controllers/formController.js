@@ -1,7 +1,7 @@
 var controllers = require('../app.js').controllers;
 var suggestedTagsFile = require('../factories/1000SuggestedTags.json');
 
-controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', 'searchFactory', 'loginFactory', '$timeout', function($scope, $http, $modal, $q, tagsFactory, searchFactory, loginFactory, $timeout) {
+controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'tagsFactory', 'searchFactory', 'loginFactory', '$timeout', "$location", function($scope, $http, $modal, $q, tagsFactory, searchFactory, loginFactory, $timeout, $location) {
   var urlRegEx = /(http|https|ftp):\/\/[-a-zA-Z0-9@:%_\+.~#?&\/\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?$&\/\/=]*)?/gi;
 
   $scope.doneLoading = true;
@@ -40,7 +40,7 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
     editMode: false
   };
 
-
+  $scope.urlHash = $location.url();
 
   //SHOULD CHANGE SCOPE.CATEGORIES THING TO TYPES ON THE SERVER SIDE TOO!!!
 
@@ -193,5 +193,9 @@ controllers.controller('FormController', ['$scope', '$http', '$modal', '$q', 'ta
 
   $scope.changeEditMode = function() {
     $scope.linkForm.editMode = !$scope.linkForm.editMode;
+  };
+
+  $scope.updateLocation = function(){
+    $scope.urlHash = $location.url();
   };
 }]);
