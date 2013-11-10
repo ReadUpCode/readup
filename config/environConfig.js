@@ -26,6 +26,8 @@ if (environment === "production"){
 
   module.exports.AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID_PROD;
   module.exports.AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY_PROD;
+  module.exports.S3_BUCKET = process.env.S3_BUCKET;
+  module.exports.S3_REGION = process.env.S3_REGION;
 
   module.exports.MYSQL_HOST = process.env.MYSQL_HOST_PROD;
   module.exports.MYSQL_DATABASE = process.env.MYSQL_DATABASE_PROD;
@@ -46,6 +48,8 @@ else {
 
   module.exports.AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID_DEV;
   module.exports.AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY_DEV;
+  module.exports.S3_BUCKET = process.env.S3_BUCKET;
+  module.exports.S3_REGION = process.env.S3_REGION;
 
   module.exports.MYSQL_HOST = process.env.MYSQL_HOST_DEV;
   module.exports.MYSQL_DATABASE = process.env.MYSQL_DATABASE_DEV;

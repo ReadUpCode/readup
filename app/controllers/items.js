@@ -7,9 +7,11 @@ var cheerio = require('cheerio');
 var Q = require('q');
 var AWS = require('aws-sdk');
 var fs = require('fs')
-var s3 = new AWS.S3({region: 'us-west-2'});
+var environConfig = require('../../config/environConfig');
+var s3 = new AWS.S3({region: environConfig.S3_REGION});
 var async = require('async')
-// AWS.config.loadFromPath(__dirname + '/../../config/config.json');
+
+
 
 var Item = db.Item;
 var Tag = db.Tag;
@@ -45,7 +47,7 @@ var q = async.queue(function (task, callback) {
                   if (err) { throw err; }
                   var image = new Buffer(data, 'binary')
 
-                  var params = {Bucket: 'readupimages', Key: task.item_id.toString(), ACL: "public-read", ContentType: 'image/jpeg', Body: data};
+                  var params = {Bucket: environConfig.S3_BUCKET, Key: task.item_id.toString(), ACL: "public-read", ContentType: 'image/jpeg', Body: data};
                   s3.putObject(params, function(err, data) {
                     if (err) {
                       console.log("AMAZON ERROR", err)
