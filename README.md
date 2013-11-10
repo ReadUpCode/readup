@@ -10,17 +10,23 @@ Read Up is built by developers, for developers. It’s open source, and we welco
   We love contributions, so here's simple steps to get you started.
 
   1.) Fork the repo.
-  2.) Clone it down by running `https://github.com/ReadUpCode/readup.git` at the terminal
+
+  2.) Run `git clone https://github.com/YOUR_USER_NAME/readup.git` at the terminal to make a local copy. You can get the correct git address by copying the https address listed just below the settings of your newly forked repo.
+
   3.) Follow the build instructions (below), make changes, push back to your master and then make a pull request
 
 **Build Instructions**
-  After you've cloned a local copy...
+
+  After you've cloned a local copy and are in that directory...
+
   1.) `npm install` . This will take a hot second
-  2.) `source ./node_modules/readupdevkeys/start.sh`
+
+  2.) `source ./node_modules/readupdevkeys/start.sh`. This creates needed environment variables.
+
   3.) `grunt`
 
-  Then navigate to localhost:3000 in your browser, and you should see Read Up in all it's glory.
-  You're now working with our development database and API keys. All functionality should be normal, but the amount of articles will be less.
+  Then navigate to `localhost:3000` in your browser, and you should see Read Up in all it's glory.
+  You're now working with our **development database and API keys**. All functionality should be normal, but the amount of articles will be less.
 
   Anytime you want to come back and work on Read Up, **you will need to do steps 2 and 3 again**.
 
