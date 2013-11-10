@@ -41,6 +41,7 @@ if (environment === "production"){
   module.exports.SO_KEY = process.env.SO_KEY_PROD;
 }
 else {
+  module.exports.environment = 'development';
   module.exports.ALCHEMY_KEY = process.env.ALCHEMY_KEY_DEV;
 
   module.exports.APP_ID = process.env.APP_ID_DEV;
