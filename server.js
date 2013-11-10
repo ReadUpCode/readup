@@ -27,4 +27,8 @@ app.configure(function(){
 
 require('./config/routes')(app);
 
-app.listen(environConfig.PORT);
+app.listen(environConfig.PORT, function() {
+  if (environConfig.environment === 'development') {
+    console.log('***************** Read Up listening on port 3000. Navigate to localhost:3000 in your browser to view it*****************');
+  }
+});
