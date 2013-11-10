@@ -74,7 +74,6 @@ exports.getText = function(req, res) {
   var errorData = {tags: {}, title: "Hmm, that came back with nothing. Double check your link. Or, if you know it's right, then add a title and topics"};
   request.post({url:apiUrl}, function(error, response, body) {
     if (error || response.statusCode !== 200) {
-      console.log('in the error block');
       res.json(errorData);
     }
     if (!error && response.statusCode === 200){
