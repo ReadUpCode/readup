@@ -7,6 +7,8 @@ We’re constantly getting great technical articles sent to us from developer fr
 Read Up is built by developers, for developers. It’s open source, and we welcome contributions to improve the site.
 
 ## Contributing
+  We love contributions, so here's simple steps to get you started.
+
   1.) Fork the repo.
   2.) Clone it down by running `https://github.com/ReadUpCode/readup.git` at the terminal
   3.) Follow the build instructions (below), make changes, push back to your master and then make a pull request
