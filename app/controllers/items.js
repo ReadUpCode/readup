@@ -36,10 +36,8 @@ var q = async.queue(function (task, callback) {
                 width: width
               };
             }, function(err,result) {
-              
-              page.set('clipRect', {height: result.height > 2000 ? 2000 : result.height, width: result.width});
 
-              console.log("TASK.ITEM_ID", task.item_id)
+              page.set('clipRect', {height: result.height > 2000 ? 2000 : result.height, width: result.width});
 
               page.render('public/item_images/' + task.item_id + '.png', function(){
                 console.log('rendering');
@@ -53,7 +51,6 @@ var q = async.queue(function (task, callback) {
                       console.log("AMAZON ERROR", err)
                     } else {
                       console.log("Successfully uploaded data to myBucket/myKey");
-                      console.log(data)
                     }
                   });
                 });
@@ -70,7 +67,7 @@ var q = async.queue(function (task, callback) {
 
 exports.getAllTagsForItem = function(req, res){
   Item.find({where: {id: 1}}).success(function(item){
-    item.getTags().success(function(tags){console.log('ALL TAGS FOR ITEM 1', tags);});
+    item.getTags().success(function(tags){});
   });
 };
 
@@ -103,10 +100,8 @@ var addCategories = function(item, categories) {
 };
 
 exports.create = function(req, res){
-  
-  console.log('request', req.body)
   res.end('done');
-  
+
   if(req.user){
     Q.fcall(
       function(){
@@ -114,7 +109,7 @@ exports.create = function(req, res){
           if (item) {
             addTags(item, req.body.tags);
             addCategories(item, req.body.categories);
-            addUpVote(req.user.dataValues.id, item.dataValues.id);            
+            addUpVote(req.user.dataValues.id, item.dataValues.id);
           } else {
             Item.findOrCreate({title: req.body.title, link: req.body.link, UserId: req.user.dataValues.id })
             .success(function(item) {
@@ -125,8 +120,7 @@ exports.create = function(req, res){
               item_id = item.dataValues.id;
               link = req.body.link;
 
-              q.push({item_id: item_id, link: link}, function(foo,bar){
-                console.log(foo, bar)
+              q.push({item_id: item_id, link: link}, function(){
               });
             });
           }

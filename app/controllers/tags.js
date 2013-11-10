@@ -23,7 +23,7 @@ exports.getAllItemsForTag = function(req, res){
       tag.items.forEach(function(item, index, list){
         Item.find({include: [Tag], where:{id: item.selectedValues.id}}).success(function(singleItem){
           if(!req.user){
-            var requestingUserId = 0; 
+            var requestingUserId = 0;
           } else {
             var requestingUserId = req.user.dataValues.id;
           }
@@ -51,14 +51,12 @@ exports.getAllItemsForTag = function(req, res){
               Item.find({include: [Category], where: {id: item.selectedValues.id}})
               .success(function(itemCats) {
                 resItem.categories = [];
-                console.log('itemCats!!!!!!!!!', itemCats);
                 var categories = itemCats.categories;
                 for (var i = 0; i < categories.length; i++) {
                   resItem.categories.push(categories[i].selectedValues);
                 }
                 responses.push(resItem);
                 if(responses.length === tag.items.length){
-                  console.log('final response! ', responses)
                   res.send(responses);
                 }
               });
