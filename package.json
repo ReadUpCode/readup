@@ -42,6 +42,7 @@
     "superagent": "~0.15.7",
     "expect.js": "~0.2.0",
     "mysql": "~2.0.0",
+    "readupdevkeys": "~0.0.0"
   },
   "devDependencies": {
     "grunt-nodemon": "~0.1.1",
@@ -55,6 +56,6 @@
     "karma-coffee-preprocessor": "~0.1.0",
     "karma-phantomjs-launcher": "~0.1.0",
     "karma": "~0.10.2",
-    "grunt-karma": "~0.6.2",
+    "grunt-karma": "~0.6.2"
   }
 }
