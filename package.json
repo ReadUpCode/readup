@@ -22,7 +22,7 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-browserify": "~1.2.8",
     "stylus": "~0.38.0",
-    "browserify": "~2.33.1",
+    "browserify": "~2.35.1",
     "grunt-contrib-stylus": "~0.8.0",
     "grunt-nodemon": "~0.1.1",
     "grunt-concurrent": "~0.4.0",
@@ -40,7 +40,8 @@
     "aws-sdk": "~1.8.1",
     "async": "~0.2.9",
     "superagent": "~0.15.7",
-    "expect.js": "~0.2.0"
+    "expect.js": "~0.2.0",
+    "mysql": "~2.0.0"
   },
   "devDependencies": {
     "grunt-nodemon": "~0.1.1",
