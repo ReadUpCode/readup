@@ -13,8 +13,15 @@ exports.getAllItemsForUser = function(req, res){
 };
 
 exports.addGitHubUser = function(ghUser, access_token, promise){
-  var requestURL = 'https://api.github.com/user/emails?access_token=' + access_token;
-  https.get(requestURL, function(res) {
+  var options = {
+    headers: {
+      'User-Agent': 'Read-Up',
+      'Authorization': 'token ' + access_token
+    },
+    host: 'api.github.com',
+    path: '/user/emails'
+  };
+  https.get(options, function(res) {
     res.on('data', function (chunk) {
       var ghID = ghUser.id;
       var ghEmail = chunk.toString();
