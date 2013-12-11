@@ -33,7 +33,7 @@ directives.directive('scrollPosition', function($window) {
 
     var timer;
     $(window).bind('resize', function(){
-       timer && clearTimeout(timer);
+       clearTimeout(timer);
        timer = setTimeout(onResize, 100);
     });
 
