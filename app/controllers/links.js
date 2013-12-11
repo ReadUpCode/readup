@@ -26,21 +26,25 @@ fs.readFile(__dirname + '/../lib/cleanedCuratedTags.json', 'utf8', function(err,
   topTags = JSON.parse(data);
 });
 
+var splitKeywordsRE = /\.| /;
+
 var cleanAllKeywords = function(keywordsArr) {
   var cleanKeywordsArray = [];
   for (var i = 0; i < keywordsArr.length; i++) {
     var fullText = keywordsArr[i].text;
     fullText = fullText.toLowerCase();
     cleanKeywordsArray.push(fullText);
-    var splitKeywords = fullText.split(/\.| /);
+    var splitKeywords = fullText.split(splitKeywordsRE);
     cleanKeywordsArray = cleanKeywordsArray.concat(splitKeywords);
   }
   return cleanKeywordsArray;
 };
 
+var splitTitleRE = / |\/|\./;
+
 var cleanTitle = function(title) {
   title = title.toLowerCase();
-  var splitTitle = title.split(/ |\/|\./);
+  var splitTitle = title.split(splitTitleRE);
   return splitTitle;
 };
 
