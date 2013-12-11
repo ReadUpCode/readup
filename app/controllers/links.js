@@ -53,13 +53,13 @@ var getTitleText = function(body, res, suggestedData) {
     var singleWord = titleArray[j];
     var twoWords = titleArray[j] + '-' + titleArray[j+1];
     var threeWords = titleArray[j] + '-' + titleArray[j+1] + '-' + titleArray[j+2];
-    if (singleWord in topTags) {
+    if ( topTags.hasOwnProperty(singleWord) ) {
       suggestedData.tags[topTags[singleWord]] = topTags[singleWord];
     }
-    if (twoWords in topTags) {
+    if ( topTags.hasOwnProperty(twoWords) ) {
       suggestedData.tags[topTags[twoWords]] = topTags[twoWords];
     }
-    if (threeWords in topTags) {
+    if ( topTags.hasOwnProperty(threeWords) ) {
       suggestedData.tags[topTags[threeWords]] = topTags[threeWords];
     }
   }
