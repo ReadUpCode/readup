@@ -37,6 +37,4 @@ var setupUI = function(){
   });
 };
 
-$(document).on('ready', function() {
-  setupUI();
-});
+$( setupUI() );
