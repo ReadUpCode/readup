@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "preinstall": "npm install -g grunt-cli"
   },
   "repository": {
     "type": "git",
