@@ -6,14 +6,14 @@ var setupUI = function(){
   }).blur(function(){
     var thisInput = $(this).parent();
     setTimeout(function() {
-      thisInput.removeClass("open typing")
+      thisInput.removeClass("open typing");
     }, 10);
   }).keyup(function(){
     if(!$(this).val()) {
       $(this).parent().removeClass("has-text");
     } else {
       $(this).parent().addClass("has-text");
-    };
+    }
   });
 
   $("#search-input-tab").on("click", function(){

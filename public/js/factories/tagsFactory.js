@@ -74,7 +74,7 @@ factories.factory('tagsFactory', function($http, $q) {
         console.log(err);
       });
     return deferred.promise;
-  }
+  };
 
   return factory;
 });
