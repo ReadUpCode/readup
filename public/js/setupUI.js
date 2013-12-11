@@ -16,27 +16,25 @@ var setupUI = function(){
     };
   });
 
-  $("#search-input-tab").click(function(){
+  $("#search-input-tab").on("click", function(){
     $("#paste-link-input, #paste-link-input-tab").removeClass("open");
     $("#search-input, #search-input-tab").toggleClass("open");
     $("#search-input").find(".main-input-text").focus();
   });
 
-  $("#paste-link-input-tab").click(function(){
+  $("#paste-link-input-tab").on("click", function(){
     $("#search-input, #search-input-tab").removeClass("open");
     $("#paste-link-input, #paste-link-input-tab").toggleClass("open");
     $("#paste-link-input").find(".main-input-text").focus();
   });
 
-  $("#search-input, #search-input-tab, #paste-link-input, #paste-link-input-tab").click(function(event){
+  $("#search-input, #search-input-tab, #paste-link-input, #paste-link-input-tab").on("click", function(event){
     event.stopPropagation();
   });
 
-  $('html').click(function() {
+  $('html').on("click", function() {
     $("#search-input, #search-input-tab, #paste-link-input, #paste-link-input-tab").removeClass("open typing");
   });
 };
 
-$(document).on('ready', function() {
-  setupUI();
-});
+$( setupUI() );
