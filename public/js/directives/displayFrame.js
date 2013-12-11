@@ -6,20 +6,20 @@ directives.directive("showFrame", function(){
     element.bind("click", function(){
       var absolutePixels = $(element).offset();
       $('#preview-pane').slideDown(1000);
-      
+
       $.get('https://s3-us-west-2.amazonaws.com/readupimages/' + scope.link.id)
       .done(function(){
 
         $('#preview-pane').children('img').replaceWith(
             $('<img>', {
                 id: 'preview',
-                src: 'https://s3-us-west-2.amazonaws.com/readupimages/' + scope.link.id 
+                src: 'https://s3-us-west-2.amazonaws.com/readupimages/' + scope.link.id
 
             }).css({
                 right: 0,
                 width: '100%',
                 overflow: 'scroll'
-            }))
+            }));
 
       }).fail(function(){
 

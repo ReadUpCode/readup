@@ -6,10 +6,10 @@ var request = require('request');
 var cheerio = require('cheerio');
 var Q = require('q');
 var AWS = require('aws-sdk');
-var fs = require('fs')
+var fs = require('fs');
 var environConfig = require('../../config/environConfig');
 var s3 = new AWS.S3({region: environConfig.S3_REGION});
-var async = require('async')
+var async = require('async');
 
 
 
@@ -19,7 +19,7 @@ var Vote = db.Vote;
 var Category = db.Category;
 
 
-var callback = function(err){console.log(err)}
+var callback = function(err){ console.log(err); };
 var q = async.queue(function (task, callback) {
   phantom.create(function(err,ph) {
     return ph.createPage(function(err,page) {
@@ -29,8 +29,8 @@ var q = async.queue(function (task, callback) {
         //Wait for a bit for AJAX content to load on the page. Here, we are waiting 5 seconds.
           setTimeout(function() {
             return page.evaluate(function() {
-              var height = $(document).height()
-              var width = $(document).width()
+              var height = $(document).height();
+              var width = $(document).width();
               return {
                 height: height,
                 width: width
@@ -43,12 +43,12 @@ var q = async.queue(function (task, callback) {
                 console.log('rendering');
                 fs.readFile(__dirname + '/../../public/item_images/'+ task.item_id + '.png', function (err, data) {
                   if (err) { throw err; }
-                  var image = new Buffer(data, 'binary')
+                  var image = new Buffer(data, 'binary');
 
                   var params = {Bucket: environConfig.S3_BUCKET, Key: task.item_id.toString(), ACL: "public-read", ContentType: 'image/jpeg', Body: data};
                   s3.putObject(params, function(err, data) {
                     if (err) {
-                      console.log("AMAZON ERROR", err)
+                      console.log("AMAZON ERROR", err);
                     } else {
                       console.log("Successfully uploaded data to myBucket/myKey");
                     }
@@ -95,7 +95,7 @@ var addCategories = function(item, categories) {
   for (var j in categories) {
     Category.findOrCreate({name: categories[j] }).success(function(category, created) {
       item.addCategory(category);
-    })
+    });
   }
 };
 
@@ -126,7 +126,7 @@ exports.create = function(req, res){
           }
         });
       }
-    ).done(function(){console.log("DONE FINALLY")});
+    ).done(function(){ console.log("DONE FINALLY"); });
   } else {
     res.send(200);
   }
