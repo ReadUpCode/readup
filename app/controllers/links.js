@@ -22,7 +22,7 @@ var topTagArr, topTags;
 // });
 
 // Reads cleaned tags file, and saves to memory;
-fs.readFile(__dirname + '/../lib/cleanedCuratedTags.json', 'utf8', function(err, data) {
+fs.readFileSync(__dirname + '/../lib/cleanedCuratedTags.json', 'utf8', function(err, data) {
   topTags = JSON.parse(data);
 });
 
