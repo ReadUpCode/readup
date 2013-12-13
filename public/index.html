@@ -121,6 +121,7 @@
     <div class='divider'>&copy2013 ReadUp</div>
   </footer>
   <script>
+    // Lazy loading of Twitter share button
     var timeout;
     $(document).ready(function() {
       var elements;
@@ -136,7 +137,8 @@
       });
 
       function CheckForDisplay() {
-          for (var i = 0; i < elements.length; i++) {
+          console.log(elements.length);
+          for (var i = 0; i < 10; i++) {
             if (elementInViewport(elements[i])) {
                 Socialite.load(elements[i]);
                 elements.splice(i,1);
