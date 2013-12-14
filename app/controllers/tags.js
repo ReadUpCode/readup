@@ -27,7 +27,7 @@ exports.getAllItemsForTag = function(req, res){
           } else {
             var requestingUserId = req.user.dataValues.id;
           }
-          Vote.find({where: ['ItemId=? AND UserId=?', item.selectedValues.id, requestingUserId]})
+          Vote.find({where: ['ItemId=? AND TagId=? AND UserId=?', item.selectedValues.id, tag.id, requestingUserId]})
           .success(function(userVote){
             if (userVote){
               var curUserVote = userVote.selectedValues.value;
@@ -44,6 +44,7 @@ exports.getAllItemsForTag = function(req, res){
               resItem = singleItem.selectedValues;
               resItem.curUserVote = curUserVote;
               resItem.tags = [];
+              resItem.tagFromId = tag.id; // ID of the tag currently being viewed
               resItem.score = score;
               for (var k=0; k < singleItem.tags.length; k++) {
                 resItem.tags.push(singleItem.tags[k].selectedValues);
