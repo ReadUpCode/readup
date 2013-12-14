@@ -52,6 +52,7 @@ Tag.hasMany(Item);
 Item.belongsTo(User);
 Vote.belongsTo(User);
 Vote.belongsTo(Item);
+Vote.belongsTo(Tag);
 
 User.sync();
 Item.sync();
