@@ -124,36 +124,28 @@
     // Lazy loading of Twitter share button
     var timeout;
     $(document).ready(function() {
-      var elements;
+      var elements,
+          i = 0;
 
       $("#main-container").bind("DOMSubtreeModified", function(e) {
         if (e.target.id === "links") {
-          elements = $('.social-buttons');
           clearTimeout(timeout);
           timeout = setTimeout(function() {
+            elements = $('.social-buttons');
             CheckForDisplay();
           }, 50);
         }
       });
 
       function CheckForDisplay() {
-          console.log(elements.length);
-          for (var i = 0; i < 10; i++) {
-            if (elementInViewport(elements[i])) {
-                Socialite.load(elements[i]);
-                elements.splice(i,1);
-            }
+          while ( elementInViewport(elements[i]) ) {
+            Socialite.load(elements[i]);
+            i++;
           }
       }
       function elementInViewport(el) {
-
           var rect = el.getBoundingClientRect();
-          return (
-              rect.top >= 0 &&
-                  rect.left >= 0 &&
-                      rect.bottom <= window.innerHeight &&
-                          rect.right <= window.innerWidth
-          );
+          return ( rect.bottom <= window.innerHeight );
       }
       $(window).on('resize', CheckForDisplay).on('scroll', CheckForDisplay);
     });
