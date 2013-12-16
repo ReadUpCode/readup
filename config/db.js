@@ -48,6 +48,7 @@ Item.hasMany(Tag);
 Item.hasMany(Category);
 Category.hasMany(Item);
 Tag.hasMany(Item);
+Tag.hasMany(Vote);
 
 Item.belongsTo(User);
 Vote.belongsTo(User);
