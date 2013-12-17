@@ -2,16 +2,18 @@ module.exports = function(grunt){
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
     browserify: {
       dist: {
         files: {
-          'public/build/bundle.js': ['public/js/**/*.js']
+          'public/build/<%= pkg.name %>.js': ['public/js/**/*.js']
         }
       }
     },
     stylus: {
       compile: {
         options: {
+          banner: '<%= banner %>',
           define: {
             import_tree: require('stylus-import-tree')
           }
@@ -55,7 +57,7 @@ module.exports = function(grunt){
       }
     },
     concurrent: {
-      tasks: ['nodemon', 'watch'],
+      tasks: ['browserify', 'stylus', 'nodemon', 'watch'],
       options: {
         logConcurrentOutput: true
       }
@@ -68,6 +70,9 @@ module.exports = function(grunt){
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+
   grunt.registerTask('test', ['karma:e2e']);
   grunt.registerTask('default', 'concurrent');
 };
