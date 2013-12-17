@@ -33,9 +33,10 @@
   <script src="//use.edgefonts.net/source-sans-pro:n3,i3,n4,i4,n9.js"></script>
   <script src="lib/bower_components/jquery/jquery.js"></script>
   <script src="lib/bower_components/angular/angular.js"></script>
+  <script src="lib/socialite/socialite.min.js"></script>
   <script src="lib/spin.min.js"></script>
   <script src="lib/angular-spinner.min.js"></script>
-  <script src="http://platform.twitter.com/widgets.js"></script>
+  <!-- // <script src="http://platform.twitter.com/widgets.js"></script> -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
   <script src="lib/bower_components/angular-strap/dist/angular-strap.min.js"></script>
   <script src="build/bundle.js"></script>
@@ -119,5 +120,35 @@
     <div class='divider'>Lovingly made at <a class='footer-link' href='http://www.hackreactor.com' target='_blank'>Hack Reactor</a></div>
     <div class='divider'>&copy2013 ReadUp</div>
   </footer>
+  <script>
+    // Lazy loading of Twitter share button
+    var timeout;
+    $(document).ready(function() {
+      var elements,
+          i = 0;
+
+      $("#main-container").bind("DOMSubtreeModified", function(e) {
+        if (e.target.id === "links") {
+          clearTimeout(timeout);
+          timeout = setTimeout(function() {
+            elements = $('.social-buttons');
+            CheckForDisplay();
+          }, 50);
+        }
+      });
+
+      function CheckForDisplay() {
+          while ( elements.length && (i < elements.length) && elementInViewport(elements[i]) ) {
+            Socialite.load(elements[i]);
+            i++;
+          }
+      }
+      function elementInViewport(el) {
+          var rect = el.getBoundingClientRect();
+          return ( rect.bottom <= window.innerHeight );
+      }
+      $(window).on('resize', CheckForDisplay).on('scroll', CheckForDisplay);
+    });
+  </script>
 </body>
 </html>

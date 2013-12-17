@@ -33,13 +33,16 @@
       <div class='categories-name' ng-repeat='category in link.categories'>{{category.name}}</div>
       <div class='tags-name' ng-repeat='tag in link.tags'><a ng-href='#/{{tag.name}}'> {{tag.name}}</a></div>
       <div class='share'>
-        <div class='twitter-share'>
-          <a twitter href="https://twitter.com/share" class="twitter-share-button"
+
+        <div class="social-buttons">
+          <a href="https://twitter.com/share" class="socialite twitter-share"
             data-url="{{link.link}}"
             data-text="{{link.title}}"
-            data-via="readupcode" data-dnt="true">
+            data-via="readupcode" data-dnt="true"
+            target="_blank">
           </a>
         </div>
+
         <div class='hn-share'>
           <a href="http://news.ycombinator.com/submit" class="hn-share-button"
             data-title="{{link.title}}"
