@@ -138,7 +138,7 @@
       });
 
       function CheckForDisplay() {
-          while ( elementInViewport(elements[i]) ) {
+          while ( elements.length && (i < elements.length) && elementInViewport(elements[i]) ) {
             Socialite.load(elements[i]);
             i++;
           }
