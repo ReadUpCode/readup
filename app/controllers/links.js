@@ -22,7 +22,7 @@ var topTagArr, topTags;
 // });
 
 // Reads cleaned tags file, and saves to memory;
-topTags = JSON.parse( fs.readFileSync(__dirname + '/../lib/cleanedCuratedTags.json', {encoding: 'utf8'}) );
+topTags = JSON.parse( fs.readFileSync(__dirname + '/../lib/cleanedCuratedTags.json', 'utf8') );
 
 var splitKeywordsRE = /\.| /;
 
