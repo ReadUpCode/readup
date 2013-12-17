@@ -122,7 +122,7 @@
   </footer>
   <script>
     // Lazy loading of Twitter share button
-    var timeout;  // This, kids, is a global variable. Never do this, except to kill timeouts.
+    var timeout;
     $(document).ready(function() {
       var elements,
           i = 0;
@@ -138,7 +138,7 @@
       });
 
       function CheckForDisplay() {
-          while ( elementInViewport(elements[i]) ) {
+          while ( elements.length && (i < elements.length) && elementInViewport(elements[i]) ) {
             Socialite.load(elements[i]);
             i++;
           }
