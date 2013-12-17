@@ -7,7 +7,6 @@ var Item = db.Item;
 var User = db.User;
 
 exports.create = function(req, res){
-  debugger;
   Vote.find({where: ['ItemId=? AND TagId=? AND UserId=?', req.body.id, req.body.tagFromId, req.user.dataValues.id]})
   .success(function(vote){
     if(!vote){
@@ -30,7 +29,6 @@ exports.create = function(req, res){
 };
 
 exports.updateKarma = function(req, res){
-  debugger;
   if (req.body.value === 1){
     Item.find({where: {id: req.body.id}}).success(function(item){
       User.find({where: {id: item.selectedValues.UserId}}).success(function(user){

@@ -38,7 +38,9 @@ exports.getAllItemsForTag = function(req, res){
             .success(function(votes){
               var score=0;
               for(var j=0; j<votes.length; j++){
-                score+=votes[j].selectedValues.value;
+                if (votes[j].TagId === tag.id || votes[j].TagId === 0) {
+                  score+=votes[j].selectedValues.value;
+                }
               }
               var resItem = {};
               resItem = singleItem.selectedValues;
