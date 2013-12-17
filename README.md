@@ -21,7 +21,7 @@ Read Up is built by developers, for developers. It’s open source, and we welco
 
   1.) `npm install` . This will take a hot second
 
-  2.) `source serverStart.sh
+  2.) `source serverStart.sh`
 
   Then navigate to `localhost:3000` in your browser, and you should see Read Up in all it's glory.
   You're now working with our **development database and API keys**. All functionality should be normal, but the amount of articles will be less.
