@@ -26,7 +26,7 @@ Read Up is built by developers, for developers. It’s open source, and we welco
   Then navigate to `localhost:3000` in your browser, and you should see Read Up in all it's glory.
   You're now working with our **development database and API keys**. All functionality should be normal, but the amount of articles will be less.
 
-  Anytime you want to come back and work on Read Up, **you will need to do steps 2 and 3 again**.
+  Anytime you want to come back and work on Read Up, **you will need to do step 2 again**.
 
 
 
