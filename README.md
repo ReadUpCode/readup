@@ -46,15 +46,15 @@ Read Up is built by developers, for developers. It’s open source, and we welco
 We built [Read Up](http://www.readup.co) at [Hack Reactor](http://hackreactor.com/). Many thanks to the community there for all the support.
 
 **Blake West:**
-[GitHub](https://github.com/bwest87) | [LinkdIn](http://www.linkedin.com/in/blakewest87) | [Website](http://sympatheticvibration.com/)
+[GitHub](https://github.com/bwest87) | [LinkedIn](http://www.linkedin.com/in/blakewest87) | [Website](http://sympatheticvibration.com/)
 
 **Brett Hoyer:**
-[GitHub](https://github.com/BrettHoyer) | [LinkdIn](http://www.linkedin.com/in/bretthoyer) | [Website](http://thehoyer.com/)
+[GitHub](https://github.com/BrettHoyer) | [LinkedIn](http://www.linkedin.com/in/bretthoyer) | [Website](http://thehoyer.com/)
 
 **Doug Kong:**
-[GitHub](https://github.com/DougKong) | [LinkdIn](http://www.linkedin.com/in/dougkong) | [Website](http://dougkong.com/)
+[GitHub](https://github.com/DougKong) | [LinkedIn](http://www.linkedin.com/in/dougkong) | [Website](http://dougkong.com/)
 
 **Jess MacQueen:**
-[GitHub](https://github.com/macqueen) | [LinkdIn](http://www.linkedin.com/in/jessmacqueen) | [Website](http://jessmacqueen.com/)
+[GitHub](https://github.com/macqueen) | [LinkedIn](http://www.linkedin.com/in/jessmacqueen) | [Website](http://jessmacqueen.com/)
 
 Huge thanks to [Mike Sall](http://sall.co/) for his contributions to the beautiful design of ReadUp, and for initiating the idea.
