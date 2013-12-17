@@ -22,9 +22,7 @@ var topTagArr, topTags;
 // });
 
 // Reads cleaned tags file, and saves to memory;
-fs.readFileSync(__dirname + '/../lib/cleanedCuratedTags.json', 'utf8', function(err, data) {
-  topTags = JSON.parse(data);
-});
+topTags = JSON.parse( fs.readFileSync(__dirname + '/../lib/cleanedCuratedTags.json', {encoding: 'utf8'}) );
 
 var splitKeywordsRE = /\.| /;
 
@@ -77,6 +75,7 @@ exports.getText = function(req, res) {
   var apiUrl = 'http://access.alchemyapi.com/calls/url/URLGetRankedKeywords?apikey='+ALCHEMY_KEY+'&maxRetrieve=15&url='+req.body.url+'&outputMode=json';
   var errorData = {tags: {}, title: "Hmm, that came back with nothing. Double check your link. Or, if you know it's right, then add a title and topics"};
   request.post({url:apiUrl}, function(error, response, body) {
+    debugger;
     if (error || response.statusCode !== 200) {
       res.json(errorData);
     }
