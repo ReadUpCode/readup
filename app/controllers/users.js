@@ -5,10 +5,71 @@ var https = require('https');
 
 var User = db.User;
 var Item = db.Item;
+var Tag = db.Tag;
+var Category = db.Category;
+var Favorites = db.Favorites;
 
 exports.getAllItemsForUser = function(req, res){
   User.findAll({include: [Item], where: {id: req.params.id } }).success(function(items){
     res.send(items);
+  });
+};
+
+exports.getAllFavsForUser = function(req, res){
+  Favorites.findAll({include: [Item], where: {UserId: req.params.id} }).success(function(favs) {
+    var responses = [];
+
+    if (favs.length) {
+      for (var i = 0; i < favs.length; i++) {
+        Item.find({include: [Tag, Category], where:{id: favs[i].selectedValues.id}}).success(function(singleItem) {
+          var resItem = {};
+          resItem = singleItem.selectedValues;
+          resItem.tags = [];
+          resItem.categories = [];
+          for (var k=0; k < singleItem.tags.length; k++) {
+            resItem.tags.push(singleItem.tags[k].selectedValues);
+          }
+          for (k=0; k < singleItem.categories.length; k++) {
+            resItem.categories.push(singleItem.categories[k].selectedValues);
+          }
+          responses.push(resItem);
+          if(responses.length === favs.length){
+            res.send(responses);
+          }
+        });
+      }
+    } else {
+      res.send([{title: "No items found."}]);
+    }
+  });
+};
+
+exports.getAllSubmittedForUser = function(req, res){
+  Item.findAll({where: {UserId: req.params.id} }).success(function(items) {
+    var responses = [];
+
+    if (items.length) {
+      for (var i = 0; i < items.length; i++) {
+        Item.find({include: [Tag, Category], where:{id: items[i].selectedValues.id}}).success(function(singleItem) {
+          var resItem = {};
+          resItem = singleItem.selectedValues;
+          resItem.tags = [];
+          resItem.categories = [];
+          for (var k=0; k < singleItem.tags.length; k++) {
+            resItem.tags.push(singleItem.tags[k].selectedValues);
+          }
+          for (k=0; k < singleItem.categories.length; k++) {
+            resItem.categories.push(singleItem.categories[k].selectedValues);
+          }
+          responses.push(resItem);
+          if(responses.length === items.length){
+            res.send(responses);
+          }
+        });
+      }
+    } else {
+      res.send([{title: "No items found."}]);
+    }
   });
 };
 

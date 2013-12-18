@@ -25,11 +25,11 @@ module.exports = function(app){
     items.saveToFavorites(req,res);
   });
 
-  app.get('/_/favorites', function(req,res){
-    items.getAllFavoritesForUser(req,res)
-  });
+  app.get('/_/users/:id/favorites', users.getAllFavsForUser);
 
   app.get('/_/users/:id/items', users.getAllItemsForUser);
+
+  app.get('/_/users/:id/submitted', users.getAllSubmittedForUser);
 
   app.get('/_/tags', tags.get);
 

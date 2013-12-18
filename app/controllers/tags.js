@@ -6,6 +6,7 @@ var Item = db.Item;
 var Tag = db.Tag;
 var Vote = db.Vote;
 var Category = db.Category;
+var Favorites = db.Favorites;
 
 exports.get = function(req, res){
   db.sequelize

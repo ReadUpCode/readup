@@ -48,9 +48,11 @@ var Favorites = sequelize.define('Favorites', {
 
 User.hasMany(Item);
 User.hasMany(Vote);
+User.hasMany(Favorites);
 Item.hasMany(Vote);
 Item.hasMany(Tag);
 Item.hasMany(Category);
+Item.hasMany(Favorites);
 Category.hasMany(Item);
 Tag.hasMany(Item);
 Tag.hasMany(Vote);
@@ -59,12 +61,15 @@ Item.belongsTo(User);
 Vote.belongsTo(User);
 Vote.belongsTo(Item);
 Vote.belongsTo(Tag);
+Favorites.belongsTo(User);
+Favorites.belongsTo(Item);
 
 User.sync();
 Item.sync();
 Tag.sync();
 Vote.sync();
 Category.sync();
+Favorites.sync();
 
 module.exports.sequelize = sequelize;
 module.exports.User = User;
