@@ -21,6 +21,14 @@ module.exports = function(app){
     votes.create(req, res);
   });
 
+  app.post('/_/favorites', function(req,res){
+    items.saveToFavorites(req,res);
+  });
+
+  app.get('/_/favorites', function(req,res){
+    items.getAllFavoritesForUser(req,res)
+  });
+
   app.get('/_/users/:id/items', users.getAllItemsForUser);
 
   app.get('/_/tags', tags.get);
