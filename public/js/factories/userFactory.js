@@ -2,13 +2,17 @@ var factories = require('../app.js').factories;
 
 factories.factory('userFactory', function($http, $q) {
   var factory = {};
-  //the 'option' parameter should be 'saved' or 'submitted' 
-  factory.getAllForUser = function(userID,option){
+
+  //the 'option' parameter should be 'saved' or 'submitted'
+  factory.getAllForUser = function(userID, option){
     var deferred = $q.defer();
     var requestURL =  '/_/users/' + userID + '/' + option;
-    $http.get(requestURL, function(data){
+    $http.get(requestURL).success(function(data){
+      console.log(data);
       deferred.resolve(data);
     });
     return deferred.promise;
-  }  
+  };
+
+  return factory;
 });

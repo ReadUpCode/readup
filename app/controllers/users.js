@@ -16,60 +16,66 @@ exports.getAllItemsForUser = function(req, res){
 };
 
 exports.getAllSavedForUser = function(req, res){
-  Favorites.findAll({include: [Item], where: {UserId: req.params.id} }).success(function(saves) {
-    var responses = [];
+  console.log(req.params.username);
+  User.find({where: {username: req.params.username} }).success(function(user) {
+    Favorites.findAll({include: [Item], where: {UserId: user.id} }).success(function(saves) {
+      var responses = [];
 
-    if (saves.length) {
-      for (var i = 0; i < saves.length; i++) {
-        Item.find({include: [Tag, Category], where:{id: saves[i].selectedValues.id}}).success(function(singleItem) {
-          var resItem = {};
-          resItem = singleItem.selectedValues;
-          resItem.tags = [];
-          resItem.categories = [];
-          for (var k=0; k < singleItem.tags.length; k++) {
-            resItem.tags.push(singleItem.tags[k].selectedValues);
-          }
-          for (k=0; k < singleItem.categories.length; k++) {
-            resItem.categories.push(singleItem.categories[k].selectedValues);
-          }
-          responses.push(resItem);
-          if(responses.length === saves.length){
-            res.send(responses);
-          }
-        });
+      if (saves.length) {
+        for (var i = 0; i < saves.length; i++) {
+          Item.find({include: [Tag, Category], where:{id: saves[i].selectedValues.id}}).success(function(singleItem) {
+            var resItem = {};
+            resItem = singleItem.selectedValues;
+            resItem.tags = [];
+            resItem.categories = [];
+            for (var k=0; k < singleItem.tags.length; k++) {
+              resItem.tags.push(singleItem.tags[k].selectedValues);
+            }
+            for (k=0; k < singleItem.categories.length; k++) {
+              resItem.categories.push(singleItem.categories[k].selectedValues);
+            }
+            responses.push(resItem);
+            if(responses.length === saves.length){
+              res.send(responses);
+            }
+          });
+        }
+      } else {
+        res.send([{title: "No items found."}]);
       }
-    } else {
-      res.send([{title: "No items found."}]);
-    }
+    });
   });
 };
 
 exports.getAllSubmittedForUser = function(req, res){
-  Item.findAll({where: {UserId: req.params.id} }).success(function(items) {
-    var responses = [];
+  User.find({where:{username: req.params.username} }).success(function(user) {
+    Item.findAll({where: {UserId: user.selectedValues.id} }).success(function(items) {
+      var responses = [];
 
-    if (items.length) {
-      for (var i = 0; i < items.length; i++) {
-        Item.find({include: [Tag, Category], where:{id: items[i].selectedValues.id}}).success(function(singleItem) {
-          var resItem = {};
-          resItem = singleItem.selectedValues;
-          resItem.tags = [];
-          resItem.categories = [];
-          for (var k=0; k < singleItem.tags.length; k++) {
-            resItem.tags.push(singleItem.tags[k].selectedValues);
-          }
-          for (k=0; k < singleItem.categories.length; k++) {
-            resItem.categories.push(singleItem.categories[k].selectedValues);
-          }
-          responses.push(resItem);
-          if(responses.length === items.length){
-            res.send(responses);
-          }
-        });
+      if (items.length) {
+        for (var i = 0; i < items.length; i++) {
+          Item.find({include: [Tag, Category], where:{id: items[i].selectedValues.id}}).success(function(singleItem) {
+            var resItem = {};
+            resItem = singleItem.selectedValues;
+            resItem.tags = [];
+            resItem.categories = [];
+            for (var k=0; k < singleItem.tags.length; k++) {
+              resItem.tags.push(singleItem.tags[k].selectedValues);
+            }
+            for (k=0; k < singleItem.categories.length; k++) {
+              resItem.categories.push(singleItem.categories[k].selectedValues);
+            }
+            responses.push(resItem);
+            if(responses.length === items.length){
+              console.log(responses);
+              res.send(responses);
+            }
+          });
+        }
+      } else {
+        res.send([{title: "No items found."}]);
       }
-    } else {
-      res.send([{title: "No items found."}]);
-    }
+    });
   });
 };
 
