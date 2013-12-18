@@ -15,13 +15,13 @@ exports.getAllItemsForUser = function(req, res){
   });
 };
 
-exports.getAllFavsForUser = function(req, res){
-  Favorites.findAll({include: [Item], where: {UserId: req.params.id} }).success(function(favs) {
+exports.getAllSavedForUser = function(req, res){
+  Favorites.findAll({include: [Item], where: {UserId: req.params.id} }).success(function(saves) {
     var responses = [];
 
-    if (favs.length) {
-      for (var i = 0; i < favs.length; i++) {
-        Item.find({include: [Tag, Category], where:{id: favs[i].selectedValues.id}}).success(function(singleItem) {
+    if (saves.length) {
+      for (var i = 0; i < saves.length; i++) {
+        Item.find({include: [Tag, Category], where:{id: saves[i].selectedValues.id}}).success(function(singleItem) {
           var resItem = {};
           resItem = singleItem.selectedValues;
           resItem.tags = [];
@@ -33,7 +33,7 @@ exports.getAllFavsForUser = function(req, res){
             resItem.categories.push(singleItem.categories[k].selectedValues);
           }
           responses.push(resItem);
-          if(responses.length === favs.length){
+          if(responses.length === saves.length){
             res.send(responses);
           }
         });
