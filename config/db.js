@@ -41,6 +41,11 @@ var Category = sequelize.define('Category', {
   name: Sequelize.STRING
 });
 
+var Favorites = sequelize.define('Favorites', {
+  UserId: Sequelize.INTEGER,
+  ItemId: Sequelize.INTEGER
+});
+
 User.hasMany(Item);
 User.hasMany(Vote);
 Item.hasMany(Vote);
@@ -67,3 +72,4 @@ module.exports.Item = Item;
 module.exports.Tag = Tag;
 module.exports.Vote = Vote;
 module.exports.Category = Category;
+module.exports.Favorites = Favorites;

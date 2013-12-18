@@ -17,6 +17,7 @@ var Item = db.Item;
 var Tag = db.Tag;
 var Vote = db.Vote;
 var Category = db.Category;
+var Favorites = db.Favorites;
 
 
 // var callback = function(err){ console.log(err); };
@@ -167,13 +168,14 @@ exports.getScore = function(req, res){
 
 exports.saveToFavorites = function(req,res){
   console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNEW FAVORITE', req.body);
-  Favorites.findOrCreate({userid: req.body.userid, linkid: req.body})
+  Favorites.create({UserId: req.body.userid, ItemId: req.body.linkid})
       .success(function(favorite){
         // res.write(201);
         // can we differentiate between find and create?
       })
       .error(function(err){
-        res.write(400);
+        console.log(err);
+        res.send(400);
       })
 };
 
