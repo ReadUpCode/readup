@@ -17,6 +17,7 @@
     <h2><a ng-href="{{link.link}}">{{link.link}}</a></h2>
     <div class='meta-data'>
       <!-- <div class='preview-logo' show-frame></div> Former preview pane toggle button -->
+      <div class='user-submitted-name'>{{link.user}}</div>
       <div class='categories-name' ng-repeat='category in link.categories'>{{category.name}}</div>
       <div class='tags-name' ng-repeat='tag in link.tags'><a ng-href='#/{{tag.name}}'> {{tag.name}}</a></div>
     </div>

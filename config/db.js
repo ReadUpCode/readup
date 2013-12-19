@@ -46,6 +46,9 @@ var Favorites = sequelize.define('Favorites', {
   ItemId: Sequelize.INTEGER
 });
 
+
+
+
 User.hasMany(Item);
 User.hasMany(Vote);
 User.hasMany(Favorites);

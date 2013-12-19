@@ -33,8 +33,9 @@
         overflow hidden
 
     .meta-data
-      .categories-name
-      .tags-name, .read-later
+      
+      .categories-name, 
+      .tags-name
         display inline-block
         font $sans-xs-light
         top 3px
@@ -44,6 +45,21 @@
           content "|"
           margin 0 5px
 
+      .user-submitted-name, .read-later
+        display inline-block
+        font $sans-xs-light
+        top 3px
+        position relative
+
+        &:hover
+          text-decoration: underline
+
+      .read-later
+        &:before
+          content "|"
+          text-decoration: none
+          margin 0 5px
+        
       .tags-name
         font $sans-xs
 

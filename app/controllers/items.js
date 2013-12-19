@@ -170,7 +170,7 @@ exports.saveToFavorites = function(req,res){
   console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNEW FAVORITE', req.body);
   Favorites.create({UserId: req.body.userid, ItemId: req.body.linkid})
       .success(function(favorite){
-        // res.write(201);
+        res.write(201);
         // can we differentiate between find and create?
       })
       .error(function(err){

@@ -2,6 +2,7 @@ var express = require('express');
 var db = require('../../config/db');
 var sequelize = db.sequelize;
 
+var User = db.User;
 var Item = db.Item;
 var Tag = db.Tag;
 var Vote = db.Vote;
@@ -19,14 +20,16 @@ exports.get = function(req, res){
 exports.getAllItemsForTag = function(req, res){
   Tag.find({include: [Item], where: {name: req.params.tagName} }).success(function(tag){
     var responses = [];
-
     if (tag) {
       tag.items.forEach(function(item, index, list){
-        Item.find({include: [Tag, Category, Vote], where:{id: item.selectedValues.id}}).success(function(singleItem){
+        Item.find({include: [Tag, Category, Vote, User], where:{id: item.selectedValues.id}}).success(function(singleItem){
           var requestingUserId = 0;
           if(req.user){
             requestingUserId = req.user.dataValues.id;
           }
+
+          var username = singleItem.user.dataValues.username;
+          var userid = singleItem.user.dataValues.id;
 
           // Count votes to get item score
           var votes = singleItem.votes;
@@ -48,6 +51,8 @@ exports.getAllItemsForTag = function(req, res){
           resItem = singleItem.selectedValues;
           resItem.curUserVote = curUserVote;
           resItem.score = score;
+          resItem.username = username;
+          resItem.userid = userid;
 
           // Populating tags
           resItem.tags = [];
@@ -66,6 +71,7 @@ exports.getAllItemsForTag = function(req, res){
           responses.push(resItem);
           if(responses.length === tag.items.length){
             res.send(responses);
+            console.log(responses);
           }
         });
       });
