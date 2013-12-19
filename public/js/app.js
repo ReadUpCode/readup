@@ -7,6 +7,10 @@ var app = angular.module('readUp', ['readUp.factories', 'readUp.controllers', 'r
       controller: 'TagController',
       templateUrl: '../partials/tag_view.html'
     });
+  $routeProvider.when('/user/:id/:option', {
+      controller: 'UserController',
+      templateUrl: '../partials/user_view.html'
+    });
 });
 var factories = angular.module('readUp.factories', []);
 var controllers = angular.module('readUp.controllers', ['readUp.factories']);

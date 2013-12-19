@@ -41,11 +41,21 @@ var Category = sequelize.define('Category', {
   name: Sequelize.STRING
 });
 
+var Favorites = sequelize.define('Favorites', {
+  UserId: Sequelize.INTEGER,
+  ItemId: Sequelize.INTEGER
+});
+
+
+
+
 User.hasMany(Item);
 User.hasMany(Vote);
+User.hasMany(Favorites);
 Item.hasMany(Vote);
 Item.hasMany(Tag);
 Item.hasMany(Category);
+Item.hasMany(Favorites);
 Category.hasMany(Item);
 Tag.hasMany(Item);
 Tag.hasMany(Vote);
@@ -54,12 +64,15 @@ Item.belongsTo(User);
 Vote.belongsTo(User);
 Vote.belongsTo(Item);
 Vote.belongsTo(Tag);
+Favorites.belongsTo(User);
+Favorites.belongsTo(Item);
 
 User.sync();
 Item.sync();
 Tag.sync();
 Vote.sync();
 Category.sync();
+Favorites.sync();
 
 module.exports.sequelize = sequelize;
 module.exports.User = User;
@@ -67,3 +80,4 @@ module.exports.Item = Item;
 module.exports.Tag = Tag;
 module.exports.Vote = Vote;
 module.exports.Category = Category;
+module.exports.Favorites = Favorites;

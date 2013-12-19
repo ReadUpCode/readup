@@ -15,6 +15,17 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
 
   $scope.currentUser = loginFactory.getLoggedInUser();
 
+
+  $scope.saveLinkToFavorites = function(link){
+      var fav = {
+        userid: $scope.currentUser.$$v.id,
+        linkid: link.id
+      }
+    $http.post('/_/favorites', fav).success(function(){
+      console.log('saved to favorites')
+    });
+  }
+
   $scope.assignClassUpvote = function(link){
     if(link.curUserVote !== 1){
       return 'up-vote-this';

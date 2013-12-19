@@ -1,0 +1,25 @@
+<h1 class='title' id='articles-title'>{{username}}'s {{option}} links</h1>
+<div class='filter-word'>Filter</div>
+<div class='filter-options'
+     ng-repeat='category in cats'
+     ng-click="switchCat(category, $index)"
+     ng-class="{selected: $index==selectedCategory}"
+     >
+{{category}}
+</div>
+<ul id='links'>
+  <li class='link' ng-repeat='link in links | filter:curCat | orderBy:"-createdAt"'>
+    <div class='title-wrap'>
+      <h1 class='link_title'>
+        <a ng-href="{{link.link}}" alt="{{link.title}}">{{link.title}}</a>
+      </h1>
+    </div>
+    <h2><a ng-href="{{link.link}}">{{link.link}}</a></h2>
+    <div class='meta-data'>
+      <!-- <div class='preview-logo' show-frame></div> Former preview pane toggle button -->
+      <div class='user-submitted-name'>{{link.user}}</div>
+      <div class='categories-name' ng-repeat='category in link.categories'>{{category.name}}</div>
+      <div class='tags-name' ng-repeat='tag in link.tags'><a ng-href='#/{{tag.name}}'> {{tag.name}}</a></div>
+    </div>
+  </li>
+</ul>
