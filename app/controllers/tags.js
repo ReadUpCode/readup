@@ -22,50 +22,51 @@ exports.getAllItemsForTag = function(req, res){
 
     if (tag) {
       tag.items.forEach(function(item, index, list){
-        Item.find({include: [Tag], where:{id: item.selectedValues.id}}).success(function(singleItem){
-          if(!req.user){
-            var requestingUserId = 0;
-          } else {
-            var requestingUserId = req.user.dataValues.id;
+        Item.find({include: [Tag, Category, Vote], where:{id: item.selectedValues.id}}).success(function(singleItem){
+          var requestingUserId = 0;
+          if(req.user){
+            requestingUserId = req.user.dataValues.id;
           }
-          Vote.find({where: ['ItemId=? AND TagId=? AND UserId=?', item.selectedValues.id, tag.id, requestingUserId]})
-          .success(function(userVote){
-            if (userVote){
-              var curUserVote = userVote.selectedValues.value;
-            } else {
-              var curUserVote = 0;
+
+          // Count votes to get item score
+          var votes = singleItem.votes;
+          var score=0;
+          var curUserVote = 0;
+          for(var j=0; j<votes.length; j++){
+            if (votes[j].TagId === tag.id || votes[j].TagId === 0) {
+              score+=votes[j].selectedValues.value;
+
+              // Checking if currentUser has voted on item
+              if (votes[j].selectedValues.UserId === requestingUserId) {
+                curUserVote = votes[j].selectedValues.value;
+              }
             }
-            Vote.findAll({ where: {ItemId: item.selectedValues.id }})
-            .success(function(votes){
-              var score=0;
-              for(var j=0; j<votes.length; j++){
-                if (votes[j].TagId === tag.id || votes[j].TagId === 0) {
-                  score+=votes[j].selectedValues.value;
-                }
-              }
-              var resItem = {};
-              resItem = singleItem.selectedValues;
-              resItem.curUserVote = curUserVote;
-              resItem.tags = [];
-              resItem.tagFromId = tag.id; // ID of the tag currently being viewed
-              resItem.score = score;
-              for (var k=0; k < singleItem.tags.length; k++) {
-                resItem.tags.push(singleItem.tags[k].selectedValues);
-              }
-              Item.find({include: [Category], where: {id: item.selectedValues.id}})
-              .success(function(itemCats) {
-                resItem.categories = [];
-                var categories = itemCats.categories;
-                for (var i = 0; i < categories.length; i++) {
-                  resItem.categories.push(categories[i].selectedValues);
-                }
-                responses.push(resItem);
-                if(responses.length === tag.items.length){
-                  res.send(responses);
-                }
-              });
-            });
-          });
+          }
+
+          // Concentrate data into one object
+          var resItem = {};
+          resItem = singleItem.selectedValues;
+          resItem.curUserVote = curUserVote;
+          resItem.score = score;
+
+          // Populating tags
+          resItem.tags = [];
+          resItem.tagFromId = tag.id; // ID of the tag currently being viewed
+          for (var k=0; k < singleItem.tags.length; k++) {
+            resItem.tags.push(singleItem.tags[k].selectedValues);
+          }
+
+          //Populating categories
+          resItem.categories = [];
+          var categories = singleItem.categories;
+          for (var i = 0; i < categories.length; i++) {
+            resItem.categories.push(categories[i].selectedValues);
+          }
+
+          responses.push(resItem);
+          if(responses.length === tag.items.length){
+            res.send(responses);
+          }
         });
       });
     }

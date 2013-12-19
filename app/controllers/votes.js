@@ -30,18 +30,15 @@ exports.create = function(req, res){
 
 exports.updateKarma = function(req, res){
   if (req.body.value === 1){
-    Item.find({where: {id: req.body.id}}).success(function(item){
-      User.find({where: {id: item.selectedValues.UserId}}).success(function(user){
-        var newKarma = user.selectedValues.karma + 9;
-        user.updateAttributes({karma: newKarma}).success(function(user){
-          Vote.findAll({where: ['ItemId=? AND TagId=? AND value=?', req.body.id, req.body.tagFromId, 1]}).success(function(data){
-            for(var i = 0; i < data.length; i++){
-              User.find({where: {id: data[i].selectedValues.UserId}}).success(function(user){
-                var newKarma = user.selectedValues.karma + 1;
-                user.updateAttributes({karma: newKarma});
-              });
-            }
-          });
+    Item.find({include: [User], where: {id: req.body.id}}).success(function(item){
+      var newKarma = item.user.selectedValues.karma + 9;
+      item.user.updateAttributes({karma: newKarma}).success(function(user){
+        Vote.findAll({include: [User], where: ['ItemId=? AND (TagId=? OR TagId=?) AND value=?', req.body.id, req.body.tagFromId, 0, 1]}).success(function(data){
+          if (!Array.isArray(data)) { data = [data]; }
+          for(var i = 0; i < data.length; i++){
+            var newKarma = data[i].user.selectedValues.karma + 1;
+            data[i].user.updateAttributes({karma: newKarma});
+          }
         });
       });
     });
