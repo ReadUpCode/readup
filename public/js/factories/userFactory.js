@@ -8,7 +8,6 @@ factories.factory('userFactory', function($http, $q) {
     var deferred = $q.defer();
     var requestURL =  '/_/users/' + userID + '/' + option;
     $http.get(requestURL).success(function(data){
-      console.log(data);
       deferred.resolve(data);
     });
     return deferred.promise;

@@ -129,7 +129,7 @@ exports.create = function(req, res){
           }
         });
       }
-    ).done(function(){ console.log("DONE FINALLY"); });
+    )
   } else {
     res.send(200);
   }
@@ -173,7 +173,6 @@ exports.saveToFavorites = function(req,res){
         // can we differentiate between find and create?
       })
       .error(function(err){
-        console.log(err);
         res.send(400);
       })
 };
