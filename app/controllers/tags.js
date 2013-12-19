@@ -71,7 +71,6 @@ exports.getAllItemsForTag = function(req, res){
           responses.push(resItem);
           if(responses.length === tag.items.length){
             res.send(responses);
-            console.log(responses);
           }
         });
       });

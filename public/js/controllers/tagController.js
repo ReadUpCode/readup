@@ -21,7 +21,6 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
         userid: $scope.currentUser.$$v.id,
         linkid: link.id
       }
-    debugger;
     $http.post('/_/favorites', fav).success(function(){
       console.log('saved to favorites')
     });
