@@ -38,7 +38,7 @@ exports.getAllItemsForTag = function(req, res){
 
               // Checking if currentUser has voted on item
               if (votes[j].selectedValues.UserId === requestingUserId) {
-                curUserVote = userVote.selectedValues.value;
+                curUserVote = votes[j].selectedValues.value;
               }
             }
           }
