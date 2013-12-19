@@ -31,7 +31,6 @@ exports.create = function(req, res){
 exports.updateKarma = function(req, res){
   if (req.body.value === 1){
     Item.find({include: [User], where: {id: req.body.id}}).success(function(item){
-      console.log(item);
       var newKarma = item.user.selectedValues.karma + 9;
       item.user.updateAttributes({karma: newKarma}).success(function(user){
         Vote.findAll({include: [User], where: ['ItemId=? AND (TagId=? OR TagId=?) AND value=?', req.body.id, req.body.tagFromId, 0, 1]}).success(function(data){
