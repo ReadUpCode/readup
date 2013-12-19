@@ -17,7 +17,6 @@ exports.get = function(req, res){
 };
 
 exports.getAllItemsForTag = function(req, res){
-
   Tag.find({include: [Item], where: {name: req.params.tagName} }).success(function(tag){
     var responses = [];
 
