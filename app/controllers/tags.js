@@ -18,16 +18,33 @@ exports.get = function(req, res){
 };
 
 exports.getAllItemsForTag = function(req, res){
+
+  // SQL Table adjustments needed for query restructure
+  // Item.findAll().success(function(items) {
+  //   items.forEach(function(item, index, list) {
+  //     Item.find({include: [Tag], where:{id: item.selectedValues.id}}).success(function(singleItem) {
+  //       var tags = singleItem.tags;
+  //       for (var i = 0; i < tags.length; i++) {
+  //         if(i === 0) {
+  //           singleItem.updateAttributes({TagId: tags[i].selectedValues.id});
+  //         } else {
+  //           Item.create({title: singleItem.title, link: singleItem.link, createdAt: singleItem.createdAt, updatedAt: singleItem.updatedAt, UserId: singleItem.UserId, TagId: tags[i].selectedValues.id});
+  //         }
+  //       }
+  //     });
+  //   });
+  // });
+
+
   Tag.find({include: [Item], where: {name: req.params.tagName} }).success(function(tag){
     var responses = [];
     if (tag) {
-      tag.items.forEach(function(item, index, list){
-        Item.find({include: [Tag, Category, Vote, User], where:{id: item.selectedValues.id}}).success(function(singleItem){
+      Item.findAll({include: [Tag, Category, Vote, User], where:{TagId: tag.selectedValues.id}}).success(function(items){
+        items.forEach(function(singleItem, index, list) {
           var requestingUserId = 0;
           if(req.user){
             requestingUserId = req.user.dataValues.id;
           }
-
           var username = singleItem.user.dataValues.username;
           var userid = singleItem.user.dataValues.id;
 
