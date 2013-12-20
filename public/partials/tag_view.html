@@ -21,63 +21,65 @@
 {{category}}
 </div>
 <ul id='links'>
-  <li class='link' ng-repeat='link in links| filter:curCat | orderBy:"-score"'>
-    <div class='title-wrap'>
-      <h1 class='link_title'>
-        <a ng-href="{{link.link}}" alt="{{link.title}}">{{link.title}}</a>
-      </h1>
-    </div>
-    <h2><a ng-href="{{link.link}}">{{link.link}}</a></h2>
-    <div class='meta-data'>
-      <!-- <div class='preview-logo' show-frame></div> Former preview pane toggle button -->
-      <a href='/#/user/{{link.username}}/submitted' class='user-submitted-name'>{{link.username}}</a>
-      <a class='read-later' ng-click='saveLinkToFavorites(link)'>Save For Later</a>
-      <div class='categories-name' ng-repeat='category in link.categories'>{{category.name}}</div>
-      <div class='tags-name' ng-repeat='tag in link.tags'><a ng-href='#/{{tag.name}}'> {{tag.name}}</a></div>
-      <div class='share'>
+  <div infinite-scroll='fetchLinks()' infinite-scroll-disabled='disableScroll' infinite-scroll-distance='0'>
+    <li class='link' ng-repeat='link in links| filter:curCat | orderBy:"-score"'>
+      <div class='title-wrap'>
+        <h1 class='link_title'>
+          <a ng-href="{{link.link}}" alt="{{link.title}}">{{link.title}}</a>
+        </h1>
+      </div>
+      <h2><a ng-href="{{link.link}}">{{link.link}}</a></h2>
+      <div class='meta-data'>
+        <!-- <div class='preview-logo' show-frame></div> Former preview pane toggle button -->
+        <a href='/#/user/{{link.username}}/submitted' class='user-submitted-name'>{{link.username}}</a>
+        <a class='read-later' ng-click='saveLinkToFavorites(link)'>Save For Later</a>
+        <div class='categories-name' ng-repeat='category in link.categories'>{{category.name}}</div>
+        <div class='tags-name' ng-repeat='tag in link.tags'><a ng-href='#/{{tag.name}}'> {{tag.name}}</a></div>
+        <div class='share'>
 
-        <div class="social-buttons">
-          <a href="https://twitter.com/share" class="socialite twitter-share"
-            data-url="{{link.link}}"
-            data-text="{{link.title}}"
-            data-via="readupcode" data-dnt="true"
-            target="_blank">
-          </a>
+          <div class="social-buttons">
+            <a href="https://twitter.com/share" class="socialite twitter-share"
+              data-url="{{link.link}}"
+              data-text="{{link.title}}"
+              data-via="readupcode" data-dnt="true"
+              target="_blank">
+            </a>
+          </div>
+
+          <div class='hn-share'>
+            <a href="http://news.ycombinator.com/submit" class="hn-share-button"
+              data-title="{{link.title}}"
+              data-url="{{link.link}}"
+              target="_blank">
+            </a>
+          </div>
         </div>
+      </div>
 
-        <div class='hn-share'>
-          <a href="http://news.ycombinator.com/submit" class="hn-share-button"
-            data-title="{{link.title}}"
-            data-url="{{link.link}}"
-            target="_blank">
-          </a>
+  <!-- this is for non-logged in users -->
+      <div class="votes" ng-hide="currentUser.username">
+        <div class='up-vote-this' data-unique="1" bs-popover="'./partials/loggedout_popover.html'">
+          <span class='up-arrow'></span>
         </div>
+        <div class='down-vote-this' data-unique="1" bs-popover="'./partials/loggedout_popover.html'">
+          <span class='down-arrow'></span>
+        </div>
+        <div class='vote-count'>{{link.score}}</div>
       </div>
-    </div>
+  <!-- this is for logged in users -->
+      <div class="votes" ng-hide="!currentUser.username">
+        <div ng-class='assignClassUpvote(link)' ng-click="vote(1, link)">
+          <span class='up-arrow'></span>
+        </div>
+        <div ng-class='assignClassDownvote(link)' ng-click="vote(-1, link)">
+          <span class='down-arrow'></span>
+        </div>
+        <div class='vote-count'>{{link.score}}</div>
+      </div>
+  <!-- this is for both logged in and non-logged in-->
 
-<!-- this is for non-logged in users -->
-    <div class="votes" ng-hide="currentUser.username">
-      <div class='up-vote-this' data-unique="1" bs-popover="'./partials/loggedout_popover.html'">
-        <span class='up-arrow'></span>
-      </div>
-      <div class='down-vote-this' data-unique="1" bs-popover="'./partials/loggedout_popover.html'">
-        <span class='down-arrow'></span>
-      </div>
-      <div class='vote-count'>{{link.score}}</div>
-    </div>
-<!-- this is for logged in users -->
-    <div class="votes" ng-hide="!currentUser.username">
-      <div ng-class='assignClassUpvote(link)' ng-click="vote(1, link)">
-        <span class='up-arrow'></span>
-      </div>
-      <div ng-class='assignClassDownvote(link)' ng-click="vote(-1, link)">
-        <span class='down-arrow'></span>
-      </div>
-      <div class='vote-count'>{{link.score}}</div>
-    </div>
-<!-- this is for both logged in and non-logged in-->
-
-  </li>
+    </li>
+  </div>
 </ul>
 <div id='preview-pane' scroll-position>
   <img></img>
