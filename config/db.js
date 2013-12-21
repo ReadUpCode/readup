@@ -41,25 +41,52 @@ var Category = sequelize.define('Category', {
   name: Sequelize.STRING
 });
 
+var Favorites = sequelize.define('Favorites', {
+  UserId: Sequelize.INTEGER,
+  ItemId: Sequelize.INTEGER
+});
+
+var VoteTotals = sequelize.define('VoteTotals', {
+  TagId: Sequelize.INTEGER,
+  ItemId: Sequelize.INTEGER,
+  Total: Sequelize.INTEGER
+},{
+  timestamps: false
+});
+
+
+
+
 User.hasMany(Item);
 User.hasMany(Vote);
+User.hasMany(Favorites);
 Item.hasMany(Vote);
 Item.hasMany(Tag);
 Item.hasMany(Category);
+Item.hasMany(Favorites);
+Item.hasMany(VoteTotals);
 Category.hasMany(Item);
 Tag.hasMany(Item);
 Tag.hasMany(Vote);
+Tag.hasMany(VoteTotals);
 
 Item.belongsTo(User);
+Item.belongsTo(Tag);
 Vote.belongsTo(User);
 Vote.belongsTo(Item);
 Vote.belongsTo(Tag);
+Favorites.belongsTo(User);
+Favorites.belongsTo(Item);
+VoteTotals.belongsTo(Item);
+VoteTotals.belongsTo(Tag);
 
 User.sync();
 Item.sync();
 Tag.sync();
 Vote.sync();
 Category.sync();
+Favorites.sync();
+VoteTotals.sync();
 
 module.exports.sequelize = sequelize;
 module.exports.User = User;
@@ -67,3 +94,5 @@ module.exports.Item = Item;
 module.exports.Tag = Tag;
 module.exports.Vote = Vote;
 module.exports.Category = Category;
+module.exports.Favorites = Favorites;
+module.exports.VoteTotals = VoteTotals;

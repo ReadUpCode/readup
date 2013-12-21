@@ -25,15 +25,15 @@ module.exports = function(app){
     items.saveToFavorites(req,res);
   });
 
-  app.get('/_/favorites', function(req,res){
-    items.getAllFavoritesForUser(req,res)
-  });
+  app.get('/_/users/:username/saved', users.getAllSavedForUser);
 
   app.get('/_/users/:id/items', users.getAllItemsForUser);
 
+  app.get('/_/users/:username/submitted', users.getAllSubmittedForUser);
+
   app.get('/_/tags', tags.get);
 
-  app.get('/_/tags/:tagName/items', tags.getAllItemsForTag);
+  app.get('/_/tags/:tagName/items/:page', tags.getAllItemsForTag);
 
   app.get('/:tagName', function(req, res){
     res.redirect('/#/' + req.params.tagName);

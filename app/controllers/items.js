@@ -17,6 +17,7 @@ var Item = db.Item;
 var Tag = db.Tag;
 var Vote = db.Vote;
 var Category = db.Category;
+var Favorites = db.Favorites;
 
 
 exports.getAllTagsForItem = function(req, res){
@@ -80,7 +81,7 @@ exports.create = function(req, res){
           }
         });
       }
-    ).done(function(){ console.log("DONE FINALLY"); });
+    )
   } else {
     res.send(200);
   }
@@ -118,12 +119,12 @@ exports.getScore = function(req, res){
 };
 
 exports.saveToFavorites = function(req,res){
-  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNEW FAVORITE', req.body);
-  Favorites.findOrCreate({userid: req.body.userid, linkid: req.body})
+  Favorites.create({UserId: req.body.userid, ItemId: req.body.linkid})
       .success(function(favorite){
+        res.write(201);
       })
       .error(function(err){
-        res.write(400);
+        res.send(400);
       })
 };
 

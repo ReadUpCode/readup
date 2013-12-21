@@ -4,6 +4,25 @@ var suggestedTagsFile = require('./1000SuggestedTags.json');
 factories.factory('tagsFactory', function($http, $q) {
   var factory = {};
 
+  factory.links = factory.links || [];
+  factory.page = factory.page || 0;
+  factory.disableScroll = false;
+
+  factory.nextPage = function(tagName){
+    if (factory.disableScroll) return;
+    factory.page++;
+    factory.disableScroll = true;
+    var requestURL = '/_/tags/' + tagName + '/items/' + this.page;
+    $http.get(requestURL).success(function(data){
+      for (var i = 0; i < data.length; i++) {
+        factory.links.push(data[i]);
+      }
+      factory.disableScroll = false;
+    }).error(function(err) {
+      console.log(err);
+    });
+  };
+
   factory.getAllTags = function(){
     var deferred = $q.defer();
     $http.get('/_/tags').success(function(data){
@@ -28,7 +47,7 @@ factories.factory('tagsFactory', function($http, $q) {
 
   factory.getRelatedTags = function(tagName){
     var deferred = $q.defer();
-    var requestURL = '/_/tags/' + tagName + '/items';
+    var requestURL = '/_/tags/' + tagName + '/items/1';
     $http.get(requestURL).success(function(data){
       var results = {};
       for(var i = 0; i < data.length; i++){

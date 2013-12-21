@@ -7,4 +7,11 @@ controllers.controller('LoginController', ['$scope', '$http', '$location', 'logi
     $scope.urlHash = $location.url();
   };
 
+  $scope.viewSaved = function(userName) {
+    $location.path('/user/' + userName + '/saved/');
+  };
+
+  $scope.viewSubmitted = function(userName) {
+    $location.path('/user/' + userName + '/submitted/');
+  };
 }]);

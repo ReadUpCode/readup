@@ -3,12 +3,36 @@ var controllers = require('../app.js').controllers;
 controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory', '$http', 'loginFactory', '$location', function($scope, $routeParams, tagsFactory, $http, loginFactory, $location) {
   if(tagsFactory.curTag !== $routeParams.tag) {
     $scope.tag = tagsFactory.setTagName($routeParams.tag);
+    $scope.links = tagsFactory.links = [];
+    tagsFactory.page = 0;
+    tagsFactory.nextPage($scope.tag);
   }else{
     $scope.tag = tagsFactory.curTag;
   }
 
   $scope.urlHash = $location.url();
-  $scope.links = tagsFactory.getTagInfo($scope.tag);
+  // $scope.links = tagsFactory.getTagInfo($scope.tag);
+
+  $scope.links = tagsFactory.links;
+  $scope.disableScroll = tagsFactory.disableScroll;
+
+  // // version 1
+  // tagsFactory.getNextPage($scope.links);
+
+
+  // // version 2
+  // var newPage = tagsFactory.getNextPage(index);
+  // $scope.links = $scope.links.concat($scope.links, newPage)
+
+  // // version 3
+  // $scope.links = [];
+  // tagsFactory.getTagInfo($scope.last, function(data) {
+  //   for (var i = 0; i < data.length; i++) {
+  //     $scope.links.push(data[i]);
+  //   }
+  //   $scope.last = data[i].id;
+  // });
+
   $scope.relatedTags = tagsFactory.getRelatedTags($scope.tag);
   $scope.stackOverflowSummary = tagsFactory.getStackOverflow($scope.tag);
   $scope.cats = ['All', 'Op/Ed', 'Tutorial', 'Reference', 'Tool'];
@@ -21,10 +45,7 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
         userid: $scope.currentUser.$$v.id,
         linkid: link.id
       }
-    debugger;
-    $http.post('/_/favorites', fav).success(function(){
-      console.log('saved to favorites')
-    });
+    $http.post('/_/favorites', fav);
   }
 
   $scope.assignClassUpvote = function(link){
@@ -44,9 +65,7 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
   };
 
   $scope.vote = function(value, link){
-    if(link.curUserVote === value){
-      console.log('you already voted!');
-    } else {
+    if(link.curUserVote !== value){
       link.score += value;
       link.curUserVote += value;
       link.value = value;
@@ -70,6 +89,10 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
 
   $scope.updateLocation = function(){
     $scope.urlHash = $location.url();
+  };
+
+  $scope.fetchLinks = function() {
+    tagsFactory.nextPage($scope.tag);
   };
 
 }]);

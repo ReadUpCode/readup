@@ -1,4 +1,4 @@
-var app = angular.module('readUp', ['readUp.factories', 'readUp.controllers', 'readUp.directives', '$strap.directives', 'angularSpinner'], function($routeProvider) {
+var app = angular.module('readUp', ['readUp.factories', 'readUp.controllers', 'readUp.directives', '$strap.directives', 'angularSpinner', 'infinite-scroll'], function($routeProvider) {
   $routeProvider.when('/', {
       controller: 'HomeController',
       templateUrl: '../partials/home_view.html'
@@ -6,6 +6,10 @@ var app = angular.module('readUp', ['readUp.factories', 'readUp.controllers', 'r
   $routeProvider.when('/:tag', {
       controller: 'TagController',
       templateUrl: '../partials/tag_view.html'
+    });
+  $routeProvider.when('/user/:id/:option', {
+      controller: 'UserController',
+      templateUrl: '../partials/user_view.html'
     });
 });
 var factories = angular.module('readUp.factories', []);
