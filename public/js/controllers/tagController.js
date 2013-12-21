@@ -3,6 +3,7 @@ var controllers = require('../app.js').controllers;
 controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory', '$http', 'loginFactory', '$location', function($scope, $routeParams, tagsFactory, $http, loginFactory, $location) {
   if(tagsFactory.curTag !== $routeParams.tag) {
     $scope.tag = tagsFactory.setTagName($routeParams.tag);
+    tagsFactory.links = [];
   }else{
     $scope.tag = tagsFactory.curTag;
   }
