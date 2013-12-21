@@ -8,24 +8,27 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
   }
 
   $scope.urlHash = $location.url();
-  $scope.links = tagsFactory.getTagInfo($scope.tag);
+  // $scope.links = tagsFactory.getTagInfo($scope.tag);
 
-  // version 1
-  tagsFactory.getNextPage($scope.links);
+  $scope.links = tagsFactory.links;
+  $scope.disableScroll = tagsFactory.disableScroll;
+
+  // // version 1
+  // tagsFactory.getNextPage($scope.links);
 
 
-  // version 2
-  var newPage = tagsFactory.getNextPage(index);
-  $scope.links = $scope.links.concat($scope.links, newPage)
+  // // version 2
+  // var newPage = tagsFactory.getNextPage(index);
+  // $scope.links = $scope.links.concat($scope.links, newPage)
 
-  // version 3
-  $scope.links = [];
-  tagsFactory.getTagInfo($scope.last, function(data) {
-    for (var i = 0; i < data.length; i++) {
-      $scope.links.push(data[i]);
-    }
-    $scope.last = data[i].id;
-  });
+  // // version 3
+  // $scope.links = [];
+  // tagsFactory.getTagInfo($scope.last, function(data) {
+  //   for (var i = 0; i < data.length; i++) {
+  //     $scope.links.push(data[i]);
+  //   }
+  //   $scope.last = data[i].id;
+  // });
 
   $scope.relatedTags = tagsFactory.getRelatedTags($scope.tag);
   $scope.stackOverflowSummary = tagsFactory.getStackOverflow($scope.tag);
@@ -89,11 +92,8 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
     $scope.urlHash = $location.url();
   };
 
-  $scope.fetchItems = function() {
-    $scope.disableScroll = true;
-    $http.get('/_/links').success(function(){
-
-    });
+  $scope.fetchLinks = function() {
+    tagsFactory.nextPage($scope.tag);
   };
 
 }]);

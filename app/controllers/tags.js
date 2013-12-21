@@ -100,6 +100,7 @@ exports.getAllItemsForTag = function(req, res){
 
   var itemsPerPage = 20;
   req.params.page = req.params.page || 1;
+  console.log("PARAMS!", req.params);
   Tag.find({include: [Item], where: {name: req.params.tagName} }).success(function(tag){
     var responses = [];
     if (tag) {
@@ -143,7 +144,7 @@ exports.getAllItemsForTag = function(req, res){
               }
 
               responses.push(resItem);
-              if(responses.length === itemsPerPage){
+              if(responses.length === votes.length){
                 res.send(responses);
               }
             });
