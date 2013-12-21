@@ -13,7 +13,6 @@ factories.factory('tagsFactory', function($http, $q) {
     factory.page++;
     factory.disableScroll = true;
     var requestURL = '/_/tags/' + tagName + '/items/' + this.page;
-    console.log("sending request");
     $http.get(requestURL).success(function(data){
       for (var i = 0; i < data.length; i++) {
         factory.links.push(data[i]);

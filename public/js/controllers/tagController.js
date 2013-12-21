@@ -4,6 +4,7 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
   if(tagsFactory.curTag !== $routeParams.tag) {
     $scope.tag = tagsFactory.setTagName($routeParams.tag);
     $scope.links = tagsFactory.links = [];
+    tagsFactory.page = 0;
   }else{
     $scope.tag = tagsFactory.curTag;
   }
