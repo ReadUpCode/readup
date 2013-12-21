@@ -114,7 +114,6 @@ exports.getAllItemsForTag = function(req, res){
 
               var curUserVote = 0;
               if (userVote) {
-                console.log(userVote);
                 curUserVote = userVote.selectedValues.value;
               }
 
