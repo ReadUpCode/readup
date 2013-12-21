@@ -33,7 +33,7 @@ module.exports = function(app){
 
   app.get('/_/tags', tags.get);
 
-  app.get('/_/tags/:tagName/items', tags.getAllItemsForTag);
+  app.get('/_/tags/:tagName/items/:page', tags.getAllItemsForTag);
 
   app.get('/:tagName', function(req, res){
     res.redirect('/#/' + req.params.tagName);
