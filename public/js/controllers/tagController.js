@@ -45,9 +45,7 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
         userid: $scope.currentUser.$$v.id,
         linkid: link.id
       }
-    $http.post('/_/favorites', fav).success(function(){
-      console.log('saved to favorites')
-    });
+    $http.post('/_/favorites', fav);
   }
 
   $scope.assignClassUpvote = function(link){
@@ -67,9 +65,7 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
   };
 
   $scope.vote = function(value, link){
-    if(link.curUserVote === value){
-      console.log('you already voted!');
-    } else {
+    if(link.curUserVote !== value){
       link.score += value;
       link.curUserVote += value;
       link.value = value;
@@ -97,9 +93,6 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
 
   $scope.fetchLinks = function() {
     tagsFactory.nextPage($scope.tag);
-    console.log($scope.tag);
-    console.log($scope.links);
-    console.log(tagsFactory.page);
   };
 
 }]);

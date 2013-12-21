@@ -10,7 +10,7 @@ directives.directive('scrollPosition', function($window) {
       scope.$apply(function() {
         topDist = previewPane.offset().top;
         scrollDist = windowEl.scrollTop();
-        console.log('origTopDist', origTopDist, 'topDist', topDist, 'scrollDist', scrollDist);
+        // console.log('origTopDist', origTopDist, 'topDist', topDist, 'scrollDist', scrollDist);
         if(scrollDist < origTopDist){
           previewPane.css({top: origTopDist});
         } else if(scrollDist >= origTopDist){
