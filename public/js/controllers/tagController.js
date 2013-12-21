@@ -5,6 +5,7 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
     $scope.tag = tagsFactory.setTagName($routeParams.tag);
     $scope.links = tagsFactory.links = [];
     tagsFactory.page = 0;
+    tagsFactory.nextPage($scope.tag);
   }else{
     $scope.tag = tagsFactory.curTag;
   }
@@ -96,6 +97,9 @@ controllers.controller('TagController', ['$scope', '$routeParams', 'tagsFactory'
 
   $scope.fetchLinks = function() {
     tagsFactory.nextPage($scope.tag);
+    console.log($scope.tag);
+    console.log($scope.links);
+    console.log(tagsFactory.page);
   };
 
 }]);

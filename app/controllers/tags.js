@@ -18,8 +18,6 @@ exports.get = function(req, res){
     });
 };
 
-// INSERT INTO `readup-test`.`VoteTotals` (`Total`, `ItemId`, `TagId`) SELECT SUM(`value`), `ItemId`, `TagId` FROM `readup-test`.`Votes` WHERE `TagId`=0 GROUP BY `ItemId`, `TagId`;
-
 exports.getAllItemsForTag = function(req, res){
 
   // Used to create VoteTotals rows
@@ -32,7 +30,7 @@ exports.getAllItemsForTag = function(req, res){
   //       item.tags.forEach(function(tag, tagI, tagL) {
   //         voteObj[v.ItemId][tag.selectedValues.id] = voteObj[v.ItemId][tag.selectedValues.id] || 0;
   //         if (v.TagId === tag.selectedValues.id || v.TagId === 0) {
-  //           voteObj[v.ItemId][tag.selectedValues.id]++;
+  //           voteObj[v.ItemId][tag.selectedValues.id] += v.value;
   //         }
   //       });
   //     });
@@ -100,7 +98,6 @@ exports.getAllItemsForTag = function(req, res){
 
   var itemsPerPage = 20;
   req.params.page = req.params.page || 1;
-  console.log("PARAMS!", req.params);
   Tag.find({include: [Item], where: {name: req.params.tagName} }).success(function(tag){
     var responses = [];
     if (tag) {
@@ -115,7 +112,6 @@ exports.getAllItemsForTag = function(req, res){
               var username = singleItem.user.dataValues.username;
               var userid = singleItem.user.dataValues.id;
 
-              // var score=0;
               var curUserVote = 0;
               if (userVote) {
                 curUserVote = userVote.selectedValues.value;
@@ -147,17 +143,21 @@ exports.getAllItemsForTag = function(req, res){
               if(responses.length === votes.length){
                 res.send(responses);
               }
+            }).error(function(error) {
+              console.log("Vote Error", error);
             });
           }).error(function(error) {
-            console.log(error);
+            console.log("Item Error", error);
           });
         });
       }).error(function(error) {
-        console.log(error);
+        console.log("VoteTotals Error", error);
       });
     }
     else {
       res.send([{title: "No items found."}]);
     }
+  }).error(function(error) {
+    console.log("Tag Error", error);
   });
 };
