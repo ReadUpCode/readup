@@ -104,11 +104,11 @@ exports.getAllItemsForTag = function(req, res){
       VoteTotals.findAll({where: {TagId: tag.selectedValues.id}, offset: itemsPerPage * (req.params.page - 1), order: 'Total DESC', limit: itemsPerPage}).success(function(votes) {
         votes.forEach(function(voteTotal, vIndex, vList) {
           Item.find({include: [Tag, Category, User], where:{id: voteTotal.selectedValues.ItemId}}).success(function(singleItem){
-            Vote.find({where: {UserId: singleItem.user.selectedValues.id, ItemId: singleItem.selectedValues.id}}).success(function(userVote) {
-              var requestingUserId = 0;
-              if(req.user){
-                requestingUserId = req.user.dataValues.id;
-              }
+            var requestingUserId = 0;
+            if(req.user){
+              requestingUserId = req.user.dataValues.id;
+            }
+            Vote.find({where: {UserId: requestingUserId, ItemId: singleItem.selectedValues.id}}).success(function(userVote) {
               var username = singleItem.user.dataValues.username;
               var userid = singleItem.user.dataValues.id;
 

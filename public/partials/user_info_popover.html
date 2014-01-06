@@ -3,8 +3,8 @@
   <div class="user-stats">
     <p>{{currentUser.username}}</p>
     <p>Cred: {{currentUser.karma}}</p>
-    <a ng-click='viewSaved(currentUser.username)'>My Saved Links</a>
-    <a ng-click='viewSubmitted(currentUser.username)'>My Submitted Links</a>
+    <a class="saved-links" ng-click='viewSaved(currentUser.username)'>My Saved Links</a><br>
+    <a class="submitted-links" ng-click='viewSubmitted(currentUser.username)'>My Submitted Links</a>
   </div>
   <div class="user-logout"><a href="_/logout">Logout</a></div>
 </div>

@@ -78,7 +78,7 @@ nav
     .popover.bottom
       background-color $ho-grey
       .popover-content
-        width 110px
+        width 200px
         .popover-close
           position absolute
           top 0
@@ -90,6 +90,12 @@ nav
             text-align center
             padding-top 5px
             padding-bottom 5px
+          .saved-links, submitted-links
+            &:hover
+              transition 0.3s ease
+              color $aa-grey
+            &:active
+              color $green-light
       .arrow
         left 65%
       .arrow:after
