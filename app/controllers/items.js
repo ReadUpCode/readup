@@ -20,52 +20,6 @@ var Category = db.Category;
 var Favorites = db.Favorites;
 
 
-// var callback = function(err){ console.log(err); };
-// var q = async.queue(function (task, callback) {
-//   phantom.create(function(err,ph) {
-//     return ph.createPage(function(err,page) {
-//       return page.open(task.link, function(err,status) {
-//         page.includeJs('http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', function(err) {
-//         //jQuery Loaded.
-//         //Wait for a bit for AJAX content to load on the page. Here, we are waiting 5 seconds.
-//           setTimeout(function() {
-//             return page.evaluate(function() {
-//               var height = $(document).height();
-//               var width = $(document).width();
-//               return {
-//                 height: height,
-//                 width: width
-//               };
-//             }, function(err,result) {
-
-//               page.set('clipRect', {height: result.height > 2000 ? 2000 : result.height, width: result.width});
-
-//               page.render('public/item_images/' + task.item_id + '.png', function(){
-//                 console.log('rendering');
-//                 fs.readFile(__dirname + '/../../public/item_images/'+ task.item_id + '.png', function (err, data) {
-//                   if (err) { throw err; }
-//                   var image = new Buffer(data, 'binary');
-
-//                   var params = {Bucket: environConfig.S3_BUCKET, Key: task.item_id.toString(), ACL: "public-read", ContentType: 'image/jpeg', Body: data};
-//                   s3.putObject(params, function(err, data) {
-//                     if (err) {
-//                       console.log("AMAZON ERROR", err);
-//                     } else {
-//                       console.log("Successfully uploaded data to myBucket/myKey");
-//                     }
-//                   });
-//                 });
-//               });
-//               ph.exit();
-//             });
-//           }, 3000);
-//         });
-//       });
-//     });
-//   });
-//   callback();
-// }, 1);
-
 exports.getAllTagsForItem = function(req, res){
   Item.find({where: {id: 1}}).success(function(item){
     item.getTags().success(function(tags){});
@@ -123,8 +77,6 @@ exports.create = function(req, res){
               item_id = item.dataValues.id;
               link = req.body.link;
 
-              // q.push({item_id: item_id, link: link}, function(){
-              // });
             });
           }
         });
@@ -170,7 +122,6 @@ exports.saveToFavorites = function(req,res){
   Favorites.create({UserId: req.body.userid, ItemId: req.body.linkid})
       .success(function(favorite){
         res.write(201);
-        // can we differentiate between find and create?
       })
       .error(function(err){
         res.send(400);
